@@ -29,38 +29,7 @@ function post_value(string $key): string
 
 function phone_countries(): array
 {
-    return [
-        'RW' => ['name' => 'Rwanda', 'dial' => '+250'],
-        'BI' => ['name' => 'Burundi', 'dial' => '+257'],
-        'CD' => ['name' => 'DR Congo', 'dial' => '+243'],
-        'KE' => ['name' => 'Kenya', 'dial' => '+254'],
-        'TZ' => ['name' => 'Tanzania', 'dial' => '+255'],
-        'UG' => ['name' => 'Uganda', 'dial' => '+256'],
-        'SS' => ['name' => 'South Sudan', 'dial' => '+211'],
-        'ET' => ['name' => 'Ethiopia', 'dial' => '+251'],
-        'SO' => ['name' => 'Somalia', 'dial' => '+252'],
-        'ZM' => ['name' => 'Zambia', 'dial' => '+260'],
-        'MW' => ['name' => 'Malawi', 'dial' => '+265'],
-        'MZ' => ['name' => 'Mozambique', 'dial' => '+258'],
-        'ZA' => ['name' => 'South Africa', 'dial' => '+27'],
-        'NG' => ['name' => 'Nigeria', 'dial' => '+234'],
-        'GH' => ['name' => 'Ghana', 'dial' => '+233'],
-        'EG' => ['name' => 'Egypt', 'dial' => '+20'],
-        'AE' => ['name' => 'United Arab Emirates', 'dial' => '+971'],
-        'SA' => ['name' => 'Saudi Arabia', 'dial' => '+966'],
-        'IN' => ['name' => 'India', 'dial' => '+91'],
-        'CN' => ['name' => 'China', 'dial' => '+86'],
-        'TR' => ['name' => 'Türkiye', 'dial' => '+90'],
-        'BE' => ['name' => 'Belgium', 'dial' => '+32'],
-        'FR' => ['name' => 'France', 'dial' => '+33'],
-        'DE' => ['name' => 'Germany', 'dial' => '+49'],
-        'NL' => ['name' => 'Netherlands', 'dial' => '+31'],
-        'GB' => ['name' => 'United Kingdom', 'dial' => '+44'],
-        'US' => ['name' => 'United States', 'dial' => '+1'],
-        'CA' => ['name' => 'Canada', 'dial' => '+1'],
-        'BR' => ['name' => 'Brazil', 'dial' => '+55'],
-        'AU' => ['name' => 'Australia', 'dial' => '+61'],
-    ];
+    return require __DIR__ . '/phone-countries.php';
 }
 
 function valid_phone(string $phone): bool
@@ -70,7 +39,7 @@ function valid_phone(string $phone): bool
 
 function international_phone(string $phone, string $countryCode, array $countries): string
 {
-    if ($phone === '' || !isset($countries[$countryCode])) {
+    if ($phone === '' || !isset($countries[$countryCode]) || $countries[$countryCode]['dial'] === '') {
         return $phone;
     }
 
@@ -152,7 +121,7 @@ function process_inquiry(string $type): array
                 $errors[] = 'Enter a valid requested date.';
             }
         }
-        if (!isset($countries[$countryCode])) {
+        if (!isset($countries[$countryCode]) || $countries[$countryCode]['dial'] === '') {
             $errors[] = 'Choose a valid phone country.';
         }
         if ($phone === '' || !valid_phone($phone)) {
@@ -186,7 +155,7 @@ function process_inquiry(string $type): array
         if ($phone !== '' && !valid_phone($phone)) {
             $errors[] = 'Enter a valid phone number.';
         }
-        if ($phone !== '' && !isset($countries[$countryCode])) {
+        if ($phone !== '' && (!isset($countries[$countryCode]) || $countries[$countryCode]['dial'] === '')) {
             $errors[] = 'Choose a valid phone country.';
         }
         if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {

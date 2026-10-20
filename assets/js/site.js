@@ -105,7 +105,7 @@ document.querySelectorAll('[data-country-picker]').forEach((picker) => {
             hiddenValue.value = code;
             flag.src = flagSource;
             flag.alt = '';
-            dial.textContent = callingCode;
+            dial.textContent = callingCode || 'N/A';
             button.setAttribute('aria-label', `Phone country: ${name} ${callingCode}`);
             options.forEach((countryOption) => {
                 countryOption.setAttribute('aria-selected', String(countryOption === option));

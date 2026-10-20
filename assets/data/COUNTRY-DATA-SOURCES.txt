@@ -1,0 +1,15 @@
+Phone country picker data
+
+Country and territory names are derived from mledoze/countries:
+https://github.com/mledoze/countries
+The source dataset is licensed under ODbL-1.0. Its license is included in
+licenses/odbl-1.0.txt.
+
+International calling codes are derived from Google libphonenumber:
+https://github.com/google/libphonenumber
+The source project is licensed under Apache-2.0. Its license is included in
+licenses/apache-2.0.txt.
+
+Country flag SVGs are provided by flag-icons v7.2.3:
+https://github.com/lipis/flag-icons
+The flag-icons MIT license is included in ../images/flags/LICENSE.
