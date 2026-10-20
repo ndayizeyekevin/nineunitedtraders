@@ -34,7 +34,8 @@ $navigation = [
             <span class="brand-name">Nine United <span>Traders Ltd</span></span>
         </a>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
-            <span class="menu-icon" aria-hidden="true"></span>
+            <i class="fa-solid fa-bars menu-open" aria-hidden="true"></i>
+            <i class="fa-solid fa-xmark menu-close" aria-hidden="true"></i>
             <span class="sr-only">Toggle navigation</span>
         </button>
         <nav class="primary-navigation" id="primary-navigation" aria-label="Main navigation">

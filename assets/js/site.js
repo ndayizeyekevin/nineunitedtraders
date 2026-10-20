@@ -14,14 +14,14 @@ if (menuToggle && navigation) {
             menuToggle.setAttribute('aria-expanded', 'false');
             navigation.classList.remove('is-open');
         }
-
-        if (scrollTop) {
-            const updateScrollTopVisibility = () => {
-                scrollTop.hidden = window.scrollY < 320;
-            };
-
-            window.addEventListener('scroll', updateScrollTopVisibility, { passive: true });
-            updateScrollTopVisibility();
-        }
     });
+}
+
+if (scrollTop) {
+    const updateScrollTopVisibility = () => {
+        scrollTop.hidden = window.scrollY < 320;
+    };
+
+    window.addEventListener('scroll', updateScrollTopVisibility, { passive: true });
+    updateScrollTopVisibility();
 }
