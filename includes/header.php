@@ -25,7 +25,7 @@ $navigation = [
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/js/site.js" defer></script>
 </head>
-<body>
+<body id="top">
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
     <div class="container header-inner">

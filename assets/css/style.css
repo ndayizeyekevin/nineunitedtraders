@@ -207,8 +207,13 @@ p { color: var(--muted); }
 .footer-cta p { color: rgba(255,255,255,.73); }
 .footer-cta .button { min-height: 46px; padding-inline: 15px; font-size: .9rem; }
 .footer-bottom { display: flex; justify-content: space-between; gap: 16px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.15); color: rgba(255,255,255,.56); font-size: .79rem; }
-.whatsapp-link { position: fixed; right: 22px; bottom: 22px; z-index: 15; display: inline-flex; min-height: 52px; align-items: center; gap: 9px; padding: 0 18px; border-radius: 999px; background: #168b62; color: white; box-shadow: 0 8px 24px rgba(6,66,47,.25); font-weight: 700; }
+.whatsapp-link { position: fixed; right: 22px; bottom: 22px; z-index: 15; display: grid; width: 54px; height: 54px; place-items: center; border-radius: 50%; background: #168b62; color: white; box-shadow: 0 8px 24px rgba(6,66,47,.25); transition: background .18s ease, transform .18s ease; }
 .whatsapp-link:hover { background: #0f7350; }
+.whatsapp-link:hover, .scroll-top:hover { transform: translateY(-2px); }
+.whatsapp-link svg { width: 30px; height: 30px; fill: currentColor; }
+.scroll-top { position: fixed; right: 29px; bottom: 88px; z-index: 15; display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid rgba(16,43,70,.12); border-radius: 50%; background: white; color: var(--navy); box-shadow: 0 5px 18px rgba(16,43,70,.18); font-size: 1.45rem; font-weight: 700; line-height: 1; transition: background .18s ease, transform .18s ease; }
+.scroll-top:hover { background: var(--mist); }
+.scroll-top[hidden] { display: none; }
 
 @media (max-width: 1000px) {
     .primary-navigation { gap: 15px; }
@@ -269,7 +274,9 @@ p { color: var(--muted); }
     .footer-grid { grid-template-columns: 1fr; gap: 26px; }
     .footer-bottom { flex-direction: column; gap: 6px; }
     .site-footer { padding-top: 45px; }
-    .whatsapp-link { right: 14px; bottom: 14px; min-height: 47px; padding-inline: 15px; }
+    .whatsapp-link { right: 14px; bottom: 14px; width: 48px; height: 48px; }
+    .whatsapp-link svg { width: 27px; height: 27px; }
+    .scroll-top { right: 17px; bottom: 72px; }
 }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
