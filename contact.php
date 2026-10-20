@@ -21,7 +21,10 @@ include __DIR__ . '/includes/header.php';
             <div class="contact-method"><span class="contact-method-icon" aria-hidden="true"><i class="fa-solid fa-envelope"></i></span><div><strong>Email</strong><a href="mailto:nineunited2050@gmail.com">nineunited2050@gmail.com</a></div></div>
         </aside>
         <section class="form-card">
-            <h2>Send an inquiry</h2>
+            <div class="form-heading">
+                <span class="form-heading-icon" aria-hidden="true"><i class="fa-solid fa-paper-plane"></i></span>
+                <div><span class="form-kicker">Contact our team</span><h2>Send an inquiry</h2></div>
+            </div>
             <p class="form-intro">Leave your details and a message. We’ll get back to you using your preferred contact method.</p>
             <?php if ($formErrors !== []): ?><div class="form-alert form-error" role="alert"><p><strong>Please check the following:</strong></p><ul><?php foreach ($formErrors as $error): ?><li><?= escape($error) ?></li><?php endforeach; ?></ul></div><?php endif; ?>
             <?php if ($formStatus !== ''): ?><div class="form-alert form-success" role="status"><p><?= escape($formStatus) ?></p></div><?php endif; ?>

@@ -160,30 +160,38 @@ p { color: var(--muted); }
 .management-note .service-icon { flex: 0 0 48px; margin: 0; }
 .management-note p { margin: 0; }
 .contact-layout { display: grid; grid-template-columns: .8fr 1.2fr; align-items: start; gap: 36px; }
-.contact-card { padding: 30px; border-radius: var(--radius); background: var(--navy); color: white; }
+.contact-card { position: relative; overflow: hidden; padding: 32px; border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius); background: linear-gradient(145deg, #145a91 0%, #102b46 58%, #0a2036 100%); color: white; box-shadow: 0 16px 38px rgba(10,32,54,.16); }
+.contact-card::after { position: absolute; top: -68px; right: -55px; width: 190px; height: 190px; border: 1px solid rgba(255,255,255,.08); border-radius: 50%; box-shadow: 0 0 0 24px rgba(255,255,255,.025), 0 0 0 48px rgba(255,255,255,.02); content: ""; pointer-events: none; }
 .contact-card h2 { color: white; font-size: 1.65rem; }
 .contact-card > p { color: rgba(255,255,255,.72); }
 .contact-method { display: grid; grid-template-columns: 42px 1fr; gap: 14px; padding: 19px 0; border-top: 1px solid rgba(255,255,255,.17); }
-.contact-method-icon { display: grid; width: 40px; height: 40px; place-items: center; border-radius: 12px; background: rgba(255,255,255,.12); color: #fff; }
+.contact-method-icon { display: grid; width: 40px; height: 40px; place-items: center; border: 1px solid rgba(255,255,255,.2); border-radius: 12px; background: rgba(255,255,255,.12); color: #ffd17c; }
 .contact-method-icon .fa-solid { font-size: 1.1rem; }
 .contact-method strong { display: block; margin-bottom: 3px; }
 .contact-method a, .contact-method span { color: rgba(255,255,255,.78); font-size: .94rem; }
-.contact-method a:hover { color: white; text-decoration: underline; }
+.contact-method a:hover { color: white; text-decoration: underline; text-underline-offset: 3px; }
 .map-link { display: inline-flex; margin-top: 12px; color: white; font-size: .92rem; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 
-.form-card { padding: clamp(24px, 4vw, 40px); border: 1px solid var(--line); border-radius: var(--radius); background: white; box-shadow: 0 12px 36px rgba(16,43,70,.06); }
-.form-card h2 { margin-bottom: 8px; font-size: 1.75rem; }
-.form-intro { margin-bottom: 26px; }
+.form-card { position: relative; overflow: hidden; padding: clamp(25px, 4vw, 42px); border: 1px solid #dce8f3; border-top: 4px solid #176fc1; border-radius: var(--radius); background: linear-gradient(150deg, #fff 55%, #f7fbff); box-shadow: 0 18px 48px rgba(16,43,70,.09); }
+.form-card::before { position: absolute; top: -70px; right: -50px; width: 170px; height: 170px; border-radius: 50%; background: radial-gradient(circle, rgba(23,111,193,.12), transparent 70%); content: ""; pointer-events: none; }
+.form-heading { position: relative; display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
+.form-heading-icon { display: grid; width: 50px; height: 50px; flex: 0 0 50px; place-items: center; border: 1px solid #c9def0; border-radius: 15px; background: linear-gradient(145deg, #edf7ff, #dceeff); color: #1267b2; font-size: 1.15rem; }
+.form-kicker { display: block; margin-bottom: 3px; color: #1267b2; font-size: .73rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.form-card h2 { margin: 0; font-size: 1.75rem; }
+.form-intro { margin: 0 0 26px 65px; font-size: .95rem; }
 .form-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; }
-.field { display: flex; flex-direction: column; gap: 7px; }
+.field { display: flex; flex-direction: column; gap: 8px; }
 .field-full { grid-column: 1 / -1; }
 .field label { color: var(--ink); font-size: .91rem; font-weight: 700; }
-.field input, .field select, .field textarea { width: 100%; min-height: 48px; padding: 11px 13px; border: 1px solid #cbd6df; border-radius: 8px; background: white; color: var(--ink); }
-.field textarea { min-height: 130px; resize: vertical; }
-.field input::placeholder, .field textarea::placeholder { color: #8795a3; }
+.field input, .field select, .field textarea { width: 100%; min-height: 50px; padding: 12px 14px; border: 1px solid #cfdeeb; border-radius: 9px; background: #f4f8fc; color: var(--ink); transition: border-color .18s ease, box-shadow .18s ease, background .18s ease; }
+.field textarea { min-height: 136px; resize: vertical; }
+.field input::placeholder, .field textarea::placeholder { color: #8998a6; }
+.field input:hover, .field select:hover, .field textarea:hover { border-color: #b4c6d4; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: #176fc1; outline: 0; background: white; box-shadow: 0 0 0 4px rgba(23,111,193,.16); }
 .field-help { margin: -2px 0 0; font-size: .81rem; }
-.form-submit { margin-top: 22px; }
-.form-alert { padding: 15px 18px; margin-bottom: 22px; border-radius: 10px; }
+.form-submit { min-width: 190px; margin-top: 24px; border-color: #176fc1; background: linear-gradient(110deg, #176fc1, #125a9f); box-shadow: 0 7px 16px rgba(18,90,159,.22); }
+.form-submit:hover { border-color: #0e4d89; background: linear-gradient(110deg, #125a9f, #0e4d89); box-shadow: 0 10px 22px rgba(18,90,159,.28); }
+.form-alert { position: relative; padding: 16px 18px; margin-bottom: 22px; border-radius: 10px; }
 .form-alert ul { margin: 8px 0 0; padding-left: 21px; }
 .form-error { border: 1px solid #efc5bd; background: #fff4f1; color: #8b3025; }
 .form-success { border: 1px solid #abd8c9; background: #effaf5; color: #155b44; }
@@ -192,7 +200,7 @@ p { color: var(--muted); }
 .form-success p { color: #155b44; }
 .form-error ul { color: #8b3025; }
 .quote-layout { display: grid; grid-template-columns: .7fr 1.3fr; align-items: start; gap: 38px; }
-.quote-aside { padding: 28px; border-radius: var(--radius); background: var(--mist); }
+.quote-aside { padding: 28px; border: 1px solid #dce8f3; border-radius: var(--radius); background: linear-gradient(145deg, #edf6fd, #f7f9fc); }
 .quote-aside h2 { font-size: 1.55rem; }
 .quote-aside p { font-size: .95rem; }
 .quote-aside .check-list { margin-top: 18px; }
@@ -272,6 +280,11 @@ p { color: var(--muted); }
     .page-hero p { font-size: 1rem; }
     .fleet-gallery { grid-template-rows: 240px 150px; }
     .contact-card, .quote-aside { padding: 24px; }
+    .form-card { padding: 23px 19px; }
+    .form-heading-icon { width: 44px; height: 44px; flex-basis: 44px; border-radius: 13px; }
+    .form-intro { margin-left: 0; }
+    .form-card h2 { font-size: 1.5rem; }
+    .form-submit { width: 100%; }
     .form-grid { grid-template-columns: 1fr; gap: 15px; }
     .field-full { grid-column: auto; }
     .cta-band { padding: 42px 0; }

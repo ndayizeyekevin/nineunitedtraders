@@ -36,8 +36,11 @@ include __DIR__ . '/includes/header.php';
             <p class="privacy-note">Your contact and shipment details are used to respond to this request. Prefer to speak directly? Call <a class="text-link" href="tel:+250788302388">+250 788 302 388</a>.</p>
         </aside>
         <section class="form-card">
-            <h2>Quote details</h2>
-            <p class="form-intro">Fields marked * are required.</p>
+            <div class="form-heading">
+                <span class="form-heading-icon" aria-hidden="true"><i class="fa-solid fa-clipboard-list"></i></span>
+                <div><span class="form-kicker">Your requirements</span><h2>Quote details</h2></div>
+            </div>
+            <p class="form-intro">Fields marked * are required. We’ll use these details to prepare a useful response.</p>
             <?php if ($formErrors !== []): ?><div class="form-alert form-error" role="alert"><p><strong>Please check the following:</strong></p><ul><?php foreach ($formErrors as $error): ?><li><?= escape($error) ?></li><?php endforeach; ?></ul></div><?php endif; ?>
             <?php if ($formStatus !== ''): ?><div class="form-alert form-success" role="status"><p><?= escape($formStatus) ?></p></div><?php endif; ?>
             <form method="post" action="quote.php">
