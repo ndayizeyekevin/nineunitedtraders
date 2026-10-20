@@ -27,9 +27,56 @@ function post_value(string $key): string
     return isset($_POST[$key]) && is_string($_POST[$key]) ? trim($_POST[$key]) : '';
 }
 
+function phone_countries(): array
+{
+    return [
+        'RW' => ['name' => 'Rwanda', 'dial' => '+250'],
+        'BI' => ['name' => 'Burundi', 'dial' => '+257'],
+        'CD' => ['name' => 'DR Congo', 'dial' => '+243'],
+        'KE' => ['name' => 'Kenya', 'dial' => '+254'],
+        'TZ' => ['name' => 'Tanzania', 'dial' => '+255'],
+        'UG' => ['name' => 'Uganda', 'dial' => '+256'],
+        'SS' => ['name' => 'South Sudan', 'dial' => '+211'],
+        'ET' => ['name' => 'Ethiopia', 'dial' => '+251'],
+        'SO' => ['name' => 'Somalia', 'dial' => '+252'],
+        'ZM' => ['name' => 'Zambia', 'dial' => '+260'],
+        'MW' => ['name' => 'Malawi', 'dial' => '+265'],
+        'MZ' => ['name' => 'Mozambique', 'dial' => '+258'],
+        'ZA' => ['name' => 'South Africa', 'dial' => '+27'],
+        'NG' => ['name' => 'Nigeria', 'dial' => '+234'],
+        'GH' => ['name' => 'Ghana', 'dial' => '+233'],
+        'EG' => ['name' => 'Egypt', 'dial' => '+20'],
+        'AE' => ['name' => 'United Arab Emirates', 'dial' => '+971'],
+        'SA' => ['name' => 'Saudi Arabia', 'dial' => '+966'],
+        'IN' => ['name' => 'India', 'dial' => '+91'],
+        'CN' => ['name' => 'China', 'dial' => '+86'],
+        'TR' => ['name' => 'Türkiye', 'dial' => '+90'],
+        'BE' => ['name' => 'Belgium', 'dial' => '+32'],
+        'FR' => ['name' => 'France', 'dial' => '+33'],
+        'DE' => ['name' => 'Germany', 'dial' => '+49'],
+        'NL' => ['name' => 'Netherlands', 'dial' => '+31'],
+        'GB' => ['name' => 'United Kingdom', 'dial' => '+44'],
+        'US' => ['name' => 'United States', 'dial' => '+1'],
+        'CA' => ['name' => 'Canada', 'dial' => '+1'],
+        'BR' => ['name' => 'Brazil', 'dial' => '+55'],
+        'AU' => ['name' => 'Australia', 'dial' => '+61'],
+    ];
+}
+
 function valid_phone(string $phone): bool
 {
     return strlen($phone) <= 40 && preg_match('/^[0-9+\s().-]{7,40}$/', $phone) === 1;
+}
+
+function international_phone(string $phone, string $countryCode, array $countries): string
+{
+    if ($phone === '' || !isset($countries[$countryCode])) {
+        return $phone;
+    }
+
+    return str_starts_with($phone, '+')
+        ? $phone
+        : $countries[$countryCode]['dial'] . ' ' . $phone;
 }
 
 function process_inquiry(string $type): array
@@ -61,6 +108,9 @@ function process_inquiry(string $type): array
 
     $name = post_value('name');
     $phone = post_value('phone');
+    $countryCode = post_value('country_code');
+    $countries = phone_countries();
+    $formattedPhone = international_phone($phone, $countryCode, $countries);
     $email = post_value('email');
     $message = post_value('message');
 
@@ -102,6 +152,9 @@ function process_inquiry(string $type): array
                 $errors[] = 'Enter a valid requested date.';
             }
         }
+        if (!isset($countries[$countryCode])) {
+            $errors[] = 'Choose a valid phone country.';
+        }
         if ($phone === '' || !valid_phone($phone)) {
             $errors[] = 'Enter a valid phone number so we can respond to your quote request.';
         }
@@ -114,7 +167,7 @@ function process_inquiry(string $type): array
             'New quote request from the Nine United Traders website',
             '',
             'Name: ' . $name,
-            'Phone: ' . $phone,
+            'Phone: ' . $formattedPhone,
             'Email: ' . $email,
             'Service: ' . $service,
             'Origin: ' . $origin,
@@ -133,6 +186,9 @@ function process_inquiry(string $type): array
         if ($phone !== '' && !valid_phone($phone)) {
             $errors[] = 'Enter a valid phone number.';
         }
+        if ($phone !== '' && !isset($countries[$countryCode])) {
+            $errors[] = 'Choose a valid phone country.';
+        }
         if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errors[] = 'Enter a valid email address.';
         }
@@ -145,7 +201,7 @@ function process_inquiry(string $type): array
             'New contact inquiry from the Nine United Traders website',
             '',
             'Name: ' . $name,
-            'Phone: ' . ($phone !== '' ? $phone : 'Not provided'),
+            'Phone: ' . ($phone !== '' ? $formattedPhone : 'Not provided'),
             'Email: ' . ($email !== '' ? $email : 'Not provided'),
             '',
             'Message:',

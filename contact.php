@@ -4,6 +4,11 @@ require_once __DIR__ . '/includes/site.php';
 $pageTitle = 'Contact';
 $pageDescription = 'Contact Nine United Traders Ltd in Kigali by phone, email or inquiry form.';
 $activePage = 'contact';
+$phoneCountries = phone_countries();
+$selectedCountry = $formValues['country_code'] ?? 'RW';
+if (!isset($phoneCountries[$selectedCountry])) {
+    $selectedCountry = 'RW';
+}
 include __DIR__ . '/includes/header.php';
 ?>
 <section class="page-hero">
@@ -33,8 +38,8 @@ include __DIR__ . '/includes/header.php';
                 <div class="honeypot" aria-hidden="true"><label for="website">Leave this field empty</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
                 <div class="form-grid">
                     <div class="field field-full"><label for="name">Your name *</label><input class="form-control" id="name" name="name" type="text" maxlength="100" autocomplete="name" required value="<?= escape($formValues['name'] ?? '') ?>"></div>
-                    <div class="field"><label for="phone">Phone</label><input class="form-control" id="phone" name="phone" type="tel" maxlength="40" autocomplete="tel" placeholder="+250 ..." value="<?= escape($formValues['phone'] ?? '') ?>"></div>
-                    <div class="field"><label for="email">Email</label><input class="form-control" id="email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="you@example.com" value="<?= escape($formValues['email'] ?? '') ?>"></div>
+                    <div class="field field-full"><label for="phone">Phone</label><div class="phone-input-group"><?php include __DIR__ . '/includes/phone-country-picker.php'; ?><input class="form-control phone-number" id="phone" name="phone" type="tel" maxlength="40" autocomplete="tel-national" placeholder="Phone number" value="<?= escape($formValues['phone'] ?? '') ?>"></div></div>
+                    <div class="field field-full"><label for="email">Email</label><input class="form-control" id="email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="you@example.com" value="<?= escape($formValues['email'] ?? '') ?>"></div>
                     <div class="field field-full"><label for="message">How can we help? *</label><textarea class="form-control" id="message" name="message" maxlength="5000" required placeholder="Tell us a little about your inquiry"><?= escape($formValues['message'] ?? '') ?></textarea><p class="field-help">Please provide a phone number or email address so we can reply.</p></div>
                 </div>
                 <button class="button form-submit" type="submit">Send inquiry <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>

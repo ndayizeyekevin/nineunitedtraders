@@ -186,6 +186,26 @@ p { color: var(--muted); }
 .field-full { grid-column: 1 / -1; }
 .field label { color: rgba(255,255,255,.94); font-size: .91rem; font-weight: 700; }
 .field input, .field select, .field textarea { width: 100%; min-height: 50px; padding: 12px 14px; border: 1px solid #cfdeeb; border-radius: 9px; background: #fff; color: var(--ink); transition: border-color .18s ease, box-shadow .18s ease, background .18s ease; }
+.phone-input-group { display: grid; grid-template-columns: minmax(112px, 135px) minmax(0, 1fr); gap: 8px; }
+.phone-number { min-width: 0; }
+.phone-country-picker { position: relative; min-width: 0; }
+.phone-country-button { display: flex; width: 100%; min-height: 50px; align-items: center; justify-content: center; gap: 7px; padding: 8px 9px; border: 1px solid #cfdeeb; border-radius: 9px; background: #fff; color: var(--ink); cursor: pointer; transition: border-color .18s ease, box-shadow .18s ease; }
+.phone-country-button:hover { border-color: #b4c6d4; }
+.phone-country-button:focus-visible, .phone-country-picker.is-open .phone-country-button { border-color: #75b8e4; outline: 0; box-shadow: 0 0 0 4px rgba(117,184,228,.22); }
+.phone-country-button img, .phone-country-option img { display: block; width: 24px; height: 18px; flex: 0 0 24px; border: 1px solid rgba(16,43,70,.12); border-radius: 2px; object-fit: cover; }
+.phone-country-dial { font-size: .88rem; font-weight: 700; white-space: nowrap; }
+.phone-country-button .fa-chevron-down { margin-left: auto; color: #728497; font-size: .68rem; }
+.phone-country-menu { position: absolute; top: calc(100% + 8px); left: 0; z-index: 30; width: min(300px, calc(100vw - 48px)); padding: 12px; border: 1px solid #d9e3eb; border-radius: 12px; background: #fff; box-shadow: 0 16px 38px rgba(10,32,54,.22); }
+.phone-country-menu[hidden] { display: none; }
+.phone-country-search-label { display: block; margin-bottom: 6px; color: var(--ink); font-size: .78rem; font-weight: 700; }
+.phone-country-search { width: 100%; min-height: 42px; padding: 9px 11px; border: 1px solid #cfdeeb; border-radius: 8px; background: #f7fafc; color: var(--ink); }
+.phone-country-search:focus { border-color: var(--blue); outline: 0; box-shadow: 0 0 0 3px rgba(23,105,170,.14); }
+.phone-country-options { max-height: 230px; overflow-y: auto; margin-top: 8px; }
+.phone-country-option { display: flex; width: 100%; min-height: 40px; align-items: center; gap: 10px; padding: 7px 8px; border: 0; border-radius: 7px; background: transparent; color: var(--ink); cursor: pointer; text-align: left; }
+.phone-country-option:hover, .phone-country-option:focus-visible, .phone-country-option[aria-selected="true"] { outline: 0; background: #eaf3f9; }
+.phone-country-option > span:nth-child(2) { flex: 1; }
+.phone-country-option-dial { color: var(--muted); font-size: .85rem; }
+.phone-country-no-results { margin: 12px 4px 4px; color: var(--muted); font-size: .88rem; }
 .field textarea { min-height: 136px; resize: vertical; }
 .field input::placeholder, .field textarea::placeholder { color: #8998a6; }
 .field input:hover, .field select:hover, .field textarea:hover { border-color: #b4c6d4; }
@@ -291,6 +311,8 @@ p { color: var(--muted); }
     .form-card h2 { font-size: 1.5rem; }
     .form-submit { width: 100%; }
     .form-grid { grid-template-columns: 1fr; gap: 15px; }
+    .phone-input-group { grid-template-columns: minmax(108px, 125px) minmax(0, 1fr); gap: 7px; }
+    .phone-country-button { gap: 6px; padding-inline: 7px; }
     .field-full { grid-column: auto; }
     .cta-band { padding: 42px 0; }
     .cta-band-inner { align-items: flex-start; flex-direction: column; }
