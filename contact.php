@@ -11,7 +11,7 @@ include __DIR__ . '/includes/header.php';
         <div><div class="breadcrumb"><a href="index.php">Home</a> / Contact</div><span class="eyebrow">We’re ready to listen</span><h1>Let’s talk about what you need</h1><p>Contact us about our services, a partnership, or any question you have for Nine United Traders.</p></div>
     </div>
 </section>
-<section class="page-content">
+<section class="page-content page-content-dark">
     <div class="container contact-layout">
         <aside class="contact-card">
             <h2>Get in touch</h2>

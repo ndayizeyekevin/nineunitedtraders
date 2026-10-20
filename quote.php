@@ -21,7 +21,7 @@ include __DIR__ . '/includes/header.php';
         <div><div class="breadcrumb"><a href="index.php">Home</a> / Request a quote</div><span class="eyebrow">Tell us what you need</span><h1>Request a service quote</h1><p>Share a few details about your shipment or service requirement. The more you can tell us, the better we can respond.</p></div>
     </div>
 </section>
-<section class="page-content">
+<section class="page-content page-content-dark">
     <div class="container quote-layout">
         <aside class="quote-aside">
             <span class="eyebrow">A useful starting point</span>
