@@ -10,9 +10,9 @@
         </div>
         <div>
             <h2 class="footer-title">Get in touch</h2>
-            <address class="footer-contact"><svg class="icon" aria-hidden="true"><use href="#icon-location"></use></svg><span>CHIC Building, Kigali City Center<br>P.O. Box 5855, Kigali, Rwanda</span></address>
-            <a class="footer-link footer-contact" href="tel:+250788302388"><svg class="icon" aria-hidden="true"><use href="#icon-phone"></use></svg><span>+250 788 302 388</span></a>
-            <a class="footer-link footer-contact" href="mailto:nineunited2050@gmail.com"><svg class="icon" aria-hidden="true"><use href="#icon-email"></use></svg><span>nineunited2050@gmail.com</span></a>
+            <address class="footer-contact"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>CHIC Building, Kigali City Center<br>P.O. Box 5855, Kigali, Rwanda</span></address>
+            <a class="footer-link footer-contact" href="tel:+250788302388"><i class="fa-solid fa-phone" aria-hidden="true"></i><span>+250 788 302 388</span></a>
+            <a class="footer-link footer-contact" href="mailto:nineunited2050@gmail.com"><i class="fa-solid fa-envelope" aria-hidden="true"></i><span>nineunited2050@gmail.com</span></a>
         </div>
         <div>
             <h2 class="footer-title">Explore</h2>
@@ -32,10 +32,10 @@
     </div>
 </footer>
 <a class="whatsapp-link" href="https://wa.me/250788302388" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
-    <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-whatsapp"></use></svg>
+    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
 </a>
 <a class="scroll-top" href="#top" aria-label="Scroll to top" hidden>
-    <span aria-hidden="true">↑</span>
+    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
 </a>
 </body>
 </html>

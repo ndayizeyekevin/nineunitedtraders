@@ -20,12 +20,12 @@ $navigation = [
     <meta name="theme-color" content="#102b46">
     <title><?= escape($pageTitle) ?> | <?= escape(COMPANY_NAME) ?></title>
     <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/vendor/fontawesome/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
     <script src="assets/js/site.js" defer></script>
 </head>
 <body id="top">
-<?php include __DIR__ . '/icons.php'; ?>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
     <div class="container header-inner">

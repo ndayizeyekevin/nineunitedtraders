@@ -16,9 +16,9 @@ include __DIR__ . '/includes/header.php';
         <aside class="contact-card">
             <h2>Get in touch</h2>
             <p>Reach our Kigali office using the details below.</p>
-            <div class="contact-method"><span class="contact-method-icon" aria-hidden="true"><svg class="icon"><use href="#icon-location"></use></svg></span><div><strong>Visit us</strong><span>CHIC Building, Kigali City Center<br>P.O. Box 5855, Kigali, Rwanda</span><a class="map-link" href="https://maps.google.com/?q=CHIC+Building+Kigali+Rwanda" target="_blank" rel="noopener noreferrer">Get directions ↗</a></div></div>
-            <div class="contact-method"><span class="contact-method-icon" aria-hidden="true"><svg class="icon"><use href="#icon-phone"></use></svg></span><div><strong>Call us</strong><a href="tel:+250788302388">+250 788 302 388</a><br><a href="tel:+250788304751">+250 788 304 751</a><br><a href="tel:+250788319013">+250 788 319 013</a></div></div>
-            <div class="contact-method"><span class="contact-method-icon" aria-hidden="true"><svg class="icon"><use href="#icon-email"></use></svg></span><div><strong>Email</strong><a href="mailto:nineunited2050@gmail.com">nineunited2050@gmail.com</a></div></div>
+            <div class="contact-method"><span class="contact-method-icon" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></span><div><strong>Visit us</strong><span>CHIC Building, Kigali City Center<br>P.O. Box 5855, Kigali, Rwanda</span><a class="map-link" href="https://maps.google.com/?q=CHIC+Building+Kigali+Rwanda" target="_blank" rel="noopener noreferrer">Get directions ↗</a></div></div>
+            <div class="contact-method"><span class="contact-method-icon" aria-hidden="true"><i class="fa-solid fa-phone"></i></span><div><strong>Call us</strong><a href="tel:+250788302388">+250 788 302 388</a><br><a href="tel:+250788304751">+250 788 304 751</a><br><a href="tel:+250788319013">+250 788 319 013</a></div></div>
+            <div class="contact-method"><span class="contact-method-icon" aria-hidden="true"><i class="fa-solid fa-envelope"></i></span><div><strong>Email</strong><a href="mailto:nineunited2050@gmail.com">nineunited2050@gmail.com</a></div></div>
         </aside>
         <section class="form-card">
             <h2>Send an inquiry</h2>

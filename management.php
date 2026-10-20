@@ -33,7 +33,7 @@ include __DIR__ . '/includes/header.php';
             </div>
         </div>
         <div class="management-note management-note-spaced">
-            <span class="service-icon" aria-hidden="true"><svg class="icon"><use href="#icon-info"></use></svg></span>
+            <span class="service-icon" aria-hidden="true"><i class="fa-solid fa-circle-info"></i></span>
             <p><strong>Looking for a particular contact?</strong><br>Call <a class="text-link" href="tel:+250788302388">+250 788 302 388</a> or email <a class="text-link" href="mailto:nineunited2050@gmail.com">nineunited2050@gmail.com</a> and ask to be directed to the appropriate person.</p>
         </div>
     </div>

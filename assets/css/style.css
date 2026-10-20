@@ -96,11 +96,9 @@ p { color: var(--muted); }
 .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .service-card { min-height: 225px; padding: 25px; border: 1px solid var(--line); border-radius: var(--radius); background: white; transition: transform .2s ease, box-shadow .2s ease; }
 .service-card:hover { transform: translateY(-4px); box-shadow: 0 14px 32px rgba(16,43,70,.08); }
-.icon-library { position: absolute; width: 0; height: 0; overflow: hidden; }
-.icon { display: block; width: 1.35em; height: 1.35em; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
-.icon-use-fill { fill: currentColor; stroke: none; }
 .service-icon { display: grid; width: 48px; height: 48px; margin-bottom: 20px; place-items: center; border-radius: 14px; background: #eaf3f9; color: var(--blue); }
-.service-icon .icon { width: 25px; height: 25px; }
+.service-icon .fa-solid { font-size: 1.25rem; }
+.caption-icon { color: white; font-size: 1.25rem; }
 .service-card p { margin-bottom: 0; font-size: .96rem; }
 .service-card .text-link { margin-top: 18px; font-size: .92rem; }
 .stats-section { padding: 55px 0; background: var(--navy); color: white; }
@@ -165,7 +163,7 @@ p { color: var(--muted); }
 .contact-card > p { color: rgba(255,255,255,.72); }
 .contact-method { display: grid; grid-template-columns: 42px 1fr; gap: 14px; padding: 19px 0; border-top: 1px solid rgba(255,255,255,.17); }
 .contact-method-icon { display: grid; width: 40px; height: 40px; place-items: center; border-radius: 12px; background: rgba(255,255,255,.12); color: #fff; }
-.contact-method-icon .icon { width: 21px; height: 21px; }
+.contact-method-icon .fa-solid { font-size: 1.1rem; }
 .contact-method strong { display: block; margin-bottom: 3px; }
 .contact-method a, .contact-method span { color: rgba(255,255,255,.78); font-size: .94rem; }
 .contact-method a:hover { color: white; text-decoration: underline; }
@@ -210,14 +208,14 @@ p { color: var(--muted); }
 .footer-link { display: block; width: fit-content; margin: 7px 0; color: rgba(255,255,255,.72); font-size: .9rem; }
 .footer-link:hover { color: white; text-decoration: underline; }
 .footer-contact { display: flex; align-items: flex-start; gap: 9px; }
-.footer-contact .icon { width: 18px; height: 18px; flex: 0 0 18px; margin-top: 3px; }
+.footer-contact .fa-solid { flex: 0 0 18px; margin-top: 3px; }
 .footer-cta p { color: rgba(255,255,255,.73); }
 .footer-cta .button { min-height: 46px; padding-inline: 15px; font-size: .9rem; }
 .footer-bottom { display: flex; justify-content: space-between; gap: 16px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.15); color: rgba(255,255,255,.56); font-size: .79rem; }
 .whatsapp-link { position: fixed; right: 22px; bottom: 22px; z-index: 15; display: grid; width: 54px; height: 54px; place-items: center; border-radius: 50%; background: #168b62; color: white; box-shadow: 0 8px 24px rgba(6,66,47,.25); transition: background .18s ease, transform .18s ease; }
 .whatsapp-link:hover { background: #0f7350; }
 .whatsapp-link:hover, .scroll-top:hover { transform: translateY(-2px); }
-.whatsapp-link .icon { width: 30px; height: 30px; fill: currentColor; stroke: none; }
+.whatsapp-link .fa-whatsapp { font-size: 1.9rem; }
 .scroll-top { position: fixed; right: 29px; bottom: 88px; z-index: 15; display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid rgba(16,43,70,.12); border-radius: 50%; background: white; color: var(--navy); box-shadow: 0 5px 18px rgba(16,43,70,.18); font-size: 1.45rem; font-weight: 700; line-height: 1; transition: background .18s ease, transform .18s ease; }
 .scroll-top:hover { background: var(--mist); }
 .scroll-top[hidden] { display: none; }
@@ -282,7 +280,7 @@ p { color: var(--muted); }
     .footer-bottom { flex-direction: column; gap: 6px; }
     .site-footer { padding-top: 45px; }
     .whatsapp-link { right: 14px; bottom: 14px; width: 48px; height: 48px; }
-    .whatsapp-link .icon { width: 27px; height: 27px; }
+    .whatsapp-link .fa-whatsapp { font-size: 1.7rem; }
     .scroll-top { right: 17px; bottom: 72px; }
 }
 @media (prefers-reduced-motion: reduce) {
