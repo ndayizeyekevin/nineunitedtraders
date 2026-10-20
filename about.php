@@ -33,9 +33,9 @@ include __DIR__ . '/includes/header.php';
             </div>
         </div>
         <div class="value-grid">
-            <article class="value-card"><span class="service-icon" aria-hidden="true">↗</span><h3>Practical service</h3><p>We offer a range of connected services to support the movement and handling of goods.</p></article>
-            <article class="value-card"><span class="service-icon" aria-hidden="true">◎</span><h3>Local presence</h3><p>Our Kigali base puts our team in touch with the businesses and partners we serve.</p></article>
-            <article class="value-card"><span class="service-icon" aria-hidden="true">▦</span><h3>Regional outlook</h3><p>Our transportation and clearing services support business activity across Rwanda and the region.</p></article>
+            <article class="value-card"><span class="service-icon" aria-hidden="true"><svg class="icon"><use href="#icon-transfer"></use></svg></span><h3>Practical service</h3><p>We offer a range of connected services to support the movement and handling of goods.</p></article>
+            <article class="value-card"><span class="service-icon" aria-hidden="true"><svg class="icon"><use href="#icon-location"></use></svg></span><h3>Local presence</h3><p>Our Kigali base puts our team in touch with the businesses and partners we serve.</p></article>
+            <article class="value-card"><span class="service-icon" aria-hidden="true"><svg class="icon"><use href="#icon-globe"></use></svg></span><h3>Regional outlook</h3><p>Our transportation and clearing services support business activity across Rwanda and the region.</p></article>
         </div>
     </div>
 </section>
