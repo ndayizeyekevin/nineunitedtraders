@@ -22,7 +22,7 @@ include __DIR__ . '/includes/header.php';
         </div>
         <div class="hero-art" role="img" aria-label="Cargo truck on a regional road">
             <div class="hero-caption">
-                <span class="caption-icon" aria-hidden="true">↗</span>
+                <span class="caption-icon" aria-hidden="true"><svg class="icon"><use href="#icon-truck"></use></svg></span>
                 <span><strong>Moving trade forward</strong><span>Transport · Trade · Logistics</span></span>
             </div>
         </div>
@@ -51,12 +51,12 @@ include __DIR__ . '/includes/header.php';
             <p>Explore our core services and tell us what your operation needs. We’ll help you find the right next step.</p>
         </div>
         <div class="service-grid">
-            <article class="service-card"><span class="service-icon" aria-hidden="true">⇢</span><h3>Cargo transportation</h3><p>Regional cargo transportation services for businesses moving goods.</p><a class="text-link" href="services.php#transport">Explore service <span aria-hidden="true">→</span></a></article>
-            <article class="service-card"><span class="service-icon" aria-hidden="true">▦</span><h3>Cement &amp; commodities</h3><p>Importation of cement and other commodities for the market.</p><a class="text-link" href="services.php#importation">Explore service <span aria-hidden="true">→</span></a></article>
-            <article class="service-card"><span class="service-icon" aria-hidden="true">▤</span><h3>Warehousing &amp; stores</h3><p>Storage and warehousing support for goods and operations.</p><a class="text-link" href="services.php#warehousing">Explore service <span aria-hidden="true">→</span></a></article>
-            <article class="service-card"><span class="service-icon" aria-hidden="true">⚙</span><h3>Garage services</h3><p>Fleet and truck support services for transport operations.</p><a class="text-link" href="services.php#garage">Explore service <span aria-hidden="true">→</span></a></article>
-            <article class="service-card"><span class="service-icon" aria-hidden="true">⇄</span><h3>Clearing agency</h3><p>Clearing and logistics documentation support.</p><a class="text-link" href="services.php#clearing">Explore service <span aria-hidden="true">→</span></a></article>
-            <article class="service-card"><span class="service-icon" aria-hidden="true">▣</span><h3>Training center</h3><p>Capacity building in transport and logistics.</p><a class="text-link" href="services.php#training">Explore service <span aria-hidden="true">→</span></a></article>
+            <article class="service-card"><span class="service-icon" aria-hidden="true"><svg class="icon"><use href="#icon-truck"></use></svg></span><h3>Cargo transportation</h3><p>Regional cargo transportation services for businesses moving goods.</p><a class="text-link" href="services.php#transport">Explore service <span aria-hidden="true">→</span></a></article>
+            <article class="service-card"><span class="service-icon" aria-hidden="true"><svg class="icon"><use href="#icon-box"></use></svg></span><h3>Cement &amp; commodities</h3><p>Importation of cement and other commodities for the market.</p><a class="text-link" href="services.php#importation">Explore service <span aria-hidden="true">→</span></a></article>
+            <article class="service-card"><span class="service-icon" aria-hidden="true"><svg class="icon"><use href="#icon-warehouse"></use></svg></span><h3>Warehousing &amp; stores</h3><p>Storage and warehousing support for goods and operations.</p><a class="text-link" href="services.php#warehousing">Explore service <span aria-hidden="true">→</span></a></article>
+            <article class="service-card"><span class="service-icon" aria-hidden="true"><svg class="icon"><use href="#icon-tools"></use></svg></span><h3>Garage services</h3><p>Fleet and truck support services for transport operations.</p><a class="text-link" href="services.php#garage">Explore service <span aria-hidden="true">→</span></a></article>
+            <article class="service-card"><span class="service-icon" aria-hidden="true"><svg class="icon"><use href="#icon-transfer"></use></svg></span><h3>Clearing agency</h3><p>Clearing and logistics documentation support.</p><a class="text-link" href="services.php#clearing">Explore service <span aria-hidden="true">→</span></a></article>
+            <article class="service-card"><span class="service-icon" aria-hidden="true"><svg class="icon"><use href="#icon-training"></use></svg></span><h3>Training center</h3><p>Capacity building in transport and logistics.</p><a class="text-link" href="services.php#training">Explore service <span aria-hidden="true">→</span></a></article>
         </div>
     </div>
 </section>

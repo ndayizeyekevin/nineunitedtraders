@@ -19,13 +19,13 @@ $navigation = [
     <meta name="description" content="<?= escape($pageDescription) ?>">
     <meta name="theme-color" content="#102b46">
     <title><?= escape($pageTitle) ?> | <?= escape(COMPANY_NAME) ?></title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
     <script src="assets/js/site.js" defer></script>
 </head>
 <body id="top">
+<?php include __DIR__ . '/icons.php'; ?>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
     <div class="container header-inner">
