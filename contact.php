@@ -34,7 +34,7 @@ include __DIR__ . '/includes/header.php';
                     <div class="field"><label for="email">Email</label><input class="form-control" id="email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="you@example.com" value="<?= escape($formValues['email'] ?? '') ?>"></div>
                     <div class="field field-full"><label for="message">How can we help? *</label><textarea class="form-control" id="message" name="message" maxlength="5000" required placeholder="Tell us a little about your inquiry"><?= escape($formValues['message'] ?? '') ?></textarea><p class="field-help">Please provide a phone number or email address so we can reply.</p></div>
                 </div>
-                <button class="button form-submit" type="submit">Send inquiry <span aria-hidden="true">↗</span></button>
+                <button class="button form-submit" type="submit">Send inquiry <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
             </form>
         </section>
     </div>

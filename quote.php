@@ -54,7 +54,7 @@ include __DIR__ . '/includes/header.php';
                     <div class="field"><label for="date">Requested date</label><input class="form-control" id="date" name="date" type="date" value="<?= escape($formValues['date'] ?? '') ?>"></div>
                     <div class="field field-full"><label for="notes">Additional details</label><textarea class="form-control" id="notes" name="notes" maxlength="2500" placeholder="Quantity, timing, or anything else we should know"><?= escape($formValues['notes'] ?? '') ?></textarea></div>
                 </div>
-                <button class="button form-submit" type="submit">Send quote request <span aria-hidden="true">↗</span></button>
+                <button class="button form-submit" type="submit">Send quote request <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
             </form>
         </section>
     </div>

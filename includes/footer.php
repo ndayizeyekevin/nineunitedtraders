@@ -3,7 +3,7 @@
     <div class="container footer-grid">
         <div class="footer-brand">
             <a class="brand brand-light" href="index.php">
-                <span class="brand-mark" aria-hidden="true">NU</span>
+                <img class="brand-logo" src="assets/images/logo.png" alt="">
                 <span class="brand-name">Nine United <span>Traders Ltd</span></span>
             </a>
             <p>A reliable partner in logistics and trade, based in Kigali, Rwanda.</p>
@@ -23,7 +23,7 @@
         </div>
         <div class="footer-cta">
             <p>Have a shipment or logistics requirement?</p>
-            <a class="button button-light" href="quote.php">Tell us what you need <span aria-hidden="true">↗</span></a>
+            <a class="button button-light" href="quote.php">Tell us what you need <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
         </div>
     </div>
     <div class="container footer-bottom">

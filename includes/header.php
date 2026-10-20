@@ -20,7 +20,7 @@ $navigation = [
     <meta name="theme-color" content="#102b46">
     <title><?= escape($pageTitle) ?> | <?= escape(COMPANY_NAME) ?></title>
     <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/vendor/fontawesome/all.min.css">
+    <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
     <script src="assets/js/site.js" defer></script>
@@ -30,7 +30,7 @@ $navigation = [
 <header class="site-header">
     <div class="container header-inner">
         <a class="brand" href="index.php" aria-label="Nine United Traders Ltd home">
-            <span class="brand-mark" aria-hidden="true">NU</span>
+            <img class="brand-logo" src="assets/images/logo.png" alt="">
             <span class="brand-name">Nine United <span>Traders Ltd</span></span>
         </a>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
@@ -41,7 +41,7 @@ $navigation = [
             <?php foreach ($navigation as $label => [$href, $key]): ?>
                 <a href="<?= escape($href) ?>"<?= $activePage === $key ? ' aria-current="page"' : '' ?>><?= escape($label) ?></a>
             <?php endforeach; ?>
-            <a class="button button-small nav-cta" href="quote.php">Request a quote <span aria-hidden="true">↗</span></a>
+            <a class="button button-small nav-cta" href="quote.php">Request a quote <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
         </nav>
     </div>
 </header>
