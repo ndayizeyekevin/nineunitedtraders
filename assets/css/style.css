@@ -267,6 +267,10 @@ i.fa-solid.fa-arrow-right::before { display: inline-block; transform: rotate(-45
 .field input::placeholder, .field textarea::placeholder { color: #8998a6; }
 .field input:hover, .field select:hover, .field textarea:hover { border-color: #b4c6d4; }
 .field input:focus, .field select:focus, .field textarea:focus { border-color: #75b8e4; outline: 0; background: white; box-shadow: 0 0 0 4px rgba(117,184,228,.22); }
+.form-card#quote-form { scroll-margin-top: 104px; }
+.field.has-missing-required label { color: #ffd17c; }
+.field.has-missing-required input, .field.has-missing-required select, .field.has-missing-required textarea { border-color: #ef806d; background: #fff9f7; box-shadow: 0 0 0 3px rgba(239,128,109,.2); }
+.field.has-missing-required input:focus, .field.has-missing-required select:focus, .field.has-missing-required textarea:focus { border-color: #ef806d; box-shadow: 0 0 0 4px rgba(239,128,109,.24); }
 .field-help { margin: -2px 0 0; color: rgba(255,255,255,.65); font-size: .81rem; }
 .form-submit { min-width: 190px; margin-top: 24px; border-color: #176fc1; background: linear-gradient(110deg, #176fc1, #125a9f); box-shadow: 0 7px 16px rgba(18,90,159,.22); }
 .form-submit:hover { border-color: #0e4d89; background: linear-gradient(110deg, #125a9f, #0e4d89); box-shadow: 0 10px 22px rgba(18,90,159,.28); }

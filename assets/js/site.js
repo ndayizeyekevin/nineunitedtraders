@@ -72,6 +72,32 @@ if (quoteServiceSelect instanceof HTMLSelectElement) {
     updateRouteRequirements();
 }
 
+const quoteForm = document.querySelector('[data-quote-form]');
+if (quoteForm instanceof HTMLFormElement && window.location.hash === '#quote-form') {
+    const requiredFields = [...quoteForm.querySelectorAll('input[required], select[required], textarea[required]')];
+
+    const updateMissingFieldState = (field) => {
+        const isMissing = field.required && !field.validity.valid;
+        const fieldContainer = field.closest('.field');
+        if (fieldContainer) {
+            fieldContainer.classList.toggle('has-missing-required', isMissing);
+        }
+        field.setAttribute('aria-invalid', String(isMissing));
+        return isMissing;
+    };
+
+    requiredFields.forEach((field) => {
+        updateMissingFieldState(field);
+        field.addEventListener('input', () => updateMissingFieldState(field));
+        field.addEventListener('change', () => updateMissingFieldState(field));
+    });
+
+    const firstMissingField = requiredFields.find((field) => !field.validity.valid);
+    if (firstMissingField instanceof HTMLElement) {
+        window.requestAnimationFrame(() => firstMissingField.focus({ preventScroll: true }));
+    }
+}
+
 document.querySelectorAll('[data-hero-slider]').forEach((slider) => {
     const slides = [...slider.querySelectorAll('.hero-slide')];
     const indicators = [...slider.querySelectorAll('[data-hero-slide]')];
