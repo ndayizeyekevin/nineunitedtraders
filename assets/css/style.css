@@ -180,6 +180,7 @@ p { color: var(--muted); }
 .contact-method a, .contact-method span { color: rgba(255,255,255,.78); font-size: .94rem; }
 .contact-method a:hover { color: white; text-decoration: underline; text-underline-offset: 3px; }
 .map-link { display: inline-flex; margin-top: 12px; color: white; font-size: .92rem; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.map-link-icon { margin-left: 3px; transform: rotate(-45deg); }
 
 .page-content-dark { background: #244b65; }
 .page-content-dark .contact-card { background: linear-gradient(145deg, #1d5277, #153b59); }
