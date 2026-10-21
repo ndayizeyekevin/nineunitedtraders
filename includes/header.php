@@ -2,6 +2,7 @@
 $pageTitle = $pageTitle ?? COMPANY_NAME;
 $pageDescription = $pageDescription ?? 'Cargo transportation, importation, warehousing, clearing and logistics services in Rwanda.';
 $activePage = $activePage ?? '';
+$documentBaseUrl = $documentBaseUrl ?? '';
 $navigation = [
     'Home' => ['./', 'home'],
     'About' => ['about', 'about'],
@@ -18,6 +19,7 @@ $navigation = [
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="<?= escape($pageDescription) ?>">
     <meta name="theme-color" content="#102b46">
+    <?php if ($documentBaseUrl !== ''): ?><base href="<?= escape($documentBaseUrl) ?>"><?php endif; ?>
     <title><?= escape($pageTitle) ?> | <?= escape(COMPANY_NAME) ?></title>
     <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
