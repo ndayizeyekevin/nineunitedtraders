@@ -3,6 +3,7 @@ $selectedPhoneCountry = $phoneCountries[$selectedCountry];
 ?>
 <div class="phone-country-picker" data-country-picker>
     <input type="hidden" name="country_code" value="<?= escape($selectedCountry) ?>" data-country-value>
+    <input type="hidden" name="country_dial" value="<?= escape($selectedPhoneCountry['dial']) ?>" data-country-dial-value>
     <button class="phone-country-button" type="button" aria-label="<?= escape('Phone country: ' . $selectedPhoneCountry['name'] . ' ' . $selectedPhoneCountry['dial']) ?>" aria-haspopup="listbox" aria-expanded="false" aria-controls="phone-country-menu" data-country-button>
         <img src="assets/images/flags/<?= escape(strtolower($selectedCountry)) ?>.svg" alt="" width="24" height="18" data-country-flag>
         <span class="phone-country-dial" data-country-dial><?= escape($selectedPhoneCountry['dial'] !== '' ? $selectedPhoneCountry['dial'] : 'N/A') ?></span>

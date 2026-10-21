@@ -26,17 +26,107 @@ if (scrollTop) {
     updateScrollTopVisibility();
 }
 
+document.querySelectorAll('[data-contact-form]').forEach((form) => {
+    const submitButton = form.querySelector('button[type="submit"]');
+    const errorMessage = form.querySelector('[data-form-error]');
+    const successMessage = form.querySelector('[data-form-success]');
+    const phoneInput = form.querySelector('[name="phone"]');
+    const emailInput = form.querySelector('[name="email"]');
+    const countryDial = form.querySelector('[name="country_dial"]');
+
+    if (!(form instanceof HTMLFormElement) || !submitButton || !errorMessage || !successMessage) {
+        return;
+    }
+
+    if (phoneInput instanceof HTMLInputElement && emailInput instanceof HTMLInputElement) {
+        const clearContactValidation = () => phoneInput.setCustomValidity('');
+        phoneInput.addEventListener('input', clearContactValidation);
+        emailInput.addEventListener('input', clearContactValidation);
+    }
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        errorMessage.hidden = true;
+        successMessage.hidden = true;
+
+        if (phoneInput instanceof HTMLInputElement && emailInput instanceof HTMLInputElement) {
+            const phone = phoneInput.value.trim();
+            phoneInput.setCustomValidity('');
+
+            if (phone === '' && emailInput.value.trim() === '') {
+                phoneInput.setCustomValidity('Enter a phone number or email address so we can reply.');
+            } else if (phone !== '' && !/^[0-9+\s().-]{7,40}$/.test(phone)) {
+                phoneInput.setCustomValidity('Enter a valid phone number.');
+            } else if (phone !== '' && countryDial instanceof HTMLInputElement && countryDial.value === '') {
+                phoneInput.setCustomValidity('Choose a country with a calling code.');
+            }
+        }
+
+        if (!form.reportValidity()) {
+            return;
+        }
+
+        const endpoint = form.dataset.ajaxEndpoint;
+        if (!endpoint) {
+            errorMessage.textContent = 'The contact form is not configured. Please contact us by phone or email.';
+            errorMessage.hidden = false;
+            return;
+        }
+
+        submitButton.disabled = true;
+        submitButton.setAttribute('aria-busy', 'true');
+        submitButton.dataset.originalText = submitButton.textContent.trim();
+        submitButton.innerHTML = 'Sending… <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>';
+
+        try {
+            const formData = new FormData(form);
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(Object.fromEntries(formData.entries())),
+            });
+            const result = await response.json();
+
+            if (!response.ok || ![true, 'true'].includes(result.success)) {
+                throw new Error(typeof result.message === 'string' ? result.message : 'We could not send your inquiry. Please try again or contact us directly.');
+            }
+
+            form.reset();
+            form.querySelectorAll('[data-country-picker]').forEach((picker) => {
+                const countryCode = picker.querySelector('[data-country-value]')?.value;
+                const defaultCountry = picker.querySelector(`[data-country-code="${countryCode}"]`);
+                defaultCountry?.click();
+            });
+            successMessage.textContent = 'Thank you. Your inquiry has been sent to our team. We will get back to you as soon as possible.';
+            successMessage.hidden = false;
+        } catch (error) {
+            errorMessage.textContent = error instanceof Error
+                ? error.message
+                : 'We could not send your inquiry. Please try again or contact us directly.';
+            errorMessage.hidden = false;
+        } finally {
+            submitButton.disabled = false;
+            submitButton.removeAttribute('aria-busy');
+            submitButton.innerHTML = `${submitButton.dataset.originalText || 'Send inquiry'} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>`;
+        }
+    });
+});
+
 document.querySelectorAll('[data-country-picker]').forEach((picker) => {
     const button = picker.querySelector('[data-country-button]');
     const menu = picker.querySelector('[data-country-menu]');
     const search = picker.querySelector('[data-country-search]');
     const hiddenValue = picker.querySelector('[data-country-value]');
+    const hiddenDial = picker.querySelector('[data-country-dial-value]');
     const flag = picker.querySelector('[data-country-flag]');
     const dial = picker.querySelector('[data-country-dial]');
     const emptyMessage = picker.querySelector('[data-country-empty]');
     const options = [...picker.querySelectorAll('[data-country-option]')];
 
-    if (!button || !menu || !search || !hiddenValue || !flag || !dial || !emptyMessage) {
+    if (!button || !menu || !search || !hiddenValue || !hiddenDial || !flag || !dial || !emptyMessage) {
         return;
     }
 
@@ -103,6 +193,11 @@ document.querySelectorAll('[data-country-picker]').forEach((picker) => {
             }
 
             hiddenValue.value = code;
+            hiddenDial.value = callingCode;
+            const contactPhone = picker.closest('[data-contact-form]')?.querySelector('[name="phone"]');
+            if (contactPhone instanceof HTMLInputElement) {
+                contactPhone.setCustomValidity('');
+            }
             flag.src = flagSource;
             flag.alt = '';
             dial.textContent = callingCode || 'N/A';
