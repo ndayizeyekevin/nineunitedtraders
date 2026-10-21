@@ -23,21 +23,21 @@ include __DIR__ . '/includes/header.php';
         <div class="hero-art" data-hero-slider role="region" aria-roledescription="carousel" aria-label="Nine United Traders logistics services">
             <div class="hero-slides" aria-live="off">
                 <div class="hero-slide is-active" role="group" aria-roledescription="slide" aria-label="1 of 3" aria-hidden="false">
-                    <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Freight truck travelling on a regional road" fetchpriority="high">
+                    <img src="assets/images/site/freight-truck.jpg" alt="Freight truck travelling on a regional road" fetchpriority="high">
                     <div class="hero-caption">
                         <span class="caption-icon" aria-hidden="true"><i class="fa-solid fa-truck-fast"></i></span>
                         <span><strong>Moving trade forward</strong><span>Transport · Trade · Logistics</span></span>
                     </div>
                 </div>
                 <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="2 of 3" aria-hidden="true">
-                    <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Goods organized and ready for warehouse handling" loading="lazy">
+                    <img src="assets/images/site/warehouse-cargo.jpg" alt="Goods organized and ready for warehouse handling" loading="lazy">
                     <div class="hero-caption">
                         <span class="caption-icon" aria-hidden="true"><i class="fa-solid fa-warehouse"></i></span>
                         <span><strong>Supporting every link</strong><span>Warehousing · Trade · Logistics</span></span>
                     </div>
                 </div>
                 <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="3 of 3" aria-hidden="true">
-                    <img src="https://images.unsplash.com/photo-1494412519320-aa613dfb7738?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Cargo vessel carrying freight across regional trade routes" loading="lazy">
+                    <img src="assets/images/site/cargo-ship.jpg" alt="Cargo vessel carrying freight across regional trade routes" loading="lazy">
                     <div class="hero-caption">
                         <span class="caption-icon" aria-hidden="true"><i class="fa-solid fa-ship"></i></span>
                         <span><strong>Connecting regional trade</strong><span>Importation · Clearing · Delivery</span></span>
