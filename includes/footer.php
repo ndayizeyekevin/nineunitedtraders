@@ -55,7 +55,7 @@
                     <form class="admin-form" method="post" action="<?= escape(site_base_url()) ?>admin/login" data-admin-login>
                         <input type="hidden" name="csrf_token" value="<?= escape(csrf_token()) ?>">
                         <div class="field"><label for="footer-admin-username">Username</label><input class="form-control" id="footer-admin-username" name="username" autocomplete="username" required></div>
-                        <div class="field"><label for="footer-admin-password">Password</label><input class="form-control" id="footer-admin-password" name="password" type="password" autocomplete="current-password" required></div>
+                        <div class="field"><label for="footer-admin-password">Password</label><input class="form-control" id="footer-admin-password" name="password" type="password" autocomplete="current-password" required><a class="admin-forgot-link" href="<?= escape(site_base_url()) ?>admin/forgot-password">Forgot password?</a></div>
                         <button class="button form-submit" type="submit">Sign in</button>
                     </form>
                 </section>

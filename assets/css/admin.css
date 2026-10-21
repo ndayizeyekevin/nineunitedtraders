@@ -160,6 +160,12 @@
 .admin-auth-content .admin-page { min-height: 0; padding: 0; background: transparent; }
 .admin-auth-content .admin-card { padding: clamp(24px, 5vw, 36px); border-color: #e2e9ef; border-radius: 15px; background: white; box-shadow: 0 18px 48px rgba(10,32,54,.09); }
 .admin-auth-content .admin-card .form-submit { width: 100%; }
+.admin-forgot-link { align-self: flex-end; margin-top: 2px; color: #1769aa; font-size: .84rem; font-weight: 700; }
+.admin-forgot-link:hover { color: #0e4d89; text-decoration: underline; }
+.admin-recovery-card { text-align: center; }
+.admin-recovery-icon { display: grid; width: 52px; height: 52px; margin: 0 auto 18px; place-items: center; border-radius: 15px; background: #eaf3f9; color: #1769aa; font-size: 1.3rem; }
+.admin-recovery-card h2 { margin-bottom: 10px; color: #102b46; font-size: 1.35rem; }
+.admin-recovery-card p { margin-bottom: 23px; color: #637386; line-height: 1.6; }
 .admin-auth-back { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; color: #637386; font-size: .86rem; font-weight: 700; }
 .admin-auth-back:hover { color: #1769aa; }
 .admin-auth-footer { margin-top: 25px; color: #8793a0; font-size: .77rem; }

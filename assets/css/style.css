@@ -412,6 +412,8 @@ i.fa-solid.fa-arrow-right::before { display: inline-block; transform: rotate(-45
 .site-login-dialog .admin-page { min-height: 0; padding: 0; background: transparent; }
 .site-login-dialog .admin-card { padding: clamp(24px, 5vw, 36px); border-color: #e2e9ef; border-radius: 15px; background: white; box-shadow: 0 18px 48px rgba(10,32,54,.09); }
 .site-login-dialog .admin-card .form-submit { width: 100%; }
+.site-login-dialog .admin-forgot-link { align-self: flex-end; margin-top: 2px; color: #1769aa; font-size: .84rem; font-weight: 700; }
+.site-login-dialog .admin-forgot-link:hover { color: #0e4d89; text-decoration: underline; }
 .site-login-dialog .admin-auth-back { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; color: #637386; font-size: .86rem; font-weight: 700; }
 .site-login-dialog .admin-auth-back:hover { color: #1769aa; }
 .site-login-dialog .admin-auth-footer { margin-top: 25px; color: #8793a0; font-size: .77rem; text-align: center; }
