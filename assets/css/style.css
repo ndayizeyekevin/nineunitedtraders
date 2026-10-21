@@ -45,6 +45,8 @@ p { color: var(--muted); }
 .section-heading p { max-width: 590px; margin-bottom: 0; font-size: 1.08rem; }
 .text-link { display: inline-flex; align-items: center; gap: 9px; color: var(--blue); font-weight: 700; }
 .text-link:hover { color: var(--blue-dark); }
+i.fa-solid.fa-arrow-right::before { display: inline-block; transform: rotate(-45deg); }
+.site-header .fa-arrow-right::before { transform: rotate(-45deg) !important; }
 
 .site-header { position: sticky; top: 0; z-index: 20; background: rgba(10,32,54,.98); border-bottom: 1px solid rgba(255,255,255,.1); box-shadow: 0 5px 22px rgba(10,32,54,.16); backdrop-filter: blur(14px); }
 .header-inner { display: flex; min-height: 82px; align-items: center; justify-content: space-between; gap: 28px; }
@@ -180,7 +182,7 @@ p { color: var(--muted); }
 .contact-method a, .contact-method span { color: rgba(255,255,255,.78); font-size: .94rem; }
 .contact-method a:hover { color: white; text-decoration: underline; text-underline-offset: 3px; }
 .map-link { display: inline-flex; margin-top: 12px; color: white; font-size: .92rem; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
-.map-link-icon { margin-left: 3px; transform: rotate(-45deg); }
+.map-link-icon { margin-left: 3px; }
 
 .page-content-dark { background: #244b65; }
 .page-content-dark .contact-card { background: linear-gradient(145deg, #1d5277, #153b59); }
