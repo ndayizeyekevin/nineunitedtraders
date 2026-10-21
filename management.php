@@ -8,7 +8,7 @@ include __DIR__ . '/includes/header.php';
 <section class="page-hero">
     <div class="container page-hero-inner">
         <div><div class="breadcrumb"><a href="index.php">Home</a> / Management</div><span class="eyebrow">Management &amp; governance</span><h1>Clear communication starts with the right conversation</h1><p>Connect with Nine United Traders Ltd in Kigali for company, partnership and service inquiries.</p></div>
-        <a class="button" href="contact.php">Contact the company <span aria-hidden="true">↗</span></a>
+        <a class="button" href="contact.php">Contact the company <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
     </div>
 </section>
 <section class="page-content">
@@ -19,7 +19,7 @@ include __DIR__ . '/includes/header.php';
                 <h2>Reach our team directly</h2>
                 <p>Nine United Traders Ltd is based at CHIC Building in Kigali City Center. For current leadership information, governance documents, partnership proposals or other company matters, please contact us using the details below.</p>
                 <p>We do not publish individual management biographies on this page. Please contact the company to request up-to-date information.</p>
-                <a class="button" href="contact.php">Send an inquiry <span aria-hidden="true">↗</span></a>
+                <a class="button" href="contact.php">Send an inquiry <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
             </div>
             <div class="content-panel">
                 <span class="eyebrow">Company details</span>
@@ -33,7 +33,7 @@ include __DIR__ . '/includes/header.php';
             </div>
         </div>
         <div class="management-note management-note-spaced">
-            <span class="service-icon" aria-hidden="true"><svg class="icon"><use href="#icon-info"></use></svg></span>
+            <span class="service-icon" aria-hidden="true"><i class="fa-solid fa-circle-info"></i></span>
             <p><strong>Looking for a particular contact?</strong><br>Call <a class="text-link" href="tel:+250788302388">+250 788 302 388</a> or email <a class="text-link" href="mailto:nineunited2050@gmail.com">nineunited2050@gmail.com</a> and ask to be directed to the appropriate person.</p>
         </div>
     </div>
