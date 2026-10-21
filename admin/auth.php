@@ -29,20 +29,84 @@ function require_valid_admin_post(): void
     }
 }
 
-function validate_image_path(string $path): bool
+function store_team_image_upload(array $file): array
 {
-    if ($path === '') {
-        return true;
+    if (!isset($file['error']) || $file['error'] === UPLOAD_ERR_NO_FILE) {
+        return [null, null];
     }
 
-    if (!preg_match('~^assets/images/[A-Za-z0-9/_-]+\.(?:png|jpe?g|webp|gif|svg)$~i', $path)
-        || str_contains($path, '..')) {
-        return false;
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        return [null, match ($file['error']) {
+            UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE => 'The image must be 5 MB or smaller.',
+            UPLOAD_ERR_PARTIAL => 'The image upload was incomplete. Please try again.',
+            default => 'The image could not be uploaded. Please try again.',
+        }];
     }
 
-    $root = realpath(__DIR__ . '/..');
-    $image = realpath(__DIR__ . '/../' . $path);
+    if (!isset($file['tmp_name'], $file['size'])
+        || !is_string($file['tmp_name'])
+        || !is_int($file['size'])
+        || $file['size'] < 1
+        || $file['size'] > 5 * 1024 * 1024
+        || !is_uploaded_file($file['tmp_name'])) {
+        return [null, 'Choose a valid image file no larger than 5 MB.'];
+    }
 
-    return $root !== false && $image !== false
-        && str_starts_with($image, $root . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR);
+    $fileInfo = new finfo(FILEINFO_MIME_TYPE);
+    $mimeType = $fileInfo->file($file['tmp_name']);
+    $extensions = [
+        'image/jpeg' => 'jpg',
+        'image/png' => 'png',
+        'image/webp' => 'webp',
+    ];
+    $imageInfo = @getimagesize($file['tmp_name']);
+    if (!is_string($mimeType)
+        || !isset($extensions[$mimeType])
+        || $imageInfo === false
+        || !isset($imageInfo['mime'])
+        || $imageInfo['mime'] !== $mimeType
+        || $imageInfo[0] > 8000
+        || $imageInfo[1] > 8000) {
+        return [null, 'Upload a valid JPG, PNG, or WebP image.'];
+    }
+
+    $imageDirectory = __DIR__ . '/../assets/images/team';
+    if (!is_dir($imageDirectory) && !mkdir($imageDirectory, 0755, true) && !is_dir($imageDirectory)) {
+        throw new RuntimeException('The team image directory could not be created.');
+    }
+    $siteRoot = realpath(__DIR__ . '/..');
+    $imagesDirectory = realpath(__DIR__ . '/../assets/images');
+    $resolvedDirectory = realpath($imageDirectory);
+    if ($siteRoot === false || $imagesDirectory === false || $resolvedDirectory === false
+        || dirname($resolvedDirectory) !== $imagesDirectory
+        || basename($resolvedDirectory) !== 'team') {
+        throw new RuntimeException('The team image directory is outside the permitted image folder.');
+    }
+
+    $filename = bin2hex(random_bytes(16)) . '.' . $extensions[$mimeType];
+    $relativePath = 'assets/images/team/' . $filename;
+    if (!move_uploaded_file($file['tmp_name'], $resolvedDirectory . DIRECTORY_SEPARATOR . $filename)) {
+        throw new RuntimeException('The uploaded team image could not be saved.');
+    }
+
+    return [$relativePath, null];
+}
+
+function delete_team_image(?string $path): void
+{
+    if ($path === null || !preg_match('~^assets/images/team/[a-f0-9]{32}\.(?:jpg|png|webp)$~', $path)) {
+        return;
+    }
+
+    $teamDirectory = realpath(__DIR__ . '/../assets/images/team');
+    $imagePath = realpath(__DIR__ . '/../' . $path);
+    if ($teamDirectory === false || $imagePath === false
+        || dirname($imagePath) !== $teamDirectory
+        || !is_file($imagePath)) {
+        return;
+    }
+
+    if (!unlink($imagePath)) {
+        error_log('Unable to remove unused management team image: ' . $path);
+    }
 }

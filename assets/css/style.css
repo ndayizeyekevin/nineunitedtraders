@@ -229,6 +229,15 @@ i.fa-solid.fa-arrow-right::before { display: inline-block; transform: rotate(-45
 .admin-member-heading p { margin: 0; font-size: .9rem; }
 .admin-checkbox { display: flex; align-items: center; gap: 9px; font-weight: 600 !important; }
 .admin-checkbox input { width: 18px; height: 18px; accent-color: var(--blue); }
+.admin-image-field { align-items: flex-start; }
+.admin-image-field > label:first-child { margin-bottom: 1px; }
+.admin-image-input { max-width: 100%; padding: 8px !important; background: #f8fafc !important; }
+.admin-image-input::file-selector-button { margin-right: 12px; padding: 8px 12px; border: 1px solid #d5dfe8; border-radius: 7px; background: white; color: var(--navy); font: inherit; font-size: .85rem; font-weight: 700; cursor: pointer; }
+.admin-image-input::file-selector-button:hover { border-color: var(--blue); color: var(--blue); }
+.admin-field-help { color: #718095; font-size: .8rem; line-height: 1.5; }
+.admin-image-preview { display: flex; align-items: center; gap: 12px; color: #637386; font-size: .84rem; }
+.admin-image-preview img { width: 66px; height: 66px; border: 1px solid var(--line); border-radius: 10px; object-fit: cover; }
+.admin-image-remove { margin-top: 2px; }
 .admin-member-actions { display: flex; flex-wrap: wrap; gap: 9px; }
 .admin-delete-form { margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--line); }
 .admin-delete-button { padding: 5px 0; border: 0; background: transparent; color: #a53535; font: inherit; font-size: .88rem; font-weight: 700; cursor: pointer; }

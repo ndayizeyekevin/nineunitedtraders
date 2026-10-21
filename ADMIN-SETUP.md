@@ -8,7 +8,7 @@ After installation:
 
 - Sign in at `/admin/login`.
 - Review and update quote request statuses at `/admin/quotes`.
-- Add, edit, hide, or remove management profiles at `/admin/team`.
+- Add, edit, hide, or remove management profiles at `/admin/team`. Profile photos can be uploaded as JPG, PNG, or WebP images up to 5 MB and 8,000 × 8,000 pixels and are stored under `assets/images/team/`.
 - Active management profiles appear on the public `/management` page.
 
 Quote requests are stored in the `quote_requests` table before the existing email notification is attempted. A failed email notification does not discard the saved request. Management profiles are stored in `management_members`; admin accounts and password hashes are stored in `admins`.
