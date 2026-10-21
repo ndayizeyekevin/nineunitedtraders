@@ -396,20 +396,38 @@ i.fa-solid.fa-arrow-right::before { display: inline-block; transform: rotate(-45
 .footer-bottom-meta { display: flex; align-items: center; gap: 18px; }
 .footer-admin-login { padding: 4px 0; border: 0; background: transparent; color: rgba(255,255,255,.72); font: inherit; cursor: pointer; transition: color .18s ease; }
 .footer-admin-login:hover, .footer-admin-login:focus-visible { color: #ffd17c; text-decoration: underline; }
-.site-login-dialog { width: min(440px, calc(100vw - 32px)); max-width: none; max-height: calc(100dvh - 32px); margin: auto; padding: 0; overflow: auto; border: 0; border-top: 4px solid var(--gold); border-radius: 16px; background: white; color: var(--ink); box-shadow: 0 24px 80px rgba(7,25,42,.3); }
+.site-login-dialog { width: min(600px, calc(100vw - 32px)); max-width: none; max-height: calc(100dvh - 32px); margin: auto; padding: 0; overflow: auto; border: 0; border-radius: 18px; background: #f2f6f9; color: var(--ink); box-shadow: 0 24px 80px rgba(7,25,42,.3); }
 .site-login-dialog::backdrop { background: rgba(8,24,39,.68); backdrop-filter: blur(3px); }
-.site-login-dialog-content { padding: clamp(22px, 5vw, 32px); }
-.site-login-dialog-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
-.site-login-dialog-header .eyebrow { display: block; margin-bottom: 7px; color: var(--blue); }
-.site-login-dialog-header h2 { margin: 0; color: var(--navy); font-size: clamp(1.35rem, 4vw, 1.7rem); }
-.site-login-intro { margin: 12px 0 22px; color: var(--muted); font-size: .92rem; }
-.site-login-close { display: grid; width: 38px; height: 38px; flex: 0 0 38px; place-items: center; border: 1px solid var(--line); border-radius: 10px; background: #f7f9fb; color: #526376; cursor: pointer; font-size: 1rem; }
-.site-login-close:hover { background: #edf2f6; color: var(--navy); }
-.site-login-form { display: grid; gap: 17px; }
-.site-login-form .form-control { min-height: 48px; }
-.site-login-submit { width: 100%; margin-top: 4px; }
-.site-login-submit:disabled { cursor: wait; opacity: .72; }
-.site-login-message:not([hidden]) { padding: 12px 14px; border: 1px solid #efc5bd; border-radius: 9px; background: #fff4f1; color: #8b3025; font-size: .9rem; line-height: 1.5; }
+.site-login-dialog-content { position: relative; display: flex; flex-direction: column; align-items: center; padding: clamp(28px, 5vw, 42px) clamp(20px, 5vw, 42px); background: radial-gradient(ellipse at 82% 15%, rgba(23,105,170,.12), transparent 38%), #f2f6f9; }
+.site-login-close { position: absolute; top: 14px; right: 14px; display: grid; width: 38px; height: 38px; place-items: center; border: 1px solid #dce5ec; border-radius: 10px; background: rgba(255,255,255,.78); color: #526376; cursor: pointer; font-size: 1rem; }
+.site-login-close:hover { background: white; color: #102b46; }
+.site-login-dialog .admin-auth-brand { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 25px; color: #102b46; font-size: 1rem; font-weight: 800; line-height: 1.2; }
+.site-login-dialog .admin-auth-brand img { width: 48px; height: 48px; object-fit: contain; }
+.site-login-dialog .admin-auth-brand strong { display: block; margin-top: 3px; color: #637386; font-size: .85rem; }
+.site-login-dialog .admin-auth-content { width: min(100%, 560px); }
+.site-login-dialog .page-hero { padding: 0 0 20px; background: transparent; }
+.site-login-dialog .page-hero-inner { display: block; }
+.site-login-dialog .page-hero h1 { margin-bottom: 8px; font-size: clamp(2rem, 5vw, 2.8rem); }
+.site-login-dialog .page-hero p { font-size: 1rem; }
+.site-login-dialog .admin-page { min-height: 0; padding: 0; background: transparent; }
+.site-login-dialog .admin-card { padding: clamp(24px, 5vw, 36px); border-color: #e2e9ef; border-radius: 15px; background: white; box-shadow: 0 18px 48px rgba(10,32,54,.09); }
+.site-login-dialog .admin-card .form-submit { width: 100%; }
+.site-login-dialog .admin-auth-back { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; color: #637386; font-size: .86rem; font-weight: 700; }
+.site-login-dialog .admin-auth-back:hover { color: #1769aa; }
+.site-login-dialog .admin-auth-footer { margin-top: 25px; color: #8793a0; font-size: .77rem; text-align: center; }
+.site-login-dialog .site-login-message:not([hidden]) { padding: 14px 16px; margin-bottom: 20px; border: 1px solid #efc5bd; border-radius: 10px; background: #fff4f1; color: #8b3025; font-size: .9rem; line-height: 1.5; }
+.site-login-dialog .site-login-message p { margin: 0; text-align: left; }
+.site-login-dialog .admin-form .form-submit:disabled { cursor: wait; opacity: .72; }
+@media (max-height: 760px) {
+    .site-login-dialog-content { padding-block: 18px; }
+    .site-login-dialog .admin-auth-brand { margin-bottom: 14px; }
+    .site-login-dialog .admin-auth-brand img { width: 42px; height: 42px; }
+    .site-login-dialog .page-hero { padding-bottom: 12px; }
+    .site-login-dialog .page-hero h1 { font-size: clamp(1.8rem, 4vw, 2.2rem); }
+    .site-login-dialog .admin-card { padding: 24px; }
+    .site-login-dialog .admin-auth-back { margin-top: 14px; }
+    .site-login-dialog .admin-auth-footer { margin-top: 14px; }
+}
 .whatsapp-link { position: fixed; right: 22px; bottom: 22px; z-index: 15; display: grid; width: 54px; height: 54px; place-items: center; border-radius: 50%; background: #25d366; color: white; box-shadow: 0 8px 24px rgba(6,66,47,.25); transition: background .18s ease, transform .18s ease; }
 .whatsapp-link:hover { background: #20bd5a; }
 .whatsapp-link:hover, .scroll-top:hover { transform: translateY(-2px); }
