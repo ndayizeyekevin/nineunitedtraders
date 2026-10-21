@@ -100,21 +100,18 @@ if (isset($_GET['updated']) && is_string($_GET['updated'])) {
         default => 'Team profile updated.',
     };
 }
-$documentBaseUrl = site_base_url();
 $pageTitle = 'Management Team';
 $pageDescription = 'Manage public management team profiles.';
-$activePage = '';
-include __DIR__ . '/../includes/header.php';
+$activeAdminPage = 'team';
+include __DIR__ . '/layout-header.php';
 ?>
 <section class="page-hero">
     <div class="container page-hero-inner">
         <div><span class="eyebrow">Administration</span><h1>Management team</h1><p>Manage names, titles, biographies and local image paths shown on the public Management page.</p></div>
-        <form method="post" action="<?= escape(site_base_url()) ?>admin/logout"><input type="hidden" name="csrf_token" value="<?= escape(csrf_token()) ?>"><button class="button button-secondary" type="submit">Sign out</button></form>
     </div>
 </section>
 <section class="admin-page">
     <div class="container">
-        <nav class="admin-nav" aria-label="Admin sections"><a href="<?= escape(site_base_url()) ?>admin">Dashboard</a><a href="<?= escape(site_base_url()) ?>admin/quotes">Quote requests</a><a aria-current="page" href="<?= escape(site_base_url()) ?>admin/team">Management team</a></nav>
         <?php if ($updateMessage !== ''): ?><div class="form-alert form-success" role="status"><p><?= escape($updateMessage) ?></p></div><?php endif; ?>
         <?php if ($errors !== []): ?><div class="form-alert form-error" role="alert"><ul><?php foreach ($errors as $error): ?><li><?= escape($error) ?></li><?php endforeach; ?></ul></div><?php endif; ?>
         <section class="admin-card admin-add-member">
@@ -149,4 +146,4 @@ include __DIR__ . '/../includes/header.php';
         </div>
     </div>
 </section>
-<?php include __DIR__ . '/../includes/footer.php'; ?>
+<?php include __DIR__ . '/layout-footer.php'; ?>

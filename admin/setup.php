@@ -107,8 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $documentBaseUrl = site_base_url();
 $pageTitle = 'Admin Setup';
 $pageDescription = 'Configure the Nine United Traders administration panel.';
-$activePage = '';
-include __DIR__ . '/../includes/header.php';
+include __DIR__ . '/auth-header.php';
 ?>
 <section class="page-hero">
     <div class="container page-hero-inner">
@@ -120,7 +119,7 @@ include __DIR__ . '/../includes/header.php';
         <section class="admin-card">
             <?php if ($errors !== []): ?><div class="form-alert form-error" role="alert"><ul><?php foreach ($errors as $error): ?><li><?= escape($error) ?></li><?php endforeach; ?></ul></div><?php endif; ?>
             <p>For safety, initial setup is only available from this computer. Use a dedicated database user with access only to the database you created.</p>
-            <form method="post" action="setup" class="admin-form">
+            <form method="post" action="<?= escape(site_base_url()) ?>admin/setup" class="admin-form">
                 <input type="hidden" name="csrf_token" value="<?= escape(csrf_token()) ?>">
                 <h2>Database connection</h2>
                 <div class="form-grid">
@@ -139,4 +138,4 @@ include __DIR__ . '/../includes/header.php';
         </section>
     </div>
 </section>
-<?php include __DIR__ . '/../includes/footer.php'; ?>
+<?php include __DIR__ . '/auth-footer.php'; ?>

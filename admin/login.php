@@ -58,8 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $documentBaseUrl = site_base_url();
 $pageTitle = 'Admin Sign In';
 $pageDescription = 'Sign in to manage quote requests and management profiles.';
-$activePage = '';
-include __DIR__ . '/../includes/header.php';
+include __DIR__ . '/auth-header.php';
 ?>
 <section class="page-hero">
     <div class="container page-hero-inner">
@@ -83,4 +82,4 @@ include __DIR__ . '/../includes/header.php';
         </section>
     </div>
 </section>
-<?php include __DIR__ . '/../includes/footer.php'; ?>
+<?php include __DIR__ . '/auth-footer.php'; ?>
