@@ -3,3 +3,4 @@ includes/database-config.php.tmp
 assets/images/team/*
 !assets/images/team/.htaccess
 /vendor/
+.htaccess

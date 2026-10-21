@@ -17,6 +17,7 @@ $token = isset($_POST['token']) && is_string($_POST['token'])
     : (isset($_GET['token']) && is_string($_GET['token']) ? $_GET['token'] : '');
 $hasToken = preg_match('/^[a-f0-9]{64}$/D', $token) === 1;
 $isResetPost = $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_password']);
+$isAjaxRequest = ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === 'XMLHttpRequest';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_POST['csrf_token']) || !is_string($_POST['csrf_token'])
@@ -163,6 +164,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isAjaxRequest) {
+    header('Content-Type: application/json; charset=utf-8');
+    if ($errors !== []) {
+        http_response_code(422);
+        echo json_encode([
+            'success' => false,
+            'message' => implode(' ', $errors),
+        ], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+    } else {
+        echo json_encode([
+            'success' => true,
+            'type' => $resetComplete ? 'reset' : 'request',
+            'message' => $resetComplete
+                ? 'Your password has been updated. You can now sign in with your new password.'
+                : $status,
+        ], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+    }
+    exit;
+}
+
 $tokenIsUsable = false;
 if ($hasToken && !$resetComplete && database_configured()) {
     try {
@@ -200,12 +221,13 @@ include __DIR__ . '/auth-header.php';
             <?php elseif ($tokenIsUsable): ?>
                 <h2>Choose a new password</h2>
                 <?php if ($errors !== []): ?><div class="form-alert form-error" role="alert"><ul><?php foreach ($errors as $error): ?><li><?= escape($error) ?></li><?php endforeach; ?></ul></div><?php endif; ?>
-                <form method="post" action="<?= escape(site_base_url()) ?>admin/forgot-password" class="admin-form">
+                <form method="post" action="<?= escape(site_base_url()) ?>admin/forgot-password" class="admin-form" data-recovery-form="reset">
+                    <input type="hidden" name="reset_password" value="1">
                     <input type="hidden" name="csrf_token" value="<?= escape(csrf_token()) ?>">
                     <input type="hidden" name="token" value="<?= escape($token) ?>">
                     <div class="field"><label for="new-password">New password</label><input class="form-control" id="new-password" name="new_password" type="password" minlength="12" maxlength="72" autocomplete="new-password" required></div>
                     <div class="field"><label for="password-confirmation">Confirm new password</label><input class="form-control" id="password-confirmation" name="password_confirmation" type="password" minlength="12" maxlength="72" autocomplete="new-password" required></div>
-                    <button class="button form-submit" type="submit" name="reset_password" value="1">Update password</button>
+                    <button class="button form-submit" type="submit"><span data-submit-label>Update password</span></button>
                 </form>
             <?php elseif ($hasToken): ?>
                 <h2>Reset link unavailable</h2>
@@ -216,13 +238,15 @@ include __DIR__ . '/auth-header.php';
                 <p>Enter the recovery email address for your admin account. If it matches an account, we will send a one-time link that expires in one hour.</p>
                 <?php if ($errors !== []): ?><div class="form-alert form-error" role="alert"><ul><?php foreach ($errors as $error): ?><li><?= escape($error) ?></li><?php endforeach; ?></ul></div><?php endif; ?>
                 <?php if ($status !== ''): ?><div class="form-alert form-success" role="status"><p><?= escape($status) ?></p></div><?php endif; ?>
-                <form method="post" action="<?= escape(site_base_url()) ?>admin/forgot-password" class="admin-form">
+                <form method="post" action="<?= escape(site_base_url()) ?>admin/forgot-password" class="admin-form" data-recovery-form="request">
                     <input type="hidden" name="csrf_token" value="<?= escape(csrf_token()) ?>">
                     <div class="field"><label for="recovery-email">Recovery email</label><input class="form-control" id="recovery-email" name="email" placeholder="you@example.com" type="email" maxlength="254" autocomplete="email" required></div>
-                    <button class="button form-submit" type="submit">Send reset link</button>
+                    <button class="button form-submit" type="submit"><span data-submit-label>Send reset link</span></button>
                 </form>
             <?php endif; ?>
         </section>
     </div>
 </section>
+<script src="assets/vendor/sweetalert2/sweetalert2.all.min.js" defer></script>
+<script src="assets/js/admin-recovery.js" defer></script>
 <?php include __DIR__ . '/auth-footer.php'; ?>
