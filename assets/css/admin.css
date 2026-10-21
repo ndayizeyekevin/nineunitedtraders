@@ -90,6 +90,7 @@
 .admin-member-dialog .admin-delete-button { display: inline-flex; align-items: center; gap: 7px; padding: 7px 10px; border-radius: 7px; transition: background .15s ease, color .15s ease; }
 .admin-member-dialog .admin-delete-button:hover { background: #fff0f0; color: #8f2424; text-decoration: none; }
 .admin-member-dialog .form-alert { margin-bottom: 20px; }
+.admin-member-dialog .swal2-container { z-index: 2; }
 .admin-swal-popup { border-radius: 16px !important; font-family: inherit !important; }
 .admin-swal-popup .swal2-title { color: #102b46; font-size: 1.35rem; }
 .admin-swal-popup .swal2-html-container { color: #637386; font-size: .94rem; line-height: 1.6; }

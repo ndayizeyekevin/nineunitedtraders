@@ -21,6 +21,9 @@
 
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {
+            if (window.Swal?.isVisible()) {
+                return;
+            }
             const dialog = document.querySelector('.admin-member-dialog[open]');
             if (dialog instanceof HTMLDialogElement) {
                 event.preventDefault();
@@ -73,6 +76,7 @@
             confirmButtonColor: '#b42332',
             cancelButtonColor: '#66788a',
             reverseButtons: true,
+            target: form.closest('dialog') || document.body,
             customClass: { popup: 'admin-swal-popup' }
         };
 
