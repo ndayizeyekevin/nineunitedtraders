@@ -16,8 +16,8 @@ include __DIR__ . '/includes/header.php';
                 <a class="button button-secondary" href="services.php">Explore our services</a>
             </div>
             <div class="hero-trust">
-                <span class="trust-dots" aria-hidden="true"><span></span><span></span><span></span></span>
-                Serving businesses from Kigali across the region
+                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                <span>Based in Kigali <span class="trust-separator">·</span> Connected across the region</span>
             </div>
         </div>
         <div class="hero-art" role="img" aria-label="Cargo truck on a regional road">
