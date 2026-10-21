@@ -73,7 +73,7 @@ include __DIR__ . '/../includes/header.php';
             <?php if ($errors !== []): ?><div class="form-alert form-error" role="alert"><ul><?php foreach ($errors as $error): ?><li><?= escape($error) ?></li><?php endforeach; ?></ul></div><?php endif; ?>
             <?php if (!database_configured()): ?><p>The database has not been installed. Run initial setup from this computer.</p><a class="button" href="<?= escape(site_base_url()) ?>admin/setup">Open setup</a>
             <?php else: ?>
-                <form method="post" action="login" class="admin-form">
+                <form method="post" action="<?= escape(site_base_url()) ?>admin/login" class="admin-form">
                     <input type="hidden" name="csrf_token" value="<?= escape(csrf_token()) ?>">
                     <div class="field"><label for="username">Username</label><input class="form-control" id="username" name="username" autocomplete="username" required value="<?= escape($username) ?>"></div>
                     <div class="field"><label for="password">Password</label><input class="form-control" id="password" name="password" type="password" autocomplete="current-password" required></div>
