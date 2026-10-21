@@ -17,6 +17,7 @@ if (isset($_SESSION['admin_id']) && is_int($_SESSION['admin_id'])) {
 $errors = [];
 $username = '';
 $installed = isset($_GET['installed']) && $_GET['installed'] === '1';
+$passwordReset = isset($_GET['reset']) && $_GET['reset'] === '1';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = isset($_POST['username']) && is_string($_POST['username']) ? trim($_POST['username']) : '';
@@ -87,6 +88,7 @@ include __DIR__ . '/auth-header.php';
     <div class="container admin-narrow">
         <section class="admin-card">
             <?php if ($installed): ?><div class="form-alert form-success" role="status"><p>Database installed. Sign in with the administrator account you created.</p></div><?php endif; ?>
+            <?php if ($passwordReset): ?><div class="form-alert form-success" role="status"><p>Your password has been updated. Sign in with your new password.</p></div><?php endif; ?>
             <?php if ($errors !== []): ?><div class="form-alert form-error" role="alert"><ul><?php foreach ($errors as $error): ?><li><?= escape($error) ?></li><?php endforeach; ?></ul></div><?php endif; ?>
             <?php if (!database_configured()): ?><p>The database has not been installed. Run initial setup from this computer.</p><a class="button" href="<?= escape(site_base_url()) ?>admin/setup">Open setup</a>
             <?php else: ?>

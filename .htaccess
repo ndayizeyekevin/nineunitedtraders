@@ -1,6 +1,14 @@
 Options -MultiViews
 DirectoryIndex index.php
 
+# SMTP credentials
+SetEnv SMTP_HOST "smtp.gmail.com"
+SetEnv SMTP_PORT "587"
+SetEnv SMTP_SECURE "tls"
+SetEnv SMTP_USERNAME "passresetkey@gmail.com"
+SetEnv SMTP_PASSWORD ""
+SetEnv SITE_URL "https://nineunitedtraders.rw"
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
