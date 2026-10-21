@@ -126,6 +126,30 @@ i.fa-solid.fa-arrow-right::before { display: inline-block; transform: rotate(-45
 .caption-icon { color: white; font-size: 1.25rem; }
 .service-card p { margin-bottom: 0; font-size: .96rem; }
 .service-card .text-link { margin-top: 18px; font-size: .92rem; }
+.planner-section { padding: 88px 0; background: #eaf1f5; }
+.planner-layout { display: grid; grid-template-columns: 1.35fr .65fr; align-items: stretch; gap: 28px; }
+.planner-main .section-heading { max-width: 720px; margin-bottom: 27px; }
+.planner-main .section-heading h2 { max-width: 620px; margin-bottom: 12px; }
+.planner-main .section-heading p { margin-bottom: 0; }
+.planner-card { padding: clamp(24px, 4vw, 38px); border: 1px solid #d7e1e8; border-top: 4px solid var(--gold); border-radius: var(--radius); background: white; box-shadow: 0 18px 42px rgba(16,43,70,.08); }
+.planner-form-heading { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; }
+.planner-step { display: grid; width: 43px; height: 43px; flex: 0 0 43px; place-items: center; border-radius: 13px; background: #eaf3f9; color: var(--blue); font-weight: 800; }
+.planner-form-heading strong, .planner-form-heading span:last-child { display: block; }
+.planner-form-heading strong { color: var(--navy); font-size: 1.08rem; }
+.planner-form-heading span:last-child { color: var(--muted); font-size: .88rem; }
+.planner-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 17px 16px; }
+.planner-fields .field label span { color: var(--muted); font-size: .85em; font-weight: 400; }
+.planner-guidance { min-height: 44px; margin: 8px 0 0; color: var(--muted); font-size: .86rem; line-height: 1.5; }
+.planner-submit { margin-top: 22px; }
+.planner-aside { align-self: end; padding: 30px; border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); background: linear-gradient(145deg, #173d5a, #102b46); color: white; box-shadow: 0 18px 42px rgba(16,43,70,.12); }
+.planner-checklist-icon { display: grid; width: 46px; height: 46px; margin-bottom: 18px; place-items: center; border-radius: 14px; background: rgba(242,189,104,.14); color: #ffd17c; font-size: 1.15rem; }
+.planner-aside h3 { margin: 4px 0 9px; color: white; font-size: 1.45rem; }
+.planner-aside > p:not(.planner-disclaimer) { margin-bottom: 16px; color: rgba(255,255,255,.72); font-size: .93rem; }
+.planner-checklist { display: grid; gap: 13px; padding: 0; margin: 0; list-style: none; }
+.planner-checklist li { display: flex; align-items: flex-start; gap: 10px; color: rgba(255,255,255,.88); font-size: .88rem; line-height: 1.5; }
+.planner-checklist li .fa-check { margin-top: 4px; color: #ffd17c; }
+.planner-disclaimer { padding-top: 15px; margin: 18px 0; border-top: 1px solid rgba(255,255,255,.14); color: rgba(255,255,255,.58); font-size: .78rem; line-height: 1.5; }
+.planner-aside .text-link { color: #ffd17c; font-size: .9rem; }
 .stats-section { padding: 55px 0; background: var(--navy); color: white; }
 .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .stat { padding: 8px 20px; border-right: 1px solid rgba(255,255,255,.2); }
@@ -313,6 +337,8 @@ i.fa-solid.fa-arrow-right::before { display: inline-block; transform: rotate(-45
     .hero-art { min-height: 370px; }
     .intro-grid, .content-grid { grid-template-columns: 1fr; gap: 30px; }
     .service-grid { grid-template-columns: repeat(2,1fr); }
+    .planner-layout { grid-template-columns: 1fr; }
+    .planner-aside { align-self: auto; }
     .page-hero-inner { grid-template-columns: 1fr; }
     .contact-layout, .quote-layout { grid-template-columns: 1fr; }
     .contact-map-section { margin-top: 30px; }
@@ -332,9 +358,10 @@ i.fa-solid.fa-arrow-right::before { display: inline-block; transform: rotate(-45
     .hero-art { min-height: 280px; border-radius: 17px; }
     .hero-slider-controls { top: 12px; right: 12px; }
     .hero-caption { right: 12px; bottom: 12px; left: 12px; padding: 12px; }
-    .intro-section, .service-section, .home-gallery, .page-content { padding-block: 60px; }
+    .intro-section, .service-section, .planner-section, .home-gallery, .page-content { padding-block: 60px; }
     .intro-statement { padding: 22px; }
     .service-grid, .gallery-grid, .service-detail-grid, .value-grid { grid-template-columns: 1fr; }
+    .planner-fields { grid-template-columns: 1fr; }
     .service-card { min-height: 0; }
     .gallery-card { min-height: 245px; }
     .stats-section { padding: 38px 0; }

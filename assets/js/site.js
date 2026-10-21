@@ -26,6 +26,52 @@ if (scrollTop) {
     updateScrollTopVisibility();
 }
 
+document.querySelectorAll('[data-shipment-planner]').forEach((planner) => {
+    const serviceSelect = planner.querySelector('[data-planner-service]');
+    const guidance = planner.querySelector('[data-planner-guidance]');
+
+    if (!(serviceSelect instanceof HTMLSelectElement) || !guidance) {
+        return;
+    }
+
+    const updateGuidance = () => {
+        const selectedOption = serviceSelect.selectedOptions[0];
+        guidance.textContent = selectedOption?.dataset.guidance || '';
+    };
+
+    serviceSelect.addEventListener('change', updateGuidance);
+    updateGuidance();
+});
+
+const quoteServiceSelect = document.querySelector('#service');
+if (quoteServiceSelect instanceof HTMLSelectElement) {
+    const routeServices = new Set([
+        'Cargo transportation',
+        'Cement and commodity importation',
+        'Clearing agency',
+    ]);
+    const routeFields = [...document.querySelectorAll('[data-route-field]')];
+
+    const updateRouteRequirements = () => {
+        const required = routeServices.has(quoteServiceSelect.value);
+        routeFields.forEach((field) => {
+            field.required = required;
+            const fieldContainer = field.closest('.field');
+            const requiredMarker = fieldContainer?.querySelector('[data-route-required-marker]');
+            const optionalMarker = fieldContainer?.querySelector('[data-route-optional-marker]');
+            if (requiredMarker) {
+                requiredMarker.hidden = !required;
+            }
+            if (optionalMarker) {
+                optionalMarker.hidden = required;
+            }
+        });
+    };
+
+    quoteServiceSelect.addEventListener('change', updateRouteRequirements);
+    updateRouteRequirements();
+}
+
 document.querySelectorAll('[data-hero-slider]').forEach((slider) => {
     const slides = [...slider.querySelectorAll('.hero-slide')];
     const indicators = [...slider.querySelectorAll('[data-hero-slide]')];

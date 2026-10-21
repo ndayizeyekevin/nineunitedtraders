@@ -106,11 +106,16 @@ function process_inquiry(string $type): array
         ], true)) {
             $errors[] = 'Choose a service for your quote.';
         }
-        if ($origin === '' || strlen($origin) > 120) {
-            $errors[] = 'Enter an origin (up to 120 characters).';
+        $routeRequired = in_array($service, [
+            'Cargo transportation',
+            'Cement and commodity importation',
+            'Clearing agency',
+        ], true);
+        if (($routeRequired && $origin === '') || strlen($origin) > 120) {
+            $errors[] = 'Enter a valid origin (up to 120 characters).';
         }
-        if ($destination === '' || strlen($destination) > 120) {
-            $errors[] = 'Enter a destination (up to 120 characters).';
+        if (($routeRequired && $destination === '') || strlen($destination) > 120) {
+            $errors[] = 'Enter a valid destination (up to 120 characters).';
         }
         if (strlen($cargo) > 180 || strlen($notes) > 2500) {
             $errors[] = 'Cargo details must be under 180 characters and additional notes under 2,500 characters.';
@@ -139,8 +144,8 @@ function process_inquiry(string $type): array
             'Phone: ' . $formattedPhone,
             'Email: ' . $email,
             'Service: ' . $service,
-            'Origin: ' . $origin,
-            'Destination: ' . $destination,
+            'Origin: ' . ($origin !== '' ? $origin : 'Not provided'),
+            'Destination: ' . ($destination !== '' ? $destination : 'Not provided'),
             'Cargo / commodity: ' . ($cargo !== '' ? $cargo : 'Not provided'),
             'Requested date: ' . ($date !== '' ? $date : 'Not provided'),
             '',

@@ -90,6 +90,57 @@ include __DIR__ . '/includes/header.php';
     </div>
 </section>
 
+<section class="planner-section" aria-labelledby="planner-title">
+    <div class="container planner-layout">
+        <div class="planner-main">
+            <div class="section-heading">
+                <span class="eyebrow">A simpler place to start</span>
+                <h2 id="planner-title">Not sure what your shipment needs?</h2>
+                <p>Tell us a little about what you’re planning. We’ll point you toward a relevant service and carry your details into a quote request.</p>
+            </div>
+            <form class="planner-card" action="quote.php" method="get" data-shipment-planner>
+                <div class="planner-form-heading">
+                    <span class="planner-step">01</span>
+                    <div><strong>Plan your request</strong><span>Share what you know; you can fill in the rest later.</span></div>
+                </div>
+                <div class="planner-fields">
+                    <div class="field field-full">
+                        <label for="planner-service">What do you need help with?</label>
+                        <select class="form-select" id="planner-service" name="service" data-planner-service>
+                            <option value="Cargo transportation" data-guidance="For moving goods, share where they’re starting, where they’re going, and what needs to be transported.">Moving goods</option>
+                            <option value="Cement and commodity importation" data-guidance="For an import inquiry, include the product or commodity and any quantity or timing details you know.">Importing cement or commodities</option>
+                            <option value="Warehousing and stores" data-guidance="For storage support, tell us what you need to store, approximate quantity, and when you need space.">Storing goods</option>
+                            <option value="Garage services" data-guidance="For fleet or garage support, describe the vehicle or operational service you need.">Getting vehicle or fleet support</option>
+                            <option value="Clearing agency" data-guidance="For clearing support, share the cargo, route, and any shipment or document details currently available.">Clearing a shipment</option>
+                            <option value="Training center" data-guidance="For training, tell us the topic and who the training is for.">Finding logistics training</option>
+                            <option value="Other" data-guidance="Tell us what you’re trying to achieve and our team can help identify a suitable service.">I’m not sure yet</option>
+                        </select>
+                        <p class="planner-guidance" data-planner-guidance aria-live="polite">For moving goods, share where they’re starting, where they’re going, and what needs to be transported.</p>
+                    </div>
+                    <div class="field"><label for="planner-origin">From <span>(if applicable)</span></label><input class="form-control" id="planner-origin" name="origin" type="text" maxlength="120" placeholder="Town, city or country"></div>
+                    <div class="field"><label for="planner-destination">To <span>(if applicable)</span></label><input class="form-control" id="planner-destination" name="destination" type="text" maxlength="120" placeholder="Town, city or country"></div>
+                    <div class="field field-full"><label for="planner-cargo">Cargo or other details <span>(optional)</span></label><input class="form-control" id="planner-cargo" name="cargo" type="text" maxlength="180" placeholder="What are you moving, importing or storing?"></div>
+                </div>
+                <button class="button planner-submit" type="submit">Continue to quote details <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+            </form>
+        </div>
+        <aside class="planner-aside">
+            <div class="planner-checklist-icon" aria-hidden="true"><i class="fa-solid fa-clipboard-check"></i></div>
+            <span class="form-kicker">Before you get in touch</span>
+            <h3>A few useful details</h3>
+            <p>Having these details nearby can help us understand your request:</p>
+            <ul class="planner-checklist">
+                <li><i class="fa-solid fa-check" aria-hidden="true"></i><span>What the goods or service requirement involves</span></li>
+                <li><i class="fa-solid fa-check" aria-hidden="true"></i><span>Origin, destination and preferred timing</span></li>
+                <li><i class="fa-solid fa-check" aria-hidden="true"></i><span>Approximate quantity, weight or vehicle details</span></li>
+                <li><i class="fa-solid fa-check" aria-hidden="true"></i><span>Any relevant invoices, packing lists or shipment references you already have</span></li>
+            </ul>
+            <p class="planner-disclaimer">Document needs can vary by cargo, route and service. Our team can confirm what applies to your request.</p>
+            <a class="text-link" href="services.php">Explore all services <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </aside>
+    </div>
+</section>
+
 <section class="stats-section" aria-label="Company facts">
     <div class="container">
         <div class="stats-grid">
