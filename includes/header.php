@@ -23,9 +23,9 @@ $navigation = [
     <title><?= escape($pageTitle) ?> | <?= escape(COMPANY_NAME) ?></title>
     <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=<?= (int) filemtime(__DIR__ . '/../assets/css/style.css') ?>">
     <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
-    <script src="assets/js/site.js" defer></script>
+    <script src="assets/js/site.js?v=<?= (int) filemtime(__DIR__ . '/../assets/js/site.js') ?>" defer></script>
 </head>
 <body id="top">
 <a class="skip-link" href="#main">Skip to content</a>

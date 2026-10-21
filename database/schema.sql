@@ -1,9 +1,16 @@
 CREATE TABLE IF NOT EXISTS admins (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(80) NOT NULL UNIQUE,
+    email VARCHAR(254) NOT NULL UNIQUE,
+    account_status ENUM('active', 'inactive', 'suspended') NOT NULL DEFAULT 'active',
+    account_type ENUM('superadmin', 'admin') NOT NULL DEFAULT 'admin',
     password_hash VARCHAR(255) NOT NULL,
+    password_reset_key CHAR(64) NULL DEFAULT NULL,
+    password_reset_expires_at DATETIME NULL DEFAULT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    last_login_at TIMESTAMP NULL DEFAULT NULL
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    last_login_at TIMESTAMP NULL DEFAULT NULL,
+    UNIQUE KEY admins_password_reset_key_unique (password_reset_key)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS quote_requests (

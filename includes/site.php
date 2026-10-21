@@ -281,22 +281,27 @@ function process_inquiry(string $type): array
         }
     }
 
-    $headers = ['Content-Type: text/plain; charset=UTF-8'];
-    if ($replyTo !== '') {
-        $headers[] = 'Reply-To: ' . $replyTo;
-    }
-
-    if (mail(COMPANY_EMAIL, $subject, $body, implode("\r\n", $headers))) {
+    require_once __DIR__ . '/email.php';
+    try {
+        send_email(
+            COMPANY_EMAIL,
+            $subject,
+            '<pre style="font-family:Arial,sans-serif;white-space:pre-wrap">' . escape($body) . '</pre>',
+            $body,
+            $replyTo !== '' ? $replyTo : null
+        );
         $status = 'Thank you. Your request has been sent to our team.';
         $values = [];
         unset($_SESSION['csrf_token']);
-    } elseif ($type === 'quote') {
-        error_log('Quote request was stored, but its email notification could not be sent.');
-        $status = 'Your quote request was saved. Our team will review it, but email notifications are temporarily unavailable.';
-        $values = [];
-        unset($_SESSION['csrf_token']);
-    } else {
-        $errors[] = 'We could not send your request from this server. Please contact us by phone or email instead.';
+    } catch (RuntimeException $exception) {
+        error_log('Website inquiry email failed: ' . $exception->getMessage());
+        if ($type === 'quote') {
+            $status = 'Your quote request was saved. Our team will review it, but email notifications are temporarily unavailable.';
+            $values = [];
+            unset($_SESSION['csrf_token']);
+        } else {
+            $errors[] = 'We could not send your request from this server. Please contact us by phone or email instead.';
+        }
     }
 
     return [$values, $errors, $status];

@@ -1,6 +1,80 @@
 const menuToggle = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('.primary-navigation');
 const scrollTop = document.querySelector('.scroll-top');
+const loginDialog = document.querySelector('#admin-login-dialog');
+const loginOpenButton = document.querySelector('[data-login-open]');
+
+if (loginDialog instanceof HTMLDialogElement && loginOpenButton instanceof HTMLButtonElement) {
+    loginOpenButton.addEventListener('click', () => {
+        loginDialog.showModal();
+        loginDialog.querySelector('input[name="username"]')?.focus();
+    });
+
+    loginDialog.querySelectorAll('[data-login-close]').forEach((button) => {
+        button.addEventListener('click', () => loginDialog.close());
+    });
+
+    loginDialog.addEventListener('click', (event) => {
+        if (event.target === loginDialog) {
+            loginDialog.close();
+        }
+    });
+}
+
+const adminLoginForm = document.querySelector('[data-admin-login]');
+if (adminLoginForm instanceof HTMLFormElement && loginDialog instanceof HTMLDialogElement) {
+    const submitButton = adminLoginForm.querySelector('button[type="submit"]');
+    const message = loginDialog.querySelector('.site-login-message');
+
+    adminLoginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        if (!(submitButton instanceof HTMLButtonElement) || !(message instanceof HTMLElement)) {
+            return;
+        }
+
+        message.hidden = true;
+        message.textContent = '';
+        submitButton.disabled = true;
+        submitButton.setAttribute('aria-busy', 'true');
+
+        try {
+            const response = await fetch(adminLoginForm.action, {
+                method: 'POST',
+                body: new FormData(adminLoginForm),
+                credentials: 'same-origin',
+                headers: {
+                    Accept: 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+            });
+            let result;
+            try {
+                result = await response.json();
+            } catch {
+                throw new Error('Sign-in could not be completed. Please try again.');
+            }
+
+            if (response.ok && result.success === true && typeof result.redirect === 'string') {
+                window.location.assign(result.redirect);
+                return;
+            }
+
+            const errors = Array.isArray(result.errors) ? result.errors.filter((error) => typeof error === 'string') : [];
+            message.textContent = errors.length > 0
+                ? errors.join(' ')
+                : 'Sign-in could not be completed. Please check your details and try again.';
+            message.hidden = false;
+        } catch (error) {
+            message.textContent = error instanceof Error
+                ? error.message
+                : 'Sign-in could not be completed. Check your connection and try again.';
+            message.hidden = false;
+        } finally {
+            submitButton.disabled = false;
+            submitButton.removeAttribute('aria-busy');
+        }
+    });
+}
 
 if (menuToggle && navigation) {
     menuToggle.addEventListener('click', () => {

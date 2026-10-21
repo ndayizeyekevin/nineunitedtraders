@@ -4,13 +4,20 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/auth.php';
 
+$isAjaxRequest = ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === 'XMLHttpRequest';
 if (isset($_SESSION['admin_id']) && is_int($_SESSION['admin_id'])) {
+    if ($isAjaxRequest) {
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['success' => true, 'redirect' => site_base_url() . 'admin']);
+        exit;
+    }
     admin_redirect('');
 }
 
 $errors = [];
 $username = '';
 $installed = isset($_GET['installed']) && $_GET['installed'] === '1';
+$passwordReset = isset($_GET['reset']) && $_GET['reset'] === '1';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = isset($_POST['username']) && is_string($_POST['username']) ? trim($_POST['username']) : '';
@@ -42,6 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 unset($_SESSION[$attemptKey], $_SESSION['csrf_token']);
                 database_connection()->prepare('UPDATE admins SET last_login_at = CURRENT_TIMESTAMP WHERE id = :id')
                     ->execute(['id' => (int) $admin['id']]);
+                if ($isAjaxRequest) {
+                    header('Content-Type: application/json; charset=utf-8');
+                    echo json_encode(['success' => true, 'redirect' => site_base_url() . 'admin']);
+                    exit;
+                }
                 admin_redirect('');
             }
 
@@ -55,11 +67,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+if ($isAjaxRequest) {
+    http_response_code(422);
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(['success' => false, 'errors' => $errors], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+    exit;
+}
+
 $documentBaseUrl = site_base_url();
 $pageTitle = 'Admin Sign In';
 $pageDescription = 'Sign in to manage quote requests and management profiles.';
-$activePage = '';
-include __DIR__ . '/../includes/header.php';
+include __DIR__ . '/auth-header.php';
 ?>
 <section class="page-hero">
     <div class="container page-hero-inner">
@@ -70,17 +88,18 @@ include __DIR__ . '/../includes/header.php';
     <div class="container admin-narrow">
         <section class="admin-card">
             <?php if ($installed): ?><div class="form-alert form-success" role="status"><p>Database installed. Sign in with the administrator account you created.</p></div><?php endif; ?>
+            <?php if ($passwordReset): ?><div class="form-alert form-success" role="status"><p>Your password has been updated. Sign in with your new password.</p></div><?php endif; ?>
             <?php if ($errors !== []): ?><div class="form-alert form-error" role="alert"><ul><?php foreach ($errors as $error): ?><li><?= escape($error) ?></li><?php endforeach; ?></ul></div><?php endif; ?>
             <?php if (!database_configured()): ?><p>The database has not been installed. Run initial setup from this computer.</p><a class="button" href="<?= escape(site_base_url()) ?>admin/setup">Open setup</a>
             <?php else: ?>
                 <form method="post" action="<?= escape(site_base_url()) ?>admin/login" class="admin-form">
                     <input type="hidden" name="csrf_token" value="<?= escape(csrf_token()) ?>">
                     <div class="field"><label for="username">Username</label><input class="form-control" id="username" name="username" autocomplete="username" required value="<?= escape($username) ?>"></div>
-                    <div class="field"><label for="password">Password</label><input class="form-control" id="password" name="password" type="password" autocomplete="current-password" required></div>
+                    <div class="field"><label for="password">Password</label><input class="form-control" id="password" name="password" type="password" autocomplete="current-password" required><a class="admin-forgot-link" href="<?= escape(site_base_url()) ?>admin/forgot-password">Forgot password?</a></div>
                     <button class="button form-submit" type="submit">Sign in</button>
                 </form>
             <?php endif; ?>
         </section>
     </div>
 </section>
-<?php include __DIR__ . '/../includes/footer.php'; ?>
+<?php include __DIR__ . '/auth-footer.php'; ?>

@@ -229,16 +229,30 @@ i.fa-solid.fa-arrow-right::before { display: inline-block; transform: rotate(-45
 .admin-member-heading p { margin: 0; font-size: .9rem; }
 .admin-checkbox { display: flex; align-items: center; gap: 9px; font-weight: 600 !important; }
 .admin-checkbox input { width: 18px; height: 18px; accent-color: var(--blue); }
+.admin-image-field { align-items: flex-start; }
+.admin-image-field > label:first-child { margin-bottom: 1px; }
+.admin-image-input { max-width: 100%; padding: 8px !important; background: #f8fafc !important; }
+.admin-image-input::file-selector-button { margin-right: 12px; padding: 8px 12px; border: 1px solid #d5dfe8; border-radius: 7px; background: white; color: var(--navy); font: inherit; font-size: .85rem; font-weight: 700; cursor: pointer; }
+.admin-image-input::file-selector-button:hover { border-color: var(--blue); color: var(--blue); }
+.admin-field-help { color: #718095; font-size: .8rem; line-height: 1.5; }
+.admin-image-preview { display: flex; align-items: center; gap: 12px; color: #637386; font-size: .84rem; }
+.admin-image-preview img { width: 66px; height: 66px; border: 1px solid var(--line); border-radius: 10px; object-fit: cover; }
+.admin-image-remove { margin-top: 2px; }
 .admin-member-actions { display: flex; flex-wrap: wrap; gap: 9px; }
 .admin-delete-form { margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--line); }
 .admin-delete-button { padding: 5px 0; border: 0; background: transparent; color: #a53535; font: inherit; font-size: .88rem; font-weight: 700; cursor: pointer; }
 .admin-delete-button:hover { text-decoration: underline; }
 .team-section { margin-top: 76px; }
 .team-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-.team-card { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: white; box-shadow: 0 12px 30px rgba(10,32,54,.06); }
-.team-card-image, .team-card-placeholder { display: grid; width: 100%; height: 250px; place-items: center; background: linear-gradient(145deg, #eaf2f7, #dce7ed); color: var(--blue); font-size: 4rem; font-weight: 800; object-fit: cover; }
+.team-card { --team-accent: #1769aa; overflow: hidden; border: 1px solid var(--line); border-top: 3px solid var(--team-accent); border-radius: var(--radius); background: white; box-shadow: 0 12px 30px rgba(10,32,54,.06); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+.team-card:nth-child(4n + 2) { --team-accent: #25836c; }
+.team-card:nth-child(4n + 3) { --team-accent: #9367ad; }
+.team-card:nth-child(4n + 4) { --team-accent: #bd7b34; }
+.team-card:hover, .team-card:focus-within { transform: translateY(-5px); border-color: color-mix(in srgb, var(--team-accent) 32%, white); box-shadow: 0 20px 42px rgba(10,32,54,.13); }
+.team-card-image, .team-card-placeholder { display: grid; width: 100%; height: 250px; place-items: center; background: linear-gradient(145deg, color-mix(in srgb, var(--team-accent) 12%, white), #dce7ed); color: var(--team-accent); font-size: 4rem; font-weight: 800; }
+.team-card-image { object-fit: contain; object-position: center; }
 .team-card-content { padding: 22px; }
-.team-card-title { color: var(--blue); font-size: .78rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.team-card-title { color: var(--team-accent); font-size: .78rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
 .team-card-content h3 { margin: 7px 0 12px; font-size: 1.35rem; }
 .team-card-content p { margin: 0; white-space: pre-line; }
 .team-empty-state { display: flex; align-items: center; gap: 14px; padding: 22px; border-radius: 12px; background: var(--mist); }
@@ -379,6 +393,43 @@ i.fa-solid.fa-arrow-right::before { display: inline-block; transform: rotate(-45
 .footer-cta p { color: rgba(255,255,255,.73); }
 .footer-cta .button { min-height: 46px; padding-inline: 15px; font-size: .9rem; }
 .footer-bottom { display: flex; justify-content: space-between; gap: 16px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.15); color: rgba(255,255,255,.56); font-size: .79rem; }
+.footer-bottom-meta { display: flex; align-items: center; gap: 18px; }
+.footer-admin-login { padding: 4px 0; border: 0; background: transparent; color: rgba(255,255,255,.72); font: inherit; cursor: pointer; transition: color .18s ease; }
+.footer-admin-login:hover, .footer-admin-login:focus-visible { color: #ffd17c; text-decoration: underline; }
+.site-login-dialog { width: min(600px, calc(100vw - 32px)); max-width: none; max-height: calc(100dvh - 32px); margin: auto; padding: 0; overflow: auto; border: 0; border-radius: 18px; background: #f2f6f9; color: var(--ink); box-shadow: 0 24px 80px rgba(7,25,42,.3); }
+.site-login-dialog::backdrop { background: rgba(8,24,39,.68); backdrop-filter: blur(3px); }
+.site-login-dialog-content { position: relative; display: flex; flex-direction: column; align-items: center; padding: clamp(28px, 5vw, 42px) clamp(20px, 5vw, 42px); background: radial-gradient(ellipse at 82% 15%, rgba(23,105,170,.12), transparent 38%), #f2f6f9; }
+.site-login-close { position: absolute; top: 14px; right: 14px; display: grid; width: 38px; height: 38px; place-items: center; border: 1px solid #dce5ec; border-radius: 10px; background: rgba(255,255,255,.78); color: #526376; cursor: pointer; font-size: 1rem; }
+.site-login-close:hover { background: white; color: #102b46; }
+.site-login-dialog .admin-auth-brand { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 25px; color: #102b46; font-size: 1rem; font-weight: 800; line-height: 1.2; }
+.site-login-dialog .admin-auth-brand img { width: 48px; height: 48px; object-fit: contain; }
+.site-login-dialog .admin-auth-brand strong { display: block; margin-top: 3px; color: #637386; font-size: .85rem; }
+.site-login-dialog .admin-auth-content { width: min(100%, 560px); }
+.site-login-dialog .page-hero { padding: 0 0 20px; background: transparent; }
+.site-login-dialog .page-hero-inner { display: block; }
+.site-login-dialog .page-hero h1 { margin-bottom: 8px; font-size: clamp(2rem, 5vw, 2.8rem); }
+.site-login-dialog .page-hero p { font-size: 1rem; }
+.site-login-dialog .admin-page { min-height: 0; padding: 0; background: transparent; }
+.site-login-dialog .admin-card { padding: clamp(24px, 5vw, 36px); border-color: #e2e9ef; border-radius: 15px; background: white; box-shadow: 0 18px 48px rgba(10,32,54,.09); }
+.site-login-dialog .admin-card .form-submit { width: 100%; }
+.site-login-dialog .admin-forgot-link { align-self: flex-end; margin-top: 2px; color: #1769aa; font-size: .84rem; font-weight: 700; }
+.site-login-dialog .admin-forgot-link:hover { color: #0e4d89; text-decoration: underline; }
+.site-login-dialog .admin-auth-back { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; color: #637386; font-size: .86rem; font-weight: 700; }
+.site-login-dialog .admin-auth-back:hover { color: #1769aa; }
+.site-login-dialog .admin-auth-footer { margin-top: 25px; color: #8793a0; font-size: .77rem; text-align: center; }
+.site-login-dialog .site-login-message:not([hidden]) { padding: 14px 16px; margin-bottom: 20px; border: 1px solid #efc5bd; border-radius: 10px; background: #fff4f1; color: #8b3025; font-size: .9rem; line-height: 1.5; }
+.site-login-dialog .site-login-message p { margin: 0; text-align: left; }
+.site-login-dialog .admin-form .form-submit:disabled { cursor: wait; opacity: .72; }
+@media (max-height: 760px) {
+    .site-login-dialog-content { padding-block: 18px; }
+    .site-login-dialog .admin-auth-brand { margin-bottom: 14px; }
+    .site-login-dialog .admin-auth-brand img { width: 42px; height: 42px; }
+    .site-login-dialog .page-hero { padding-bottom: 12px; }
+    .site-login-dialog .page-hero h1 { font-size: clamp(1.8rem, 4vw, 2.2rem); }
+    .site-login-dialog .admin-card { padding: 24px; }
+    .site-login-dialog .admin-auth-back { margin-top: 14px; }
+    .site-login-dialog .admin-auth-footer { margin-top: 14px; }
+}
 .whatsapp-link { position: fixed; right: 22px; bottom: 22px; z-index: 15; display: grid; width: 54px; height: 54px; place-items: center; border-radius: 50%; background: #25d366; color: white; box-shadow: 0 8px 24px rgba(6,66,47,.25); transition: background .18s ease, transform .18s ease; }
 .whatsapp-link:hover { background: #20bd5a; }
 .whatsapp-link:hover, .scroll-top:hover { transform: translateY(-2px); }

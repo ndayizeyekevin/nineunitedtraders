@@ -28,9 +28,43 @@
     </div>
     <div class="container footer-bottom">
         <span>© <?= date('Y') ?> Nine United Traders Ltd. All rights reserved.</span>
-        <span>Registered in Rwanda · TIN: 108642399</span>
+        <div class="footer-bottom-meta">
+            <span>Registered in Rwanda · TIN: 108642399</span>
+            <button class="footer-admin-login" type="button" data-login-open aria-haspopup="dialog" aria-controls="admin-login-dialog">Admin login</button>
+        </div>
     </div>
 </footer>
+<dialog class="site-login-dialog" id="admin-login-dialog" aria-labelledby="admin-login-title">
+    <div class="site-login-dialog-content">
+        <button class="site-login-close" type="button" data-login-close aria-label="Close sign-in dialog">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+        <a class="admin-auth-brand" href="./">
+            <img src="assets/images/logo.png" alt="">
+            <span>Nine United <strong>Traders Ltd</strong></span>
+        </a>
+        <div class="admin-auth-content">
+            <section class="page-hero">
+                <div class="container page-hero-inner">
+                    <div><span class="eyebrow">Administration</span><h1 id="admin-login-title">Admin sign in</h1><p>Sign in to manage quote requests and management profiles.</p></div>
+                </div>
+            </section>
+            <section class="admin-page">
+                <section class="admin-card">
+                    <div class="site-login-message form-alert form-error" role="alert" aria-live="polite" hidden></div>
+                    <form class="admin-form" method="post" action="<?= escape(site_base_url()) ?>admin/login" data-admin-login>
+                        <input type="hidden" name="csrf_token" value="<?= escape(csrf_token()) ?>">
+                        <div class="field"><label for="footer-admin-username">Username</label><input class="form-control" id="footer-admin-username" name="username" autocomplete="username" required></div>
+                        <div class="field"><label for="footer-admin-password">Password</label><input class="form-control" id="footer-admin-password" name="password" type="password" autocomplete="current-password" required><a class="admin-forgot-link" href="<?= escape(site_base_url()) ?>admin/forgot-password">Forgot password?</a></div>
+                        <button class="button form-submit" type="submit">Sign in</button>
+                    </form>
+                </section>
+            </section>
+        </div>
+        <a class="admin-auth-back" href="./" data-login-close><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to website</a>
+        <footer class="admin-auth-footer">© <?= date('Y') ?> Nine United Traders Ltd</footer>
+    </div>
+</dialog>
 <a class="whatsapp-link" href="https://wa.me/250788302388" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
     <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
 </a>
