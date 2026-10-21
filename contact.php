@@ -23,7 +23,7 @@ include __DIR__ . '/includes/header.php';
         <aside class="contact-card">
             <h2>Get in touch</h2>
             <p>Reach our Kigali office using the details below.</p>
-            <div class="contact-method"><span class="contact-method-icon" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></span><div><strong>Visit us</strong><span>CHIC Building, Kigali City Center<br>P.O. Box 5855, Kigali, Rwanda</span><a class="map-link" href="https://maps.google.com/?q=CHIC+Building+Kigali+Rwanda" target="_blank" rel="noopener noreferrer">Get directions ↗</a></div></div>
+            <div class="contact-method"><span class="contact-method-icon" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></span><div><strong>Visit us</strong><span>CHIC Building, Kigali City Center<br>P.O. Box 5855, Kigali, Rwanda </span><a class="map-link" href="https://maps.google.com/?q=CHIC+Building+Kigali+Rwanda" target="_blank" rel="noopener noreferrer">Get directions <i class="fa-solid fa-arrow-right map-link-icon ms-2" aria-hidden="true"></i></a></div></div>
             <div class="contact-method"><span class="contact-method-icon" aria-hidden="true"><i class="fa-solid fa-phone"></i></span><div><strong>Call us</strong><a href="tel:+250788302388">+250 788 302 388</a><br><a href="tel:+250788304751">+250 788 304 751</a><br><a href="tel:+250788319013">+250 788 319 013</a></div></div>
             <div class="contact-method"><span class="contact-method-icon" aria-hidden="true"><i class="fa-solid fa-envelope"></i></span><div><strong>Email</strong><a href="mailto:nineunited2050@gmail.com">nineunited2050@gmail.com</a></div></div>
         </aside>
@@ -57,9 +57,9 @@ include __DIR__ . '/includes/header.php';
             <div>
                 <span class="form-kicker">Find our office</span>
                 <h2>CHIC Building, Kigali City Center</h2>
-                <p>Kigali City Center, Kigali, Rwanda</p>
+                <p>Kigali City Center, Kigali, Rwanda</p> 
             </div>
-            <a class="button button-small contact-map-directions" href="https://maps.google.com/?q=CHIC+Building%2C+Kigali+City+Center%2C+Kigali%2C+Rwanda" target="_blank" rel="noopener noreferrer">Get directions <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            <a class="button button-small contact-map-directions ms-3" href="https://maps.google.com/?q=CHIC+Building%2C+Kigali+City+Center%2C+Kigali%2C+Rwanda" target="_blank" rel="noopener noreferrer"> Get directions <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
         </div>
         <div class="contact-map-frame">
             <iframe
