@@ -6,6 +6,8 @@ Use a strong administrator password of at least 12 characters. The database conn
 
 Install PHP dependencies with `composer install --no-dev`. SMTP settings are read from the root `.htaccess` (`SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USERNAME`, and `SMTP_PASSWORD`); fill in the SMTP password on the server and do not commit it. `SITE_URL` must contain the canonical site origin used in password-reset links. Set it to the correct origin for local development or any custom deployment.
 
+To check SMTP connectivity without sending a message, open `/admin/smtp-test` from the local server and select **Test SMTP connection**. This diagnostic checks connection and authentication only, is restricted to localhost, and never displays SMTP credentials. On failure, inspect the Apache error log for details.
+
 After installation:
 
 - Sign in at `/admin/login`.
