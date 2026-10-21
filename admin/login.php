@@ -4,7 +4,13 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/auth.php';
 
+$isAjaxRequest = ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === 'XMLHttpRequest';
 if (isset($_SESSION['admin_id']) && is_int($_SESSION['admin_id'])) {
+    if ($isAjaxRequest) {
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['success' => true, 'redirect' => site_base_url() . 'admin']);
+        exit;
+    }
     admin_redirect('');
 }
 
@@ -42,6 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 unset($_SESSION[$attemptKey], $_SESSION['csrf_token']);
                 database_connection()->prepare('UPDATE admins SET last_login_at = CURRENT_TIMESTAMP WHERE id = :id')
                     ->execute(['id' => (int) $admin['id']]);
+                if ($isAjaxRequest) {
+                    header('Content-Type: application/json; charset=utf-8');
+                    echo json_encode(['success' => true, 'redirect' => site_base_url() . 'admin']);
+                    exit;
+                }
                 admin_redirect('');
             }
 
@@ -53,6 +64,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors[] = 'Sign-in is temporarily unavailable. Check the database configuration and try again.';
         }
     }
+}
+
+if ($isAjaxRequest) {
+    http_response_code(422);
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(['success' => false, 'errors' => $errors], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+    exit;
 }
 
 $documentBaseUrl = site_base_url();

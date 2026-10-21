@@ -393,6 +393,23 @@ i.fa-solid.fa-arrow-right::before { display: inline-block; transform: rotate(-45
 .footer-cta p { color: rgba(255,255,255,.73); }
 .footer-cta .button { min-height: 46px; padding-inline: 15px; font-size: .9rem; }
 .footer-bottom { display: flex; justify-content: space-between; gap: 16px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.15); color: rgba(255,255,255,.56); font-size: .79rem; }
+.footer-bottom-meta { display: flex; align-items: center; gap: 18px; }
+.footer-admin-login { padding: 4px 0; border: 0; background: transparent; color: rgba(255,255,255,.72); font: inherit; cursor: pointer; transition: color .18s ease; }
+.footer-admin-login:hover, .footer-admin-login:focus-visible { color: #ffd17c; text-decoration: underline; }
+.site-login-dialog { width: min(440px, calc(100vw - 32px)); max-width: none; max-height: calc(100dvh - 32px); margin: auto; padding: 0; overflow: auto; border: 0; border-top: 4px solid var(--gold); border-radius: 16px; background: white; color: var(--ink); box-shadow: 0 24px 80px rgba(7,25,42,.3); }
+.site-login-dialog::backdrop { background: rgba(8,24,39,.68); backdrop-filter: blur(3px); }
+.site-login-dialog-content { padding: clamp(22px, 5vw, 32px); }
+.site-login-dialog-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.site-login-dialog-header .eyebrow { display: block; margin-bottom: 7px; color: var(--blue); }
+.site-login-dialog-header h2 { margin: 0; color: var(--navy); font-size: clamp(1.35rem, 4vw, 1.7rem); }
+.site-login-intro { margin: 12px 0 22px; color: var(--muted); font-size: .92rem; }
+.site-login-close { display: grid; width: 38px; height: 38px; flex: 0 0 38px; place-items: center; border: 1px solid var(--line); border-radius: 10px; background: #f7f9fb; color: #526376; cursor: pointer; font-size: 1rem; }
+.site-login-close:hover { background: #edf2f6; color: var(--navy); }
+.site-login-form { display: grid; gap: 17px; }
+.site-login-form .form-control { min-height: 48px; }
+.site-login-submit { width: 100%; margin-top: 4px; }
+.site-login-submit:disabled { cursor: wait; opacity: .72; }
+.site-login-message:not([hidden]) { padding: 12px 14px; border: 1px solid #efc5bd; border-radius: 9px; background: #fff4f1; color: #8b3025; font-size: .9rem; line-height: 1.5; }
 .whatsapp-link { position: fixed; right: 22px; bottom: 22px; z-index: 15; display: grid; width: 54px; height: 54px; place-items: center; border-radius: 50%; background: #25d366; color: white; box-shadow: 0 8px 24px rgba(6,66,47,.25); transition: background .18s ease, transform .18s ease; }
 .whatsapp-link:hover { background: #20bd5a; }
 .whatsapp-link:hover, .scroll-top:hover { transform: translateY(-2px); }
