@@ -40,7 +40,7 @@
 .admin-content .admin-page { min-height: 0; padding: 0 clamp(20px, 4vw, 48px) 45px; background: transparent; }
 .admin-content .admin-page > .container { width: 100%; max-width: 1320px; padding: 0; }
 .admin-content .admin-nav { display: none; }
-.admin-footer { display: flex; justify-content: space-between; gap: 12px; padding: 18px clamp(20px, 4vw, 48px); border-top: 1px solid rgba(255,255,255,.1); background: #102b46; color: rgba(255,255,255,.68); font-size: .78rem; }
+.admin-footer { display: flex; justify-content: space-between; gap: 12px; padding: 18px clamp(20px, 4vw, 48px); border-top: 1px solid rgba(255,255,255,.1); background: #000; color: rgba(255,255,255,.68); font-size: .78rem; }
 .admin-footer span { color: rgba(255,255,255,.45); }
 .admin-content .admin-card { border-color: var(--admin-border); border-radius: 13px; box-shadow: var(--admin-shadow); }
 .admin-content .admin-stat-card { border-color: var(--admin-border); border-radius: 13px; box-shadow: var(--admin-shadow); transition: transform .16s ease, border-color .16s ease; }
