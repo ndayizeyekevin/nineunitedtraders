@@ -85,12 +85,25 @@ i.fa-solid.fa-arrow-right::before { display: inline-block; transform: rotate(-45
 .hero-actions .button-secondary { border-color: rgba(255,255,255,.42); background: rgba(255,255,255,.04); color: white; }
 .hero-actions .button-secondary:hover { border-color: rgba(255,255,255,.78); background: rgba(255,255,255,.11); color: white; }
 .hero-art { position: relative; min-height: 470px; overflow: hidden; border: 1px solid rgba(255,255,255,.16); border-radius: 24px; background: #183d58; box-shadow: 0 28px 70px rgba(0,0,0,.28); }
-.hero-art::before { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(8,27,45,.72), transparent 55%), linear-gradient(90deg, rgba(10,32,54,.18), transparent 55%), url("https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=85") center 56% / cover; content: ""; }
 .hero-art::after { position: absolute; inset: 0; border: 1px solid rgba(255,255,255,.06); border-radius: inherit; background: linear-gradient(145deg, rgba(20,91,145,.2), transparent 52%); content: ""; }
+.hero-slides, .hero-slide { position: absolute; inset: 0; }
+.hero-slide { opacity: 0; transition: opacity .7s ease; }
+.hero-slide.is-active { opacity: 1; }
+.hero-slide img { width: 100%; height: 100%; object-fit: cover; }
+.hero-slide::after { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(8,27,45,.72), transparent 55%), linear-gradient(90deg, rgba(10,32,54,.18), transparent 55%); content: ""; }
 .hero-caption { position: absolute; z-index: 1; right: 20px; bottom: 20px; left: 20px; display: flex; align-items: center; gap: 14px; padding: 16px 18px; border: 1px solid rgba(255,255,255,.35); border-radius: 13px; background: rgba(10,32,54,.74); color: white; backdrop-filter: blur(9px); }
 .hero-caption strong { display: block; font-family: Arial, sans-serif; }
 .hero-caption span { color: rgba(255,255,255,.78); font-size: .86rem; }
 .caption-icon { display: grid; width: 44px; height: 44px; flex: 0 0 44px; place-items: center; border-radius: 12px; background: var(--gold); }
+.hero-slider-controls { position: absolute; z-index: 2; top: 18px; right: 18px; display: flex; align-items: center; gap: 8px; padding: 6px; border: 1px solid rgba(255,255,255,.2); border-radius: 999px; background: rgba(10,32,54,.68); backdrop-filter: blur(8px); }
+.hero-slider-arrow, .hero-slider-dot { display: grid; flex: 0 0 auto; place-items: center; border: 0; border-radius: 50%; background: transparent; color: white; cursor: pointer; }
+.hero-slider-arrow { width: 32px; height: 32px; }
+.hero-slider-arrow:hover { background: rgba(255,255,255,.2); }
+.hero-slider-dot.is-active { background: rgba(255,255,255,.2); }
+.hero-slider-arrow:focus-visible, .hero-slider-dot:focus-visible { outline: 2px solid #ffd17c; outline-offset: 2px; }
+.hero-slider-dots { display: flex; align-items: center; gap: 6px; }
+.hero-slider-dot { width: 10px; height: 10px; padding: 0; background: rgba(255,255,255,.58); }
+.hero-slider-dot.is-active { width: 22px; border-radius: 99px; background: #f3b857; }
 .hero-trust { display: flex; align-items: center; gap: 10px; margin-top: 29px; color: rgba(255,255,255,.74); font-size: .9rem; }
 .hero-trust > .fa-location-dot { color: #f3b857; }
 .trust-separator { padding-inline: 4px; color: #f3b857; }
@@ -317,6 +330,7 @@ i.fa-solid.fa-arrow-right::before { display: inline-block; transform: rotate(-45
     .brand-name { font-size: .91rem; }
     .hero { padding-top: 24px; }
     .hero-art { min-height: 280px; border-radius: 17px; }
+    .hero-slider-controls { top: 12px; right: 12px; }
     .hero-caption { right: 12px; bottom: 12px; left: 12px; padding: 12px; }
     .intro-section, .service-section, .home-gallery, .page-content { padding-block: 60px; }
     .intro-statement { padding: 22px; }

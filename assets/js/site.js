@@ -26,6 +26,98 @@ if (scrollTop) {
     updateScrollTopVisibility();
 }
 
+document.querySelectorAll('[data-hero-slider]').forEach((slider) => {
+    const slides = [...slider.querySelectorAll('.hero-slide')];
+    const indicators = [...slider.querySelectorAll('[data-hero-slide]')];
+    const previousButton = slider.querySelector('[data-hero-previous]');
+    const nextButton = slider.querySelector('[data-hero-next]');
+    const toggleButton = slider.querySelector('[data-hero-toggle]');
+
+    if (slides.length < 2 || indicators.length !== slides.length || !previousButton || !nextButton || !toggleButton) {
+        return;
+    }
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let activeIndex = slides.findIndex((slide) => slide.classList.contains('is-active'));
+    let userPaused = reduceMotion.matches;
+    let timer;
+
+    if (activeIndex < 0) {
+        activeIndex = 0;
+    }
+    toggleButton.hidden = reduceMotion.matches;
+    toggleButton.setAttribute('aria-pressed', String(userPaused));
+    toggleButton.setAttribute('aria-label', userPaused ? 'Play automatic image rotation' : 'Pause automatic image rotation');
+    if (userPaused) {
+        toggleButton.innerHTML = '<i class="fa-solid fa-play" aria-hidden="true"></i>';
+    }
+
+    const showSlide = (index) => {
+        activeIndex = (index + slides.length) % slides.length;
+        slides.forEach((slide, slideIndex) => {
+            const isActive = slideIndex === activeIndex;
+            slide.classList.toggle('is-active', isActive);
+            slide.setAttribute('aria-hidden', String(!isActive));
+            indicators[slideIndex].classList.toggle('is-active', isActive);
+            indicators[slideIndex].setAttribute('aria-pressed', String(isActive));
+        });
+    };
+
+    const stopTimer = () => {
+        window.clearInterval(timer);
+    };
+
+    const startTimer = () => {
+        stopTimer();
+        if (!userPaused && !reduceMotion.matches && !document.hidden
+            && !slider.matches(':hover') && !slider.contains(document.activeElement)) {
+            timer = window.setInterval(() => showSlide(activeIndex + 1), 3000);
+        }
+    };
+
+    previousButton.addEventListener('click', () => {
+        showSlide(activeIndex - 1);
+        startTimer();
+    });
+    nextButton.addEventListener('click', () => {
+        showSlide(activeIndex + 1);
+        startTimer();
+    });
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            showSlide(index);
+            startTimer();
+        });
+    });
+    toggleButton.addEventListener('click', () => {
+        userPaused = !userPaused;
+        toggleButton.setAttribute('aria-pressed', String(userPaused));
+        toggleButton.setAttribute('aria-label', userPaused ? 'Play automatic image rotation' : 'Pause automatic image rotation');
+        toggleButton.innerHTML = `<i class="fa-solid ${userPaused ? 'fa-play' : 'fa-pause'}" aria-hidden="true"></i>`;
+        startTimer();
+    });
+    slider.addEventListener('mouseenter', stopTimer);
+    slider.addEventListener('mouseleave', startTimer);
+    slider.addEventListener('focusin', stopTimer);
+    slider.addEventListener('focusout', (event) => {
+        if (!slider.contains(event.relatedTarget)) {
+            startTimer();
+        }
+    });
+    document.addEventListener('visibilitychange', startTimer);
+    reduceMotion.addEventListener('change', (event) => {
+        userPaused = event.matches;
+        toggleButton.hidden = event.matches;
+        toggleButton.setAttribute('aria-pressed', String(userPaused));
+        toggleButton.setAttribute('aria-label', userPaused ? 'Play automatic image rotation' : 'Pause automatic image rotation');
+        toggleButton.innerHTML = `<i class="fa-solid ${userPaused ? 'fa-play' : 'fa-pause'}" aria-hidden="true"></i>`;
+        startTimer();
+    });
+
+    showSlide(activeIndex);
+    startTimer();
+});
+
 document.querySelectorAll('[data-contact-form]').forEach((form) => {
     const submitButton = form.querySelector('button[type="submit"]');
     const errorMessage = form.querySelector('[data-form-error]');
