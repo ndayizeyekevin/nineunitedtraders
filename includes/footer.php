@@ -2,7 +2,7 @@
 <footer class="site-footer">
     <div class="container footer-grid">
         <div class="footer-brand">
-            <a class="brand brand-light" href="index.php">
+            <a class="brand brand-light" href="./">
                 <img class="brand-logo" src="assets/images/logo.png" alt="">
                 <span class="brand-name">Nine United <span>Traders Ltd</span></span>
             </a>
@@ -16,14 +16,14 @@
         </div>
         <div>
             <h2 class="footer-title">Explore</h2>
-            <a class="footer-link" href="services.php">Our services</a>
-            <a class="footer-link" href="fleet.php">Fleet & operations</a>
-            <a class="footer-link" href="management.php">Management</a>
-            <a class="footer-link" href="contact.php">Contact</a>
+            <a class="footer-link" href="services">Our services</a>
+            <a class="footer-link" href="fleet">Fleet & operations</a>
+            <a class="footer-link" href="management">Management</a>
+            <a class="footer-link" href="contact">Contact</a>
         </div>
         <div class="footer-cta">
             <p>Have a shipment or logistics requirement?</p>
-            <a class="button button-light" href="quote.php">Tell us what you need <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            <a class="button button-light" href="quote">Tell us what you need <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
         </div>
     </div>
     <div class="container footer-bottom">

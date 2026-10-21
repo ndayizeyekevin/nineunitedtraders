@@ -2,6 +2,12 @@
 
 declare(strict_types=1);
 
+$isHttps = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== '' && $_SERVER['HTTPS'] !== 'off';
+session_set_cookie_params([
+    'httponly' => true,
+    'secure' => $isHttps,
+    'samesite' => 'Lax',
+]);
 session_start();
 
 const COMPANY_NAME = 'Nine United Traders Ltd';
@@ -11,6 +17,63 @@ const COMPANY_PHONE = '+250 788 302 388';
 function escape(string $value): string
 {
     return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
+
+function site_base_url(): string
+{
+    $documentRoot = realpath($_SERVER['DOCUMENT_ROOT'] ?? '');
+    $applicationRoot = realpath(__DIR__ . '/..');
+
+    if ($documentRoot !== false && $applicationRoot !== false) {
+        $documentRoot = rtrim(str_replace('\\', '/', $documentRoot), '/');
+        $applicationRoot = str_replace('\\', '/', $applicationRoot);
+        if ($applicationRoot === $documentRoot) {
+            return '/';
+        }
+        if (str_starts_with($applicationRoot, $documentRoot . '/')) {
+            return substr($applicationRoot, strlen($documentRoot)) . '/';
+        }
+    }
+
+    return '/';
+}
+
+function database_configured(): bool
+{
+    return is_file(__DIR__ . '/database-config.php');
+}
+
+function database_connection(): PDO
+{
+    static $connection;
+
+    if ($connection instanceof PDO) {
+        return $connection;
+    }
+
+    $configPath = __DIR__ . '/database-config.php';
+    if (!is_file($configPath)) {
+        throw new RuntimeException('The database has not been configured. Open /admin/setup to install it.');
+    }
+
+    $config = require $configPath;
+    if (!is_array($config)
+        || !isset($config['host'], $config['database'], $config['username'], $config['password'])) {
+        throw new RuntimeException('The database configuration is incomplete.');
+    }
+
+    $dsn = sprintf(
+        'mysql:host=%s;dbname=%s;charset=utf8mb4',
+        $config['host'],
+        $config['database']
+    );
+    $connection = new PDO($dsn, $config['username'], $config['password'], [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false,
+    ]);
+
+    return $connection;
 }
 
 function csrf_token(): string
@@ -106,11 +169,16 @@ function process_inquiry(string $type): array
         ], true)) {
             $errors[] = 'Choose a service for your quote.';
         }
-        if ($origin === '' || strlen($origin) > 120) {
-            $errors[] = 'Enter an origin (up to 120 characters).';
+        $routeRequired = in_array($service, [
+            'Cargo transportation',
+            'Cement and commodity importation',
+            'Clearing agency',
+        ], true);
+        if (($routeRequired && $origin === '') || strlen($origin) > 120) {
+            $errors[] = 'Enter a valid origin (up to 120 characters).';
         }
-        if ($destination === '' || strlen($destination) > 120) {
-            $errors[] = 'Enter a destination (up to 120 characters).';
+        if (($routeRequired && $destination === '') || strlen($destination) > 120) {
+            $errors[] = 'Enter a valid destination (up to 120 characters).';
         }
         if (strlen($cargo) > 180 || strlen($notes) > 2500) {
             $errors[] = 'Cargo details must be under 180 characters and additional notes under 2,500 characters.';
@@ -139,8 +207,8 @@ function process_inquiry(string $type): array
             'Phone: ' . $formattedPhone,
             'Email: ' . $email,
             'Service: ' . $service,
-            'Origin: ' . $origin,
-            'Destination: ' . $destination,
+            'Origin: ' . ($origin !== '' ? $origin : 'Not provided'),
+            'Destination: ' . ($destination !== '' ? $destination : 'Not provided'),
             'Cargo / commodity: ' . ($cargo !== '' ? $cargo : 'Not provided'),
             'Requested date: ' . ($date !== '' ? $date : 'Not provided'),
             '',
@@ -183,6 +251,36 @@ function process_inquiry(string $type): array
         return [$values, $errors, $status];
     }
 
+    if ($type === 'quote') {
+        try {
+            $statement = database_connection()->prepare(
+                'INSERT INTO quote_requests
+                    (name, phone, email, service, origin, destination, cargo, requested_date, notes)
+                 VALUES
+                    (:name, :phone, :email, :service, :origin, :destination, :cargo, :requested_date, :notes)'
+            );
+            $statement->execute([
+                'name' => $name,
+                'phone' => $formattedPhone,
+                'email' => $email,
+                'service' => $service,
+                'origin' => $origin !== '' ? $origin : null,
+                'destination' => $destination !== '' ? $destination : null,
+                'cargo' => $cargo !== '' ? $cargo : null,
+                'requested_date' => $date !== '' ? $date : null,
+                'notes' => $notes !== '' ? $notes : null,
+            ]);
+        } catch (PDOException $exception) {
+            error_log('Unable to store quote request: ' . $exception->getMessage());
+            $errors[] = 'We could not store your quote request. Please contact us by phone or email instead.';
+            return [$values, $errors, $status];
+        } catch (RuntimeException $exception) {
+            error_log('Unable to store quote request: ' . $exception->getMessage());
+            $errors[] = 'Quote requests are not available yet. Please contact us by phone or email instead.';
+            return [$values, $errors, $status];
+        }
+    }
+
     $headers = ['Content-Type: text/plain; charset=UTF-8'];
     if ($replyTo !== '') {
         $headers[] = 'Reply-To: ' . $replyTo;
@@ -190,6 +288,11 @@ function process_inquiry(string $type): array
 
     if (mail(COMPANY_EMAIL, $subject, $body, implode("\r\n", $headers))) {
         $status = 'Thank you. Your request has been sent to our team.';
+        $values = [];
+        unset($_SESSION['csrf_token']);
+    } elseif ($type === 'quote') {
+        error_log('Quote request was stored, but its email notification could not be sent.');
+        $status = 'Your quote request was saved. Our team will review it, but email notifications are temporarily unavailable.';
         $values = [];
         unset($_SESSION['csrf_token']);
     } else {

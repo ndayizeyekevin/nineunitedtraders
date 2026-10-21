@@ -28,7 +28,7 @@ include __DIR__ . '/includes/header.php';
                     <li>Established in Rwanda in 2019</li>
                     <li>Based at CHIC Building, Kigali City Center</li>
                     <li>Working across transport, trade and logistics support</li>
-                    <li>Company profile reports 25 shareholders</li>
+                    <li>Company profile reports 24 shareholders</li>
                 </ul>
             </div>
         </div>
