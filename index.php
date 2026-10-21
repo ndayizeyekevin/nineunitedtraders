@@ -98,7 +98,7 @@ include __DIR__ . '/includes/header.php';
                 <h2 id="planner-title">Not sure what your shipment needs?</h2>
                 <p>Tell us a little about what you’re planning. We’ll point you toward a relevant service and carry your details into a quote request.</p>
             </div>
-            <form class="planner-card" action="quote.php#quote-form" method="get" data-shipment-planner>
+            <form class="planner-card" action="quote#quote-form" method="get" data-shipment-planner>
                 <div class="planner-form-heading">
                     <span class="planner-step">01</span>
                     <div><strong>Plan your request</strong><span>Share what you know; you can fill in the rest later.</span></div>

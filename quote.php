@@ -58,7 +58,7 @@ include __DIR__ . '/includes/header.php';
             <p class="form-intro">Fields marked * are required. We’ll use these details to prepare a useful response.</p>
             <?php if ($formErrors !== []): ?><div class="form-alert form-error" role="alert"><p><strong>Please check the following:</strong></p><ul><?php foreach ($formErrors as $error): ?><li><?= escape($error) ?></li><?php endforeach; ?></ul></div><?php endif; ?>
             <?php if ($formStatus !== ''): ?><div class="form-alert form-success" role="status"><p><?= escape($formStatus) ?></p></div><?php endif; ?>
-            <form method="post" action="quote.php" data-quote-form>
+            <form method="post" action="quote" data-quote-form>
                 <input type="hidden" name="csrf_token" value="<?= escape(csrf_token()) ?>">
                 <div class="honeypot" aria-hidden="true"><label for="website">Leave this field empty</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
                 <div class="form-grid">
