@@ -263,8 +263,8 @@ i.fa-solid.fa-arrow-right::before { display: inline-block; transform: rotate(-45
 .whatsapp-link:hover { background: #20bd5a; }
 .whatsapp-link:hover, .scroll-top:hover { transform: translateY(-2px); }
 .whatsapp-link .fa-whatsapp { font-size: 1.9rem; }
-.scroll-top { position: fixed; right: 29px; bottom: 88px; z-index: 15; display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid rgba(255,255,255,.16); border-radius: 50%; background: var(--navy-deep); color: white; box-shadow: 0 5px 18px rgba(16,43,70,.24); font-size: 1.45rem; font-weight: 700; line-height: 1; transition: background .18s ease, transform .18s ease; }
-.scroll-top:hover { background: var(--navy); }
+.scroll-top { position: fixed; right: 29px; bottom: 88px; z-index: 15; display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid rgba(255,255,255,.18); border-radius: 50%; background: #244b65; color: white; box-shadow: 0 5px 18px rgba(16,43,70,.24); font-size: 1.45rem; font-weight: 700; line-height: 1; transition: background .18s ease, color .18s ease, border-color .18s ease, transform .18s ease; }
+.scroll-top:hover { border-color: var(--blue); background: var(--blue); color: white; }
 .scroll-top[hidden] { display: none; }
 
 @media (max-width: 1000px) {
