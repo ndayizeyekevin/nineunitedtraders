@@ -9,7 +9,8 @@ function send_email(
     string $subject,
     string $htmlBody,
     ?string $plainBody = null,
-    ?string $replyTo = null
+    ?string $replyTo = null,
+    ?string $inlineImagePath = null
 ): void {
     if (!filter_var($recipient, FILTER_VALIDATE_EMAIL)
         || ($replyTo !== null && !filter_var($replyTo, FILTER_VALIDATE_EMAIL))
@@ -54,6 +55,18 @@ function send_email(
         $mailer->CharSet = PHPMailer\PHPMailer\PHPMailer::CHARSET_UTF8;
         $mailer->setFrom(trim($username), COMPANY_NAME);
         $mailer->addAddress($recipient);
+        if ($inlineImagePath !== null) {
+            if (!is_file($inlineImagePath) || !is_readable($inlineImagePath)) {
+                throw new RuntimeException('The inline email image is unavailable.');
+            }
+            $mailer->addEmbeddedImage(
+                $inlineImagePath,
+                'company-logo',
+                basename($inlineImagePath),
+                PHPMailer\PHPMailer\PHPMailer::ENCODING_BASE64,
+                'image/png'
+            );
+        }
         if ($replyTo !== null) {
             $mailer->addReplyTo($replyTo);
         }

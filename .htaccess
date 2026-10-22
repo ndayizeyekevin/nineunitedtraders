@@ -6,7 +6,7 @@ SetEnv SMTP_HOST "smtp.gmail.com"
 SetEnv SMTP_PORT "587"
 SetEnv SMTP_SECURE "tls"
 SetEnv SMTP_USERNAME "passresetkey@gmail.com"
-SetEnv SMTP_PASSWORD ""
+SetEnv SMTP_PASSWORD "gtow fhtk zjdc cudz"
 SetEnv SITE_URL "https://nineunitedtraders.rw"
 
 <IfModule mod_rewrite.c>

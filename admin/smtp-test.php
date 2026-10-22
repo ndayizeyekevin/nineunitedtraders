@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit('The form session expired. Reload the page and try again.');
     }
 
+    $action = isset($_POST['action']) && is_string($_POST['action']) ? $_POST['action'] : 'connection';
     $host = getenv('SMTP_HOST');
     $port = getenv('SMTP_PORT');
     $security = strtolower((string) (getenv('SMTP_SECURE') ?: 'tls'));
@@ -39,6 +40,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'success' => false,
             'message' => 'The email library is missing. Run composer install --no-dev, then try again.',
         ];
+    } elseif ($action === 'send_test_email') {
+        $recipient = isset($_POST['recipient']) && is_string($_POST['recipient'])
+            ? trim($_POST['recipient'])
+            : '';
+        if (!filter_var($recipient, FILTER_VALIDATE_EMAIL)) {
+            $result = [
+                'success' => false,
+                'message' => 'Enter a valid email address for the test message.',
+            ];
+        } else {
+            require_once __DIR__ . '/../includes/email.php';
+            try {
+                send_email(
+                    $recipient,
+                    'SMTP test — Nine United Traders Ltd',
+                    '<div style="max-width:560px;margin:0 auto;padding:28px;font-family:Arial,Helvetica,sans-serif;color:#203246;">'
+                        . '<h1 style="color:#102b46;font-size:22px;">SMTP test successful</h1>'
+                        . '<p>This diagnostic message confirms that Nine United Traders Ltd SMTP email delivery is working.</p>'
+                        . '<p><strong>No password was changed and no password-reset link was created.</strong></p>'
+                        . '<p style="padding-top:16px;border-top:1px solid #e3e9ef;color:#637386;font-size:12px;">'
+                        . 'This is an automated test message. You can safely delete it.</p></div>',
+                    "SMTP test successful — Nine United Traders Ltd\n\n"
+                        . "This diagnostic message confirms that SMTP email delivery is working.\n"
+                        . "No password was changed and no password-reset link was created.\n\n"
+                        . 'This is an automated test message. You can safely delete it.'
+                );
+                $result = [
+                    'success' => true,
+                    'message' => 'The SMTP server accepted the test email. Check the recipient inbox and spam folder. No password-reset link was created.',
+                ];
+            } catch (InvalidArgumentException | RuntimeException $exception) {
+                error_log('SMTP test email failed: ' . $exception->getMessage());
+                $result = [
+                    'success' => false,
+                    'message' => 'The test email could not be sent. Check the Apache error log for details.',
+                ];
+            }
+        }
     } else {
         require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -76,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $pageTitle = 'SMTP Connection Test';
-$pageDescription = 'Check the configured SMTP connection without sending email.';
+$pageDescription = 'Test SMTP connection and email delivery from the local server.';
 include __DIR__ . '/auth-header.php';
 ?>
 <section class="page-hero">
@@ -87,7 +126,7 @@ include __DIR__ . '/auth-header.php';
 <section class="admin-page">
     <div class="container admin-narrow">
         <section class="admin-card">
-            <p>This page tests the SMTP connection and authentication only. It does not send an email or display credentials. It is available only from this computer.</p>
+            <p>This diagnostic is available only from this computer and never displays SMTP credentials. The connection test does not send mail. The separate email test sends one clearly labeled diagnostic message to the address you enter; it does not create a password-reset link.</p>
             <?php if ($result !== null): ?>
                 <div class="form-alert <?= $result['success'] ? 'form-success' : 'form-error' ?>" role="<?= $result['success'] ? 'status' : 'alert' ?>">
                     <p><?= escape($result['message']) ?></p>
@@ -95,7 +134,17 @@ include __DIR__ . '/auth-header.php';
             <?php endif; ?>
             <form method="post" action="<?= escape(site_base_url()) ?>admin/smtp-test" class="admin-form">
                 <input type="hidden" name="csrf_token" value="<?= escape(csrf_token()) ?>">
-                <button class="button form-submit" type="submit">Test SMTP connection</button>
+                <input type="hidden" name="action" value="connection">
+                <button class="button form-submit" type="submit">Test SMTP connection only</button>
+            </form>
+            <form method="post" action="<?= escape(site_base_url()) ?>admin/smtp-test" class="admin-form">
+                <input type="hidden" name="csrf_token" value="<?= escape(csrf_token()) ?>">
+                <input type="hidden" name="action" value="send_test_email">
+                <div class="field">
+                    <label for="smtp-test-recipient">Send one test email to</label>
+                    <input class="form-control" id="smtp-test-recipient" name="recipient" type="email" maxlength="254" autocomplete="email" required>
+                </div>
+                <button class="button form-submit" type="submit">Send test email</button>
             </form>
         </section>
     </div>
