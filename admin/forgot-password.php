@@ -99,8 +99,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             || isset($siteUrlParts['pass'])
                             || isset($siteUrlParts['query'])
                             || isset($siteUrlParts['fragment'])
-                            || (isset($siteUrlParts['path']) && !in_array($siteUrlParts['path'], ['', '/'], true))) {
-                            throw new RuntimeException('SITE_URL must be set to the canonical site origin.');
+                            || !isset($siteUrlParts['path'])
+                            || !preg_match('~(?:^|/)admin/forgot-password$~', $siteUrlParts['path'])) {
+                            throw new RuntimeException('SITE_URL must be set to the complete password recovery endpoint.');
                         }
 
                         $rawToken = bin2hex(random_bytes(32));
@@ -112,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                              WHERE id = :id
                                AND (password_reset_key IS NULL
                                     OR password_reset_expires_at IS NULL
-                                    OR password_reset_expires_at <= UTC_TIMESTAMP())'
+                                    OR password_reset_expires_at <= DATE_ADD(UTC_TIMESTAMP(), INTERVAL 55 MINUTE))'
                         );
                         $storeToken->execute([
                             'reset_key' => $tokenHash,
@@ -121,8 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         if ($storeToken->rowCount() === 1) {
                             $resetUrl = rtrim($configuredSiteUrl, '/')
-                                . site_base_url()
-                                . 'admin/forgot-password?token=' . rawurlencode($rawToken);
+                                . '?token=' . rawurlencode($rawToken);
                             $safeResetUrl = escape($resetUrl);
                             $year = date('Y');
                             $htmlBody = <<<HTML
