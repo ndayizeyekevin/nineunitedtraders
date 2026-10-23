@@ -21,6 +21,7 @@ $navigation = [
     <meta name="theme-color" content="#102b46">
     <?php if ($documentBaseUrl !== ''): ?><base href="<?= escape($documentBaseUrl) ?>"><?php endif; ?>
     <title><?= escape($pageTitle) ?> | <?= escape(COMPANY_NAME) ?></title>
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
     <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css?v=<?= (int) filemtime(__DIR__ . '/../assets/css/style.css') ?>">
