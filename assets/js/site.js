@@ -4,6 +4,52 @@ const scrollTop = document.querySelector('.scroll-top');
 const loginDialog = document.querySelector('#admin-login-dialog');
 const loginOpenButton = document.querySelector('[data-login-open]');
 
+document.querySelectorAll('[data-count]').forEach((counter) => {
+    const target = Number(counter.dataset.count);
+    if (!Number.isFinite(target) || target < 0) {
+        return;
+    }
+
+    const suffix = counter.dataset.countSuffix || '';
+    const showTarget = () => {
+        counter.textContent = `${target}${suffix}`;
+    };
+    const animate = () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            showTarget();
+            return;
+        }
+
+        const duration = 1600;
+        const start = performance.now();
+        const update = (now) => {
+            const progress = Math.min((now - start) / duration, 1);
+            const easedProgress = 1 - (1 - progress) ** 4;
+            counter.textContent = `${Math.round(target * easedProgress)}${suffix}`;
+
+            if (progress < 1) {
+                window.requestAnimationFrame(update);
+            } else {
+                showTarget();
+            }
+        };
+
+        window.requestAnimationFrame(update);
+    };
+
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            if (entries.some((entry) => entry.isIntersecting)) {
+                observer.disconnect();
+                animate();
+            }
+        }, { threshold: 0.35 });
+        observer.observe(counter);
+    } else {
+        animate();
+    }
+});
+
 if (loginDialog instanceof HTMLDialogElement && loginOpenButton instanceof HTMLButtonElement) {
     loginOpenButton.addEventListener('click', () => {
         loginDialog.showModal();
