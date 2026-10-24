@@ -94,8 +94,8 @@ include __DIR__ . '/auth-header.php';
             <?php else: ?>
                 <form method="post" action="<?= escape(site_base_url()) ?>admin/login" class="admin-form">
                     <input type="hidden" name="csrf_token" value="<?= escape(csrf_token()) ?>">
-                    <div class="field"><label for="username">Username</label><input class="form-control" id="username" name="username" autocomplete="username" required value="<?= escape($username) ?>"></div>
-                    <div class="field"><label for="password">Password</label><input class="form-control" id="password" name="password" type="password" autocomplete="current-password" required><a class="admin-forgot-link" href="<?= escape(site_base_url()) ?>admin/forgot-password">Forgot password?</a></div>
+                    <div class="field"><label for="username">Username</label><input class="form-control" id="username" name="username" placeholder="Enter Username" autocomplete="username" required value="<?= escape($username) ?>"></div>
+                    <div class="field"><label for="password">Password</label><input class="form-control" id="password" name="password" placeholder="Enter Password" type="password" autocomplete="current-password" required><a class="admin-forgot-link" href="<?= escape(site_base_url()) ?>admin/forgot-password">Forgot password?</a></div>
                     <button class="button form-submit" type="submit">Sign in</button>
                 </form>
             <?php endif; ?>
