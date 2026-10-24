@@ -26,6 +26,7 @@ $navigation = [
     <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css?v=<?= (int) filemtime(__DIR__ . '/../assets/css/style.css') ?>">
     <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
+    <?php if ($activePage === 'contact'): ?><script src="assets/vendor/sweetalert2/sweetalert2.all.min.js" defer></script><?php endif; ?>
     <script src="assets/js/site.js?v=<?= (int) filemtime(__DIR__ . '/../assets/js/site.js') ?>" defer></script>
     <script src="assets/js/password-toggle.js?v=<?= (int) filemtime(__DIR__ . '/../assets/js/password-toggle.js') ?>" defer></script>
 </head>

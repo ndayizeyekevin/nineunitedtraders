@@ -322,6 +322,22 @@ document.querySelectorAll('[data-contact-form]').forEach((form) => {
         return;
     }
 
+    const showFeedback = (type, message) => {
+        if (window.Swal && typeof window.Swal.fire === 'function') {
+            window.Swal.fire({
+                icon: type,
+                title: type === 'success' ? 'Inquiry sent' : 'Unable to send inquiry',
+                text: message,
+                confirmButtonText: 'OK',
+            });
+            return;
+        }
+
+        const alert = type === 'success' ? successMessage : errorMessage;
+        alert.textContent = message;
+        alert.hidden = false;
+    };
+
     if (phoneInput instanceof HTMLInputElement && emailInput instanceof HTMLInputElement) {
         const clearContactValidation = () => phoneInput.setCustomValidity('');
         phoneInput.addEventListener('input', clearContactValidation);
@@ -352,8 +368,7 @@ document.querySelectorAll('[data-contact-form]').forEach((form) => {
 
         const endpoint = form.dataset.ajaxEndpoint;
         if (!endpoint) {
-            errorMessage.textContent = 'The contact form is not configured. Please contact us by phone or email.';
-            errorMessage.hidden = false;
+            showFeedback('error', 'The contact form is not configured. Please contact us by phone or email.');
             return;
         }
 
@@ -384,13 +399,12 @@ document.querySelectorAll('[data-contact-form]').forEach((form) => {
                 const defaultCountry = picker.querySelector(`[data-country-code="${countryCode}"]`);
                 defaultCountry?.click();
             });
-            successMessage.textContent = 'Thank you. Your inquiry has been sent to our team. We will get back to you as soon as possible.';
-            successMessage.hidden = false;
+            showFeedback('success', 'Thank you. Your inquiry has been sent to our team. We will get back to you as soon as possible.');
         } catch (error) {
-            errorMessage.textContent = error instanceof Error
+            const message = error instanceof Error
                 ? error.message
                 : 'We could not send your inquiry. Please try again or contact us directly.';
-            errorMessage.hidden = false;
+            showFeedback('error', message);
         } finally {
             submitButton.disabled = false;
             submitButton.removeAttribute('aria-busy');
