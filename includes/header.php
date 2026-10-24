@@ -27,6 +27,7 @@ $navigation = [
     <link rel="stylesheet" href="assets/css/style.css?v=<?= (int) filemtime(__DIR__ . '/../assets/css/style.css') ?>">
     <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
     <script src="assets/js/site.js?v=<?= (int) filemtime(__DIR__ . '/../assets/js/site.js') ?>" defer></script>
+    <script src="assets/js/password-toggle.js?v=<?= (int) filemtime(__DIR__ . '/../assets/js/password-toggle.js') ?>" defer></script>
 </head>
 <body id="top">
 <a class="skip-link" href="#main">Skip to content</a>

@@ -18,6 +18,7 @@ $pageTitle = $pageTitle ?? 'Admin';
     <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/admin.css">
+    <script src="assets/js/password-toggle.js?v=<?= (int) filemtime(__DIR__ . '/../assets/js/password-toggle.js') ?>" defer></script>
 </head>
 <body class="admin-auth-body">
 <main class="admin-auth-shell">

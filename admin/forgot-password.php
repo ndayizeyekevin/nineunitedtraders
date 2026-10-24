@@ -296,8 +296,8 @@ include __DIR__ . '/auth-header.php';
                     <input type="hidden" name="reset_password" value="1">
                     <input type="hidden" name="csrf_token" value="<?= escape(csrf_token()) ?>">
                     <input type="hidden" name="token" value="<?= escape($token) ?>">
-                    <div class="field"><label for="new-password">New password</label><input class="form-control" id="new-password" name="new_password" type="password" minlength="12" maxlength="72" autocomplete="new-password" required></div>
-                    <div class="field"><label for="password-confirmation">Confirm new password</label><input class="form-control" id="password-confirmation" name="password_confirmation" type="password" minlength="12" maxlength="72" autocomplete="new-password" required></div>
+                    <div class="field"><label for="new-password">New password</label><div class="password-input"><input class="form-control" id="new-password" name="new_password" type="password" placeholder="Enter new password" minlength="12" maxlength="72" autocomplete="new-password" required><button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="new-password"><i class="fa-solid fa-eye" aria-hidden="true"></i></button></div></div>
+                    <div class="field"><label for="password-confirmation">Confirm new password</label><div class="password-input"><input class="form-control" id="password-confirmation" name="password_confirmation" type="password" placeholder="Confirm new password" minlength="12" maxlength="72" autocomplete="new-password" required><button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="password-confirmation"><i class="fa-solid fa-eye" aria-hidden="true"></i></button></div></div>
                     <button class="button form-submit" type="submit"><span data-submit-label>Update password</span></button>
                 </form>
             <?php elseif ($hasToken): ?>

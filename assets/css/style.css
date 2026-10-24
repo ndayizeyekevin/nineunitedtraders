@@ -328,6 +328,11 @@ i.fa-solid.fa-arrow-right::before { display: inline-block; transform: rotate(-45
 .field-full { grid-column: 1 / -1; }
 .field label { color: rgba(255,255,255,.94); font-size: .91rem; font-weight: 700; }
 .field input, .field select, .field textarea { width: 100%; min-height: 50px; padding: 12px 14px; border: 1px solid #cfdeeb; border-radius: 9px; background: #fff; color: var(--ink); transition: border-color .18s ease, box-shadow .18s ease, background .18s ease; }
+.password-input { position: relative; width: 100%; }
+.password-input .form-control { padding-right: 50px; }
+.password-toggle { position: absolute; top: 50%; right: 5px; display: none; width: 40px; height: 40px; align-items: center; justify-content: center; transform: translateY(-50%); border: 0; border-radius: 7px; background: transparent; color: #637386; cursor: pointer; }
+.password-input.is-enhanced .password-toggle { display: inline-flex; }
+.password-toggle:hover, .password-toggle:focus-visible { outline: 0; background: #edf3f7; color: #1769aa; }
 .phone-input-group { display: grid; grid-template-columns: minmax(112px, 135px) minmax(0, 1fr); gap: 8px; }
 .phone-number { min-width: 0; }
 .phone-country-picker { position: relative; min-width: 0; }
