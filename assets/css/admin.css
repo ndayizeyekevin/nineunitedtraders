@@ -110,14 +110,12 @@
 .admin-stat-copy > span { color: #637386; font-size: .82rem; font-weight: 700; }
 .admin-stat-copy strong { color: #102b46; font-size: 1.8rem !important; line-height: 1.2; }
 .admin-stat-copy small { color: #8793a0; font-size: .75rem; }
-.admin-dashboard-panels { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(270px, .85fr); align-items: start; gap: 18px; }
-.admin-content .admin-dashboard-panels > .admin-card { padding: 23px; }
 .admin-panel-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 17px; }
 .admin-panel-heading h2 { margin: 3px 0 4px; color: #102b46; font-size: 1.16rem; letter-spacing: -.02em; }
 .admin-panel-heading p { margin: 0; color: #8793a0; font-size: .82rem; }
 .admin-panel-kicker { color: #1769aa; font-size: .67rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-.admin-panel-link, .admin-status-footer { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 7px; color: #1769aa; font-size: .81rem; font-weight: 700; }
-.admin-panel-link:hover, .admin-status-footer:hover { color: #12578f; }
+.admin-panel-link { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 7px; color: #1769aa; font-size: .81rem; font-weight: 700; }
+.admin-panel-link:hover { color: #12578f; }
 .admin-dashboard-empty { display: flex; min-height: 255px; flex-direction: column; align-items: center; justify-content: center; padding: 24px; border: 1px dashed #dce4eb; border-radius: 11px; text-align: center; }
 .admin-dashboard-empty > span { display: grid; width: 48px; height: 48px; place-items: center; margin-bottom: 12px; border-radius: 50%; background: #edf4fb; color: #1769aa; font-size: 1.1rem; }
 .admin-dashboard-empty h3 { margin-bottom: 6px; font-size: 1rem; }
@@ -133,19 +131,46 @@
 .admin-recent-main > span { overflow: hidden; color: #8793a0; font-size: .77rem; text-overflow: ellipsis; white-space: nowrap; }
 .admin-recent-date { color: #8793a0; font-size: .75rem; white-space: nowrap; }
 .admin-recent-item .admin-status { font-size: .7rem; }
-.admin-status-breakdown { display: grid; gap: 18px; }
-.admin-status-row { display: grid; gap: 8px; }
-.admin-status-row-top { display: flex; align-items: center; justify-content: space-between; color: #637386; font-size: .82rem; }
-.admin-status-row-top > span { display: flex; align-items: center; gap: 9px; }
-.admin-status-row-top i { width: 15px; color: #8793a0; text-align: center; }
-.admin-status-row-top strong { color: #203246; font-size: .84rem; }
-.admin-status-track { display: block; height: 6px; overflow: hidden; border-radius: 99px; background: #edf0f3; }
-.admin-status-fill { display: block; height: 100%; min-width: 0; border-radius: inherit; background: #1769aa; }
-.admin-status-fill-new { background: #3d9b73; }
-.admin-status-fill-reviewing { background: #e3a34d; }
-.admin-status-fill-responded { background: #4c88c5; }
-.admin-status-fill-closed { background: #9ca7b3; }
-.admin-status-footer { display: flex; justify-content: space-between; margin-top: 22px; padding-top: 16px; border-top: 1px solid #edf0f3; }
+.admin-content .admin-status-other { background: #edf0f3; color: #596775; }
+.admin-content .admin-dashboard-stats .admin-stat-card { position: relative; overflow: hidden; border-top: 3px solid transparent; background: linear-gradient(145deg, #fff, #fbfdff); }
+.admin-content .admin-dashboard-stats .admin-stat-card:hover { transform: translateY(-3px); border-color: #cbd9e6; box-shadow: 0 16px 34px rgba(10,32,54,.1); }
+.admin-content .admin-dashboard-stats .admin-stat-new { border-top-color: #3d9b73; }
+.admin-content .admin-dashboard-stats .admin-stat-open { border-top-color: #e3a34d; }
+.admin-content .admin-dashboard-stats .admin-stat-week { border-top-color: #6b74c8; }
+.admin-content .admin-dashboard-stats .admin-stat-team { border-top-color: #9a6db4; }
+.admin-stat-copy strong { font-variant-numeric: tabular-nums; }
+.admin-dashboard-charts { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(260px, .8fr); gap: 18px; margin-bottom: 18px; }
+.admin-content .admin-dashboard-charts > .admin-card,
+.admin-content > .admin-page .admin-dashboard-recent { min-width: 0; padding: 23px; }
+.admin-chart-card { overflow: hidden; }
+.admin-chart-card [hidden] { display: none !important; }
+.admin-chart-trend { border-top: 3px solid #2778b8 !important; }
+.admin-chart-status { border-top: 3px solid #3d9b73 !important; }
+.admin-chart-card .admin-panel-heading { margin-bottom: 19px; }
+.admin-chart-card .admin-panel-heading h2 { font-size: 1.12rem; }
+.admin-chart-period { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 7px; padding: 7px 10px; border: 1px solid #e8edf2; border-radius: 8px; background: #f8fafc; color: #718095; font-size: .73rem; font-weight: 700; white-space: nowrap; }
+.admin-chart-period i { color: #3478b8; }
+.admin-chart-wrap { position: relative; height: 270px; }
+.admin-chart-wrap canvas, .admin-status-chart-wrap canvas { display: block; width: 100% !important; height: 100% !important; }
+.admin-status-chart-wrap { position: relative; width: min(100%, 220px); height: 192px; margin: 0 auto 17px; }
+.admin-chart-empty-ring { position: absolute; top: 50%; left: 50%; width: 126px; height: 126px; transform: translate(-50%, -50%); border: 12px solid #edf1f5; border-radius: 50%; }
+.admin-chart-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; }
+.admin-chart-center strong { color: #102b46; font-size: 1.55rem; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.admin-chart-center span { margin-top: 4px; color: #8793a0; font-size: .71rem; }
+.admin-chart-legend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 12px; }
+.admin-chart-legend-item, .admin-chart-legend-item > span { display: flex; align-items: center; }
+.admin-chart-legend-item { justify-content: space-between; gap: 8px; padding: 8px 0; color: #637386; font-size: .78rem; }
+.admin-chart-legend-item > span { min-width: 0; gap: 7px; }
+.admin-chart-legend-item:hover { color: #1769aa; }
+.admin-chart-legend-item strong { color: #203246; font-size: .8rem; font-variant-numeric: tabular-nums; }
+.admin-chart-legend-dot { width: 8px; height: 8px; flex: 0 0 8px; border-radius: 50%; background: #3d9b73; }
+.admin-chart-legend-dot-reviewing { background: #e3a34d; }
+.admin-chart-legend-dot-responded { background: #4c88c5; }
+.admin-chart-legend-dot-closed { background: #9ca7b3; }
+.admin-chart-legend-dot-other { background: #c4ccd5; }
+.admin-chart-unavailable { margin: 12px 0 0; color: #a33a32; font-size: .82rem; }
+.admin-dashboard-recent { margin-top: 0; }
+.admin-dashboard-recent .admin-panel-heading { margin-bottom: 12px; }
 
 .admin-auth-body { min-width: 320px; min-height: 100vh; background: radial-gradient(ellipse at 82% 15%, rgba(23,105,170,.12), transparent 38%), #f2f6f9; }
 .admin-auth-shell { display: flex; min-height: 100vh; flex-direction: column; align-items: center; justify-content: center; padding: 32px 20px; }
@@ -181,7 +206,8 @@
     .admin-sidebar-open .admin-sidebar-backdrop { display: block; opacity: 1; pointer-events: auto; }
     .admin-sidebar-open { overflow: hidden; }
     .admin-content .admin-dashboard-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .admin-dashboard-panels { grid-template-columns: minmax(0, 1fr); }
+    .admin-dashboard-charts { grid-template-columns: minmax(0, 1fr); }
+    .admin-status-chart-wrap { height: 205px; }
 }
 
 @media (max-width: 600px) {
@@ -197,7 +223,9 @@
     .admin-content .admin-dashboard-stats .admin-stat-card { min-height: 115px; flex-direction: column; gap: 8px; padding: 14px; }
     .admin-stat-icon { width: 34px; height: 34px; flex-basis: 34px; border-radius: 10px; }
     .admin-stat-copy strong { font-size: 1.45rem !important; }
-    .admin-content .admin-dashboard-panels > .admin-card { padding: 18px; }
+    .admin-content .admin-dashboard-charts > .admin-card, .admin-content > .admin-page .admin-dashboard-recent { padding: 18px; }
+    .admin-chart-wrap { height: 230px; }
+    .admin-chart-period { padding: 6px 8px; font-size: .68rem; }
     .admin-recent-item { grid-template-columns: 34px minmax(0, 1fr) auto; gap: 9px; }
     .admin-recent-avatar { width: 32px; height: 32px; }
     .admin-recent-date { grid-column: 2; grid-row: 2; }
