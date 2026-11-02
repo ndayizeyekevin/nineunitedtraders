@@ -33,9 +33,10 @@
 .admin-account-trigger { display: inline-flex; min-height: 42px; align-items: center; gap: 9px; padding: 4px 9px 4px 5px; border: 1px solid rgba(255,255,255,.15); border-radius: 999px; color: white; cursor: pointer; list-style: none; transition: background .16s ease, border-color .16s ease; }
 .admin-account-trigger::-webkit-details-marker { display: none; }
 .admin-account-trigger::marker { content: ''; }
-.admin-account-trigger:hover, .admin-account-menu[open] .admin-account-trigger { border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.08); }
+.admin-account-menu[open] .admin-account-trigger { border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.08); }
 .admin-account-trigger:focus-visible, .admin-account-dropdown a:focus-visible, .admin-account-dropdown button:focus-visible { outline: 3px solid rgba(242,189,104,.72); outline-offset: 3px; }
-.admin-account-avatar { display: grid; width: 32px; height: 32px; flex: 0 0 32px; place-items: center; border: 1px solid rgba(255,255,255,.45); border-radius: 50%; background: linear-gradient(145deg, #f2bd68, #d9953d); color: #102b46; font-size: .9rem; font-weight: 800; }
+.admin-account-avatar { display: grid; width: 32px; height: 32px; flex: 0 0 32px; place-items: center; border: 1px solid rgba(255,255,255,.45); border-radius: 50%; background: linear-gradient(145deg, #f2bd68, #d9953d); color: #102b46; font-size: .9rem; font-weight: 800; transition: transform .16s ease, filter .16s ease, box-shadow .16s ease; }
+.admin-account-trigger:hover .admin-account-avatar { transform: translateY(-1px); filter: brightness(1.08); box-shadow: 0 0 0 3px rgba(242,189,104,.14); }
 .admin-account-name { max-width: 150px; overflow: hidden; font-size: .83rem; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
 .admin-account-chevron { color: rgba(255,255,255,.65); font-size: .68rem; transition: transform .16s ease; }
 .admin-account-menu[open] .admin-account-chevron { transform: rotate(180deg); }
