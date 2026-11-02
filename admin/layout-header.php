@@ -21,6 +21,10 @@ $activeAdminPage = $activeAdminPage ?? '';
     <link rel="stylesheet" href="assets/css/admin.css">
     <script src="assets/vendor/sweetalert2/sweetalert2.all.min.js" defer></script>
     <script src="assets/js/admin.js" defer></script>
+    <?php if ($activeAdminPage === 'dashboard'): ?>
+        <script src="assets/vendor/chartjs/chart.umd.min.js" defer></script>
+        <script src="assets/js/admin-dashboard.js" defer></script>
+    <?php endif; ?>
 </head>
 <body class="admin-body">
 <div class="admin-shell">
