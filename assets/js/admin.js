@@ -1,4 +1,44 @@
 (() => {
+    const themeToggle = document.querySelector('[data-admin-theme-toggle]');
+    const setAdminTheme = (theme, persist = false) => {
+        document.documentElement.dataset.adminTheme = theme;
+        const isDark = theme === 'dark';
+        const themeColor = document.querySelector('[data-admin-theme-color]');
+        if (themeColor instanceof HTMLMetaElement) {
+            themeColor.content = isDark ? '#111b28' : '#102b46';
+        }
+
+        if (themeToggle instanceof HTMLButtonElement) {
+            themeToggle.setAttribute('aria-pressed', String(isDark));
+            themeToggle.setAttribute('aria-label', `Switch to ${isDark ? 'light' : 'dark'} theme`);
+            const label = themeToggle.querySelector('[data-admin-theme-label]');
+            const icon = themeToggle.querySelector('[data-admin-theme-icon]');
+            if (label) {
+                label.textContent = `Switch to ${isDark ? 'light' : 'dark'} theme`;
+            }
+            if (icon) {
+                icon.classList.toggle('fa-sun', isDark);
+                icon.classList.toggle('fa-moon', !isDark);
+            }
+        }
+
+        if (persist) {
+            try {
+                localStorage.setItem('nine-admin-theme', theme);
+            } catch {
+                // Keep the selected theme for this page when storage is unavailable.
+            }
+        }
+
+        document.dispatchEvent(new CustomEvent('admin-theme-change', { detail: { theme } }));
+    };
+
+    setAdminTheme(document.documentElement.dataset.adminTheme === 'dark' ? 'dark' : 'light');
+    themeToggle?.addEventListener('click', () => {
+        const nextTheme = document.documentElement.dataset.adminTheme === 'dark' ? 'light' : 'dark';
+        setAdminTheme(nextTheme, true);
+    });
+
     const toggle = document.querySelector('[data-admin-sidebar-toggle]');
     const closeButton = document.querySelector('[data-admin-sidebar-close]');
     const sidebar = document.getElementById('admin-sidebar');

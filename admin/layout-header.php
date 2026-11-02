@@ -13,7 +13,17 @@ $adminInitial = strtoupper(substr($adminUsername, 0, 1));
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#102b46">
+    <meta name="theme-color" content="#102b46" data-admin-theme-color>
+    <script>
+        try {
+            const theme = localStorage.getItem('nine-admin-theme');
+            document.documentElement.dataset.adminTheme = theme === 'dark' || theme === 'light'
+                ? theme
+                : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        } catch {
+            document.documentElement.dataset.adminTheme = 'light';
+        }
+    </script>
     <base href="<?= escape($documentBaseUrl) ?>">
     <title><?= escape($pageTitle) ?> | <?= escape(COMPANY_NAME) ?> Admin</title>
     <link rel="icon" type="image/png" href="assets/images/logo.png">
@@ -66,6 +76,10 @@ $adminInitial = strtoupper(substr($adminUsername, 0, 1));
                             <span class="admin-account-avatar" aria-hidden="true"><?= escape($adminInitial) ?></span>
                             <span><strong><?= escape($adminUsername) ?></strong><small>Administrator</small></span>
                         </div>
+                        <button class="admin-theme-toggle" type="button" data-admin-theme-toggle aria-pressed="false">
+                            <i class="fa-solid fa-moon" aria-hidden="true" data-admin-theme-icon></i>
+                            <span data-admin-theme-label>Switch to dark theme</span>
+                        </button>
                         <a href="admin/settings"<?= $activeAdminPage === 'settings' ? ' aria-current="page"' : '' ?>><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Account settings</span></a>
                         <form method="post" action="admin/logout">
                             <input type="hidden" name="csrf_token" value="<?= escape(csrf_token()) ?>">
