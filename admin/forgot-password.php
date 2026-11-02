@@ -31,36 +31,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ? $_POST['password_confirmation']
             : '';
 
-        if (!$hasToken) {
-            $errors[] = 'This password reset link is invalid or has expired. Request a new link.';
-        }
-        if (strlen($password) < 12 || strlen($password) > 72) {
-            $errors[] = 'Choose a password between 12 and 72 bytes long.';
-        }
         if ($password !== $passwordConfirmation) {
             $errors[] = 'The password confirmation does not match.';
         }
 
-        if ($errors === []) {
+        if (!$hasToken) {
+            $errors[] = 'This password reset link is invalid or has expired. Request a new link.';
+        } else {
             try {
-                $statement = database_connection()->prepare(
-                    'UPDATE admins
-                     SET password_hash = :password_hash,
-                         password_reset_key = NULL,
-                         password_reset_expires_at = NULL
+                $pdo = database_connection();
+                $resetKey = hash('sha256', $token);
+                $lookup = $pdo->prepare(
+                    'SELECT username FROM admins
                      WHERE password_reset_key = :reset_key
-                       AND password_reset_expires_at > UTC_TIMESTAMP()'
+                       AND password_reset_expires_at > UTC_TIMESTAMP()
+                     LIMIT 1'
                 );
-                $statement->execute([
-                    'password_hash' => password_hash($password, PASSWORD_DEFAULT),
-                    'reset_key' => hash('sha256', $token),
-                ]);
-
-                if ($statement->rowCount() === 1) {
-                    unset($_SESSION['csrf_token']);
-                    $resetComplete = true;
-                } else {
+                $lookup->execute(['reset_key' => $resetKey]);
+                $resetAdmin = $lookup->fetch();
+                if (!$resetAdmin) {
                     $errors[] = 'This password reset link is invalid or has expired. Request a new link.';
+                } else {
+                    array_push($errors, ...admin_password_errors($password, $resetAdmin['username']));
+                }
+
+                if ($errors === []) {
+                    $statement = $pdo->prepare(
+                        'UPDATE admins
+                         SET password_hash = :password_hash,
+                             password_reset_key = NULL,
+                             password_reset_expires_at = NULL
+                         WHERE password_reset_key = :reset_key
+                           AND password_reset_expires_at > UTC_TIMESTAMP()'
+                    );
+                    $statement->execute([
+                        'password_hash' => password_hash($password, PASSWORD_DEFAULT),
+                        'reset_key' => $resetKey,
+                    ]);
+
+                    if ($statement->rowCount() === 1) {
+                        unset($_SESSION['csrf_token']);
+                        $resetComplete = true;
+                    } else {
+                        $errors[] = 'This password reset link is invalid or has expired. Request a new link.';
+                    }
                 }
             } catch (PDOException $exception) {
                 error_log('Admin password reset database error: ' . $exception->getMessage());
@@ -296,8 +310,8 @@ include __DIR__ . '/auth-header.php';
                     <input type="hidden" name="reset_password" value="1">
                     <input type="hidden" name="csrf_token" value="<?= escape(csrf_token()) ?>">
                     <input type="hidden" name="token" value="<?= escape($token) ?>">
-                    <div class="field"><label for="new-password">New password</label><div class="password-input"><input class="form-control" id="new-password" name="new_password" type="password" placeholder="Enter new password" minlength="12" maxlength="72" autocomplete="new-password" required><button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="new-password"><i class="fa-solid fa-eye" aria-hidden="true"></i></button></div></div>
-                    <div class="field"><label for="password-confirmation">Confirm new password</label><div class="password-input"><input class="form-control" id="password-confirmation" name="password_confirmation" type="password" placeholder="Confirm new password" minlength="12" maxlength="72" autocomplete="new-password" required><button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="password-confirmation"><i class="fa-solid fa-eye" aria-hidden="true"></i></button></div></div>
+                    <div class="field"><label for="new-password">New password</label><div class="password-input"><input class="form-control" id="new-password" name="new_password" type="password" placeholder="Enter new password" minlength="6" maxlength="72" autocomplete="new-password" required><button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="new-password"><i class="fa-solid fa-eye" aria-hidden="true"></i></button></div></div>
+                    <div class="field"><label for="password-confirmation">Confirm new password</label><div class="password-input"><input class="form-control" id="password-confirmation" name="password_confirmation" type="password" placeholder="Confirm new password" minlength="6" maxlength="72" autocomplete="new-password" required><button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="password-confirmation"><i class="fa-solid fa-eye" aria-hidden="true"></i></button></div></div>
                     <button class="button form-submit" type="submit"><span data-submit-label>Update password</span></button>
                 </form>
             <?php elseif ($hasToken): ?>
