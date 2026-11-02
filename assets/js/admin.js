@@ -19,6 +19,21 @@
         });
     }
 
+    const accountMenu = document.querySelector('[data-admin-account-menu]');
+    if (accountMenu instanceof HTMLDetailsElement) {
+        document.addEventListener('click', (event) => {
+            if (event.target instanceof Node && !accountMenu.contains(event.target)) {
+                accountMenu.open = false;
+            }
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && accountMenu.open) {
+                accountMenu.open = false;
+                accountMenu.querySelector('summary')?.focus();
+            }
+        });
+    }
+
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {
             if (window.Swal?.isVisible()) {
