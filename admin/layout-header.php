@@ -14,6 +14,7 @@ $activeAdminPage = $activeAdminPage ?? '';
     <meta name="theme-color" content="#102b46">
     <base href="<?= escape($documentBaseUrl) ?>">
     <title><?= escape($pageTitle) ?> | <?= escape(COMPANY_NAME) ?> Admin</title>
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
     <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">

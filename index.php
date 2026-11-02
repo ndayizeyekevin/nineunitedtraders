@@ -144,10 +144,10 @@ include __DIR__ . '/includes/header.php';
 <section class="stats-section" aria-label="Company facts">
     <div class="container">
         <div class="stats-grid">
-            <div class="stat"><strong>2019</strong><span>Established</span></div>
-            <div class="stat"><strong>25</strong><span>Shareholders</span></div>
-            <div class="stat"><strong>200+</strong><span>Truck units cleared</span></div>
-            <div class="stat"><strong>6B+</strong><span>RWF investment</span></div>
+            <div class="stat"><strong data-count="2019">2019</strong><span>Established</span></div>
+            <div class="stat"><strong data-count="25">25</strong><span>Shareholders</span></div>
+            <div class="stat"><strong data-count="200" data-count-suffix="+">200+</strong><span>Truck units cleared</span></div>
+            <div class="stat"><strong data-count="6" data-count-suffix="B+">6B+</strong><span>RWF investment</span></div>
         </div>
         <p class="stat-note">Company figures as published in the Nine United Traders company profile.</p>
     </div>

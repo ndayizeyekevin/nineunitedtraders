@@ -99,8 +99,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             || isset($siteUrlParts['pass'])
                             || isset($siteUrlParts['query'])
                             || isset($siteUrlParts['fragment'])
-                            || (isset($siteUrlParts['path']) && !in_array($siteUrlParts['path'], ['', '/'], true))) {
-                            throw new RuntimeException('SITE_URL must be set to the canonical site origin.');
+                            || !isset($siteUrlParts['path'])
+                            || !preg_match('~(?:^|/)admin/forgot-password$~', $siteUrlParts['path'])) {
+                            throw new RuntimeException('SITE_URL must be set to the complete password recovery endpoint.');
                         }
 
                         $rawToken = bin2hex(random_bytes(32));
@@ -112,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                              WHERE id = :id
                                AND (password_reset_key IS NULL
                                     OR password_reset_expires_at IS NULL
-                                    OR password_reset_expires_at <= UTC_TIMESTAMP())'
+                                    OR password_reset_expires_at <= DATE_ADD(UTC_TIMESTAMP(), INTERVAL 55 MINUTE))'
                         );
                         $storeToken->execute([
                             'reset_key' => $tokenHash,
@@ -121,22 +122,92 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         if ($storeToken->rowCount() === 1) {
                             $resetUrl = rtrim($configuredSiteUrl, '/')
-                                . site_base_url()
-                                . 'admin/forgot-password?token=' . rawurlencode($rawToken);
+                                . '?token=' . rawurlencode($rawToken);
                             $safeResetUrl = escape($resetUrl);
-                            $htmlBody = '<p>We received a request to reset the admin password for this email address.</p>'
-                                . '<p><a href="' . $safeResetUrl . '">Choose a new password</a></p>'
-                                . '<p>This link expires in one hour. If you did not request a reset, you can ignore this email.</p>';
-                            $plainBody = "We received a request to reset the admin password for this email address.\n\n"
-                                . "Choose a new password using this link (expires in one hour):\n"
-                                . $resetUrl . "\n\nIf you did not request a reset, you can ignore this email.";
+                            $year = date('Y');
+                            $htmlBody = <<<HTML
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Reset your admin password</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f2f5f8;font-family:Arial,Helvetica,sans-serif;color:#203246;">
+    <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">A secure link was requested to reset your Nine United Traders admin password.</div>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#f2f5f8;padding:32px 12px;">
+        <tr>
+            <td align="center">
+                <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:600px;">
+                    <tr>
+                        <td style="padding:22px 28px;background-color:#102b46;border-radius:14px 14px 0 0;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                                <tr>
+                                    <td valign="middle" style="padding-right:14px;">
+                                        <img src="cid:company-logo" width="52" height="52" alt="Nine United Traders logo" style="display:block;width:52px;height:52px;border:0;border-radius:8px;">
+                                    </td>
+                                    <td valign="middle" style="color:#ffffff;font-size:18px;font-weight:bold;line-height:1.35;">
+                                        Nine United Traders Ltd
+                                        <div style="margin-top:3px;color:#f2bd68;font-size:11px;font-weight:bold;letter-spacing:1.5px;">ADMIN ACCOUNT SECURITY</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:36px 32px 32px;background-color:#ffffff;">
+                            <h1 style="margin:0 0 18px;color:#102b46;font-size:25px;line-height:1.3;">Reset your password</h1>
+                            <p style="margin:0 0 16px;color:#4c5d6e;font-size:15px;line-height:1.7;">We received a request to reset the administrator password associated with this email address.</p>
+                            <p style="margin:0 0 24px;color:#4c5d6e;font-size:15px;line-height:1.7;">Use the secure button below to choose a new password. This link expires in <strong>one hour</strong> and can only be used once.</p>
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 0 25px;">
+                                <tr>
+                                    <td align="center" bgcolor="#1769aa" style="border-radius:8px;">
+                                        <a href="{$safeResetUrl}" style="display:inline-block;padding:14px 23px;border:1px solid #1769aa;border-radius:8px;color:#ffffff;font-size:15px;font-weight:bold;text-decoration:none;">Choose a new password</a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p style="margin:0 0 8px;color:#637386;font-size:13px;line-height:1.6;">If the button does not work, copy and paste this address into your browser:</p>
+                            <p style="margin:0;overflow-wrap:anywhere;word-break:break-all;color:#1769aa;font-size:13px;line-height:1.6;"><a href="{$safeResetUrl}" style="color:#1769aa;">{$safeResetUrl}</a></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:22px 32px;background-color:#f8fafc;border-top:1px solid #e3e9ef;">
+                            <p style="margin:0 0 10px;color:#46586a;font-size:13px;font-weight:bold;line-height:1.5;">Security notice</p>
+                            <p style="margin:0 0 12px;color:#637386;font-size:12px;line-height:1.7;">If you did not request this reset, ignore this message. Your password will remain unchanged unless the link is used. Never share this link or your password with anyone.</p>
+                            <p style="margin:0;color:#8793a0;font-size:11px;line-height:1.6;">This is an automated account-security message from Nine United Traders Ltd. Replies to this email are not monitored.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="padding:18px 12px;color:#8793a0;font-size:11px;line-height:1.6;">
+                            &copy; {$year} Nine United Traders Ltd
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+HTML;
+                            $plainBody = "NINE UNITED TRADERS LTD — ADMIN ACCOUNT SECURITY\n\n"
+                                . "Reset your password\n\n"
+                                . "We received a request to reset the administrator password associated with this email address.\n\n"
+                                . "Choose a new password using this secure link (expires in one hour and can only be used once):\n"
+                                . $resetUrl . "\n\n"
+                                . "SECURITY NOTICE\n"
+                                . "If you did not request this reset, ignore this message. Your password will remain unchanged unless the link is used. Never share this link or your password with anyone.\n\n"
+                                . "This is an automated account-security message from Nine United Traders Ltd. Replies to this email are not monitored.\n"
+                                . '© ' . date('Y') . ' Nine United Traders Ltd';
 
                             try {
                                 send_email(
                                     (string) $admin['email'],
                                     'Reset your admin password',
                                     $htmlBody,
-                                    $plainBody
+                                    $plainBody,
+                                    null,
+                                    __DIR__ . '/../assets/images/logo.png'
                                 );
                             } catch (RuntimeException $exception) {
                                 $clearToken = $pdo->prepare(
@@ -225,8 +296,8 @@ include __DIR__ . '/auth-header.php';
                     <input type="hidden" name="reset_password" value="1">
                     <input type="hidden" name="csrf_token" value="<?= escape(csrf_token()) ?>">
                     <input type="hidden" name="token" value="<?= escape($token) ?>">
-                    <div class="field"><label for="new-password">New password</label><input class="form-control" id="new-password" name="new_password" type="password" minlength="12" maxlength="72" autocomplete="new-password" required></div>
-                    <div class="field"><label for="password-confirmation">Confirm new password</label><input class="form-control" id="password-confirmation" name="password_confirmation" type="password" minlength="12" maxlength="72" autocomplete="new-password" required></div>
+                    <div class="field"><label for="new-password">New password</label><div class="password-input"><input class="form-control" id="new-password" name="new_password" type="password" placeholder="Enter new password" minlength="12" maxlength="72" autocomplete="new-password" required><button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="new-password"><i class="fa-solid fa-eye" aria-hidden="true"></i></button></div></div>
+                    <div class="field"><label for="password-confirmation">Confirm new password</label><div class="password-input"><input class="form-control" id="password-confirmation" name="password_confirmation" type="password" placeholder="Confirm new password" minlength="12" maxlength="72" autocomplete="new-password" required><button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="password-confirmation"><i class="fa-solid fa-eye" aria-hidden="true"></i></button></div></div>
                     <button class="button form-submit" type="submit"><span data-submit-label>Update password</span></button>
                 </form>
             <?php elseif ($hasToken): ?>

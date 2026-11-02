@@ -188,13 +188,13 @@ include __DIR__ . '/auth-header.php';
                     <div class="field"><label for="db-host">Database host</label><input class="form-control" id="db-host" name="db_host" value="<?= escape($databaseHost) ?>" required></div>
                     <div class="field"><label for="db-name">Database name</label><input class="form-control" id="db-name" name="db_name" value="<?= escape($databaseName) ?>" required></div>
                     <div class="field"><label for="db-username">Database username</label><input class="form-control" id="db-username" name="db_username" value="<?= escape($databaseUsername) ?>" autocomplete="username" required></div>
-                    <div class="field"><label for="db-password">Database password</label><input class="form-control" id="db-password" name="db_password" type="password" autocomplete="new-password"></div>
+                    <div class="field"><label for="db-password">Database password</label><div class="password-input"><input class="form-control" id="db-password" name="db_password" type="password" autocomplete="new-password"><button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="db-password"><i class="fa-solid fa-eye" aria-hidden="true"></i></button></div></div>
                 </div>
                 <h2>First administrator</h2>
                 <div class="form-grid">
                     <div class="field"><label for="admin-username">Admin username</label><input class="form-control" id="admin-username" name="admin_username" maxlength="80" autocomplete="username" required></div>
                     <div class="field"><label for="admin-email">Admin recovery email</label><input class="form-control" id="admin-email" name="admin_email" type="email" maxlength="254" autocomplete="email" required></div>
-                    <div class="field"><label for="admin-password">Admin password</label><input class="form-control" id="admin-password" name="admin_password" type="password" minlength="12" maxlength="72" autocomplete="new-password" required></div>
+                    <div class="field"><label for="admin-password">Admin password</label><div class="password-input"><input class="form-control" id="admin-password" name="admin_password" type="password" minlength="12" maxlength="72" autocomplete="new-password" required><button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="admin-password"><i class="fa-solid fa-eye" aria-hidden="true"></i></button></div></div>
                 </div>
                 <button class="button form-submit" type="submit">Install database and admin</button>
             </form>
