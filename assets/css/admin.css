@@ -210,6 +210,13 @@
 .admin-settings-current-password { max-width: 430px; padding-top: 22px; border-top: 1px solid #edf0f3; }
 .admin-settings-current-password label span { color: #b42332; }
 .admin-settings-help { margin: -2px 0 0; color: #8793a0; font-size: .78rem; }
+.admin-password-rules { display: grid; gap: 5px; margin: 0; padding: 10px 12px; border: 1px solid #e8edf2; border-radius: 9px; background: #f8fafc; color: #718095; font-size: .78rem; list-style: none; }
+.admin-password-rules[hidden] { display: none; }
+.admin-password-rules li { display: flex; align-items: center; gap: 8px; }
+.admin-password-rules li i { width: 13px; color: #a0aab5; font-size: .7rem; }
+.admin-password-rules li.is-valid { color: #247a57; }
+.admin-password-rules li.is-valid i { color: #3d9b73; }
+.admin-settings-help.is-valid { color: #247a57; }
 .admin-settings-card .form-submit { display: inline-flex; align-items: center; gap: 9px; }
 
 .admin-auth-body { min-width: 320px; min-height: 100vh; background: radial-gradient(ellipse at 82% 15%, rgba(23,105,170,.12), transparent 38%), #f2f6f9; }
