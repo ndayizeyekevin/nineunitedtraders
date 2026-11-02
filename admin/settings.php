@@ -114,11 +114,11 @@ include __DIR__ . '/layout-header.php';
                 <div class="admin-settings-fields">
                     <div class="field">
                         <label for="settings-username">Username</label>
-                        <input class="form-control" id="settings-username" name="username" maxlength="80" autocomplete="username" required value="<?= escape($username) ?>">
+                        <input class="form-control" id="settings-username" name="username" placeholder="Enter your username" maxlength="80" autocomplete="username" required value="<?= escape($username) ?>">
                     </div>
                     <div class="field">
                         <label for="settings-email">Recovery email</label>
-                        <input class="form-control" id="settings-email" name="email" type="email" maxlength="254" autocomplete="email" required value="<?= escape($email) ?>">
+                        <input class="form-control" id="settings-email" name="email" type="email" placeholder="Enter your recovery email" maxlength="254" autocomplete="email" required value="<?= escape($email) ?>">
                     </div>
                 </div>
                 <div class="admin-settings-passwords">
@@ -127,17 +127,26 @@ include __DIR__ . '/layout-header.php';
                     <div class="admin-settings-fields">
                         <div class="field">
                             <label for="settings-new-password">New password</label>
-                            <input class="form-control" id="settings-new-password" name="new_password" type="password" minlength="12" maxlength="72" autocomplete="new-password">
+                            <div class="password-input">
+                                <input class="form-control" id="settings-new-password" name="new_password" type="password" placeholder="Enter a new password" minlength="12" maxlength="72" autocomplete="new-password">
+                                <button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="settings-new-password"><i class="fa-solid fa-eye" aria-hidden="true"></i></button>
+                            </div>
                         </div>
                         <div class="field">
                             <label for="settings-password-confirmation">Confirm new password</label>
-                            <input class="form-control" id="settings-password-confirmation" name="password_confirmation" type="password" minlength="12" maxlength="72" autocomplete="new-password">
+                            <div class="password-input">
+                                <input class="form-control" id="settings-password-confirmation" name="password_confirmation" type="password" placeholder="Confirm your new password" minlength="12" maxlength="72" autocomplete="new-password">
+                                <button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="settings-password-confirmation"><i class="fa-solid fa-eye" aria-hidden="true"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="field admin-settings-current-password">
                     <label for="settings-current-password">Current password <span aria-hidden="true">*</span></label>
-                    <input class="form-control" id="settings-current-password" name="current_password" type="password" autocomplete="current-password" required>
+                    <div class="password-input">
+                        <input class="form-control" id="settings-current-password" name="current_password" type="password" placeholder="Enter your current password" autocomplete="current-password" required>
+                        <button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="settings-current-password"><i class="fa-solid fa-eye" aria-hidden="true"></i></button>
+                    </div>
                     <p class="admin-settings-help">Required to confirm any account changes.</p>
                 </div>
                 <button class="button form-submit" type="submit"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Save changes</button>

@@ -23,6 +23,7 @@ $adminInitial = strtoupper(substr($adminUsername, 0, 1));
     <link rel="stylesheet" href="assets/css/admin.css">
     <script src="assets/vendor/sweetalert2/sweetalert2.all.min.js" defer></script>
     <script src="assets/js/admin.js" defer></script>
+    <script src="assets/js/password-toggle.js" defer></script>
     <?php if ($activeAdminPage === 'dashboard'): ?>
         <script src="assets/vendor/chartjs/chart.umd.min.js" defer></script>
         <script src="assets/js/admin-dashboard.js" defer></script>
