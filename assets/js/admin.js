@@ -34,6 +34,76 @@
         });
     }
 
+    document.querySelectorAll('[data-password-validation]').forEach((password) => {
+        if (!(password instanceof HTMLInputElement)) {
+            return;
+        }
+
+        const username = document.getElementById(password.dataset.passwordUsername);
+        const rulesList = document.getElementById(password.getAttribute('aria-describedby'));
+        const confirmation = document.getElementById(password.dataset.passwordConfirmation);
+        const matchMessage = confirmation?.closest('.field')?.querySelector('[data-password-match-message]');
+        const ruleTests = {
+            length: (value) => Array.from(value).length >= 6,
+            uppercase: (value) => /[A-Z]/.test(value),
+            lowercase: (value) => /[a-z]/.test(value),
+            number: (value) => /[0-9]/.test(value),
+            username: (value) => !(username instanceof HTMLInputElement)
+                || username.value === ''
+                || !value.toLowerCase().includes(username.value.toLowerCase()),
+            bytes: (value) => new TextEncoder().encode(value).length <= 72,
+        };
+        const ruleMessages = {
+            length: 'Use at least 6 characters.',
+            uppercase: 'Add an uppercase letter.',
+            lowercase: 'Add a lowercase letter.',
+            number: 'Add a number.',
+            username: 'Do not include your username.',
+            bytes: 'Use no more than 72 bytes.',
+        };
+
+        const updatePasswordValidation = () => {
+            const value = password.value;
+            const isEmpty = value === '';
+            const errors = [];
+
+            if (rulesList instanceof HTMLElement) {
+                rulesList.hidden = isEmpty;
+                rulesList.querySelectorAll('[data-password-rule]').forEach((rule) => {
+                    const ruleName = rule.dataset.passwordRule;
+                    const isValid = ruleName !== undefined && ruleTests[ruleName]?.(value);
+                    rule.classList.toggle('is-valid', Boolean(isValid));
+                    const icon = rule.querySelector('i');
+                    if (icon) {
+                        icon.classList.toggle('fa-circle-check', Boolean(isValid));
+                        icon.classList.toggle('fa-circle', !isValid);
+                    }
+                    if (ruleName && !isValid && ruleMessages[ruleName]) {
+                        errors.push(ruleMessages[ruleName]);
+                    }
+                });
+            }
+
+            password.setCustomValidity(isEmpty ? '' : errors.join(' '));
+
+            if (confirmation instanceof HTMLInputElement) {
+                const mismatch = confirmation.value !== '' && confirmation.value !== value;
+                confirmation.setCustomValidity(mismatch ? 'The new password confirmation does not match.' : '');
+                if (matchMessage instanceof HTMLElement) {
+                    matchMessage.textContent = confirmation.value === ''
+                        ? ''
+                        : (mismatch ? 'Passwords do not match.' : 'Passwords match.');
+                    matchMessage.classList.toggle('is-valid', confirmation.value !== '' && !mismatch);
+                }
+            }
+        };
+
+        password.addEventListener('input', updatePasswordValidation);
+        username?.addEventListener('input', updatePasswordValidation);
+        confirmation?.addEventListener('input', updatePasswordValidation);
+        updatePasswordValidation();
+    });
+
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {
             if (window.Swal?.isVisible()) {
