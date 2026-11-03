@@ -65,6 +65,10 @@ $adminInitial = strtoupper(substr($adminUsername, 0, 1));
             <span class="admin-topbar-title"><?= escape($pageTitle) ?></span>
             <div class="admin-topbar-actions">
                 <a class="admin-topbar-site" href="./" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i><span>Open website</span></a>
+                <button class="admin-topbar-theme-toggle" type="button" data-admin-theme-toggle aria-pressed="false">
+                    <i class="fa-solid fa-moon" aria-hidden="true" data-admin-theme-icon></i>
+                    <span data-admin-theme-label>Dark mode</span>
+                </button>
                 <details class="admin-account-menu" data-admin-account-menu>
                     <summary class="admin-account-trigger" aria-label="Open account menu for <?= escape($adminUsername) ?>">
                         <span class="admin-account-avatar" aria-hidden="true"><?= escape($adminInitial) ?></span>
@@ -76,10 +80,6 @@ $adminInitial = strtoupper(substr($adminUsername, 0, 1));
                             <span class="admin-account-avatar" aria-hidden="true"><?= escape($adminInitial) ?></span>
                             <span><strong><?= escape($adminUsername) ?></strong><small>Administrator</small></span>
                         </div>
-                        <button class="admin-theme-toggle" type="button" data-admin-theme-toggle aria-pressed="false">
-                            <i class="fa-solid fa-moon" aria-hidden="true" data-admin-theme-icon></i>
-                            <span data-admin-theme-label>Switch to dark theme</span>
-                        </button>
                         <a href="admin/settings"<?= $activeAdminPage === 'settings' ? ' aria-current="page"' : '' ?>><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Account settings</span></a>
                         <form method="post" action="admin/logout">
                             <input type="hidden" name="csrf_token" value="<?= escape(csrf_token()) ?>">
