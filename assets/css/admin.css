@@ -27,6 +27,10 @@
 .admin-topbar { position: sticky; top: 0; z-index: 10; display: flex; min-height: 70px; align-items: center; justify-content: space-between; gap: 18px; padding: 0 clamp(20px, 4vw, 48px); border-bottom: 1px solid rgba(255,255,255,.1); background: rgba(1, 11, 21, 0.98); color: white; backdrop-filter: blur(12px); }
 .admin-topbar-title { color: white; font-size: .97rem; font-weight: 800; }
 .admin-topbar-actions { display: flex; align-items: center; gap: 22px; margin-left: auto; }
+.admin-topbar-theme-toggle { display: inline-flex; min-height: 40px; align-items: center; justify-content: center; gap: 8px; padding: 7px 11px; border: 1px solid rgba(255,255,255,.2); border-radius: 9px; background: rgba(255,255,255,.04); color: rgba(255,255,255,.86); cursor: pointer; font: inherit; font-size: .8rem; font-weight: 700; transition: background .16s ease, border-color .16s ease, color .16s ease; }
+.admin-topbar-theme-toggle:hover { border-color: rgba(242,189,104,.62); background: rgba(242,189,104,.12); color: #ffd17c; }
+.admin-topbar-theme-toggle:focus-visible { outline: 3px solid rgba(242,189,104,.72); outline-offset: 3px; }
+.admin-topbar-theme-toggle i { color: #ffd17c; }
 .admin-topbar-site { display: inline-flex; align-items: center; gap: 8px; color: rgba(255,255,255,.72); font-size: .86rem; font-weight: 700; }
 .admin-topbar-site:hover { color: var(--admin-accent); }
 .admin-account-menu { position: relative; }
@@ -46,12 +50,11 @@
 .admin-account-summary > span:last-child { display: grid; min-width: 0; gap: 3px; }
 .admin-account-summary strong { overflow: hidden; color: #102b46; font-size: .85rem; text-overflow: ellipsis; white-space: nowrap; }
 .admin-account-summary small { color: #8793a0; font-size: .74rem; }
-.admin-account-dropdown > a, .admin-account-dropdown form button, .admin-theme-toggle { display: flex; width: 100%; min-height: 42px; align-items: center; gap: 11px; padding: 9px; border: 0; border-radius: 8px; background: transparent; color: #405267; font: inherit; font-size: .84rem; font-weight: 600; text-align: left; text-decoration: none; }
+.admin-account-dropdown > a, .admin-account-dropdown form button { display: flex; width: 100%; min-height: 42px; align-items: center; gap: 11px; padding: 9px; border: 0; border-radius: 8px; background: transparent; color: #405267; font: inherit; font-size: .84rem; font-weight: 600; text-align: left; text-decoration: none; }
 .admin-account-dropdown > a { margin-top: 5px; }
-.admin-account-dropdown > a:hover, .admin-account-dropdown form button:hover, .admin-theme-toggle:hover { background: #f3f6f9; color: #1769aa; }
+.admin-account-dropdown > a:hover, .admin-account-dropdown form button:hover { background: #f3f6f9; color: #1769aa; }
 .admin-account-dropdown > a[aria-current="page"] { background: #edf4fb; color: #1769aa; }
 .admin-account-dropdown i { width: 18px; color: #728196; text-align: center; }
-.admin-theme-toggle { cursor: pointer; }
 .admin-account-dropdown form { margin: 0; border-top: 1px solid #edf0f3; }
 .admin-account-dropdown form button { margin-top: 5px; cursor: pointer; }
 .admin-account-dropdown form button:hover { color: #a33a32; }
@@ -264,6 +267,8 @@
     .admin-footer { flex-direction: column; }
     .admin-topbar-site span, .admin-account-name, .admin-account-chevron { display: none; }
     .admin-topbar-actions { gap: 10px; }
+    .admin-topbar-theme-toggle { width: 40px; min-height: 40px; padding: 0; }
+    .admin-topbar-theme-toggle span { display: none; }
     .admin-account-trigger { width: 42px; justify-content: center; padding: 4px; }
     .admin-account-dropdown { right: 0; width: min(252px, calc(100vw - 32px)); }
     .admin-auth-shell { justify-content: flex-start; padding-top: 36px; }
@@ -533,15 +538,14 @@ html[data-admin-theme="dark"] .admin-account-summary { border-color: #35465a; }
 html[data-admin-theme="dark"] .admin-account-summary strong { color: #e3edf8; }
 html[data-admin-theme="dark"] .admin-account-summary small { color: #aab8c8; }
 html[data-admin-theme="dark"] .admin-account-dropdown > a,
-html[data-admin-theme="dark"] .admin-account-dropdown form button,
-html[data-admin-theme="dark"] .admin-theme-toggle { color: #d3deea; }
+html[data-admin-theme="dark"] .admin-account-dropdown form button { color: #d3deea; }
 html[data-admin-theme="dark"] .admin-account-dropdown > a:hover,
-html[data-admin-theme="dark"] .admin-account-dropdown form button:hover,
-html[data-admin-theme="dark"] .admin-theme-toggle:hover { background: #293a4d; color: #fff; }
+html[data-admin-theme="dark"] .admin-account-dropdown form button:hover { background: #293a4d; color: #fff; }
 html[data-admin-theme="dark"] .admin-account-dropdown > a[aria-current="page"] { background: #263b51; color: #91c9f5; }
 html[data-admin-theme="dark"] .admin-account-dropdown form { border-color: #35465a; }
-html[data-admin-theme="dark"] .admin-account-dropdown i,
-html[data-admin-theme="dark"] .admin-theme-toggle i { color: #aab8c8; }
+html[data-admin-theme="dark"] .admin-account-dropdown i { color: #aab8c8; }
+html[data-admin-theme="dark"] .admin-topbar-theme-toggle { border-color: rgba(255,255,255,.2); background: rgba(255,255,255,.04); color: #e2eaf2; }
+html[data-admin-theme="dark"] .admin-topbar-theme-toggle:hover { border-color: rgba(242,189,104,.62); background: rgba(242,189,104,.12); color: #ffd17c; }
 
 html[data-admin-theme="dark"] .admin-content .form-alert.form-error {
     border-color: #70464a;
