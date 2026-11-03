@@ -14,7 +14,7 @@
             const label = themeToggle.querySelector('[data-admin-theme-label]');
             const icon = themeToggle.querySelector('[data-admin-theme-icon]');
             if (label) {
-                label.textContent = `Switch to ${isDark ? 'light' : 'dark'} theme`;
+                label.textContent = `${isDark ? 'Light' : 'Dark'} mode`;
             }
             if (icon) {
                 icon.classList.toggle('fa-sun', isDark);
