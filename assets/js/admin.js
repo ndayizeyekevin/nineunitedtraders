@@ -1,4 +1,44 @@
 (() => {
+    const themeToggle = document.querySelector('[data-admin-theme-toggle]');
+    const setAdminTheme = (theme, persist = false) => {
+        document.documentElement.dataset.adminTheme = theme;
+        const isDark = theme === 'dark';
+        const themeColor = document.querySelector('[data-admin-theme-color]');
+        if (themeColor instanceof HTMLMetaElement) {
+            themeColor.content = isDark ? '#111b28' : '#102b46';
+        }
+
+        if (themeToggle instanceof HTMLButtonElement) {
+            themeToggle.setAttribute('aria-pressed', String(isDark));
+            themeToggle.setAttribute('aria-label', `Switch to ${isDark ? 'light' : 'dark'} theme`);
+            const label = themeToggle.querySelector('[data-admin-theme-label]');
+            const icon = themeToggle.querySelector('[data-admin-theme-icon]');
+            if (label) {
+                label.textContent = `Switch to ${isDark ? 'light' : 'dark'} theme`;
+            }
+            if (icon) {
+                icon.classList.toggle('fa-sun', isDark);
+                icon.classList.toggle('fa-moon', !isDark);
+            }
+        }
+
+        if (persist) {
+            try {
+                localStorage.setItem('nine-admin-theme', theme);
+            } catch {
+                // Keep the selected theme for this page when storage is unavailable.
+            }
+        }
+
+        document.dispatchEvent(new CustomEvent('admin-theme-change', { detail: { theme } }));
+    };
+
+    setAdminTheme(document.documentElement.dataset.adminTheme === 'dark' ? 'dark' : 'light');
+    themeToggle?.addEventListener('click', () => {
+        const nextTheme = document.documentElement.dataset.adminTheme === 'dark' ? 'light' : 'dark';
+        setAdminTheme(nextTheme, true);
+    });
+
     const toggle = document.querySelector('[data-admin-sidebar-toggle]');
     const closeButton = document.querySelector('[data-admin-sidebar-close]');
     const sidebar = document.getElementById('admin-sidebar');
@@ -33,6 +73,76 @@
             }
         });
     }
+
+    document.querySelectorAll('[data-password-validation]').forEach((password) => {
+        if (!(password instanceof HTMLInputElement)) {
+            return;
+        }
+
+        const username = document.getElementById(password.dataset.passwordUsername);
+        const rulesList = document.getElementById(password.getAttribute('aria-describedby'));
+        const confirmation = document.getElementById(password.dataset.passwordConfirmation);
+        const matchMessage = confirmation?.closest('.field')?.querySelector('[data-password-match-message]');
+        const ruleTests = {
+            length: (value) => Array.from(value).length >= 6,
+            uppercase: (value) => /[A-Z]/.test(value),
+            lowercase: (value) => /[a-z]/.test(value),
+            number: (value) => /[0-9]/.test(value),
+            username: (value) => !(username instanceof HTMLInputElement)
+                || username.value === ''
+                || !value.toLowerCase().includes(username.value.toLowerCase()),
+            bytes: (value) => new TextEncoder().encode(value).length <= 72,
+        };
+        const ruleMessages = {
+            length: 'Use at least 6 characters.',
+            uppercase: 'Add an uppercase letter.',
+            lowercase: 'Add a lowercase letter.',
+            number: 'Add a number.',
+            username: 'Do not include your username.',
+            bytes: 'Use no more than 72 bytes.',
+        };
+
+        const updatePasswordValidation = () => {
+            const value = password.value;
+            const isEmpty = value === '';
+            const errors = [];
+
+            if (rulesList instanceof HTMLElement) {
+                rulesList.hidden = isEmpty;
+                rulesList.querySelectorAll('[data-password-rule]').forEach((rule) => {
+                    const ruleName = rule.dataset.passwordRule;
+                    const isValid = ruleName !== undefined && ruleTests[ruleName]?.(value);
+                    rule.classList.toggle('is-valid', Boolean(isValid));
+                    const icon = rule.querySelector('i');
+                    if (icon) {
+                        icon.classList.toggle('fa-circle-check', Boolean(isValid));
+                        icon.classList.toggle('fa-circle', !isValid);
+                    }
+                    if (ruleName && !isValid && ruleMessages[ruleName]) {
+                        errors.push(ruleMessages[ruleName]);
+                    }
+                });
+            }
+
+            password.setCustomValidity(isEmpty ? '' : errors.join(' '));
+
+            if (confirmation instanceof HTMLInputElement) {
+                const mismatch = confirmation.value !== '' && confirmation.value !== value;
+                confirmation.setCustomValidity(mismatch ? 'The new password confirmation does not match.' : '');
+                if (matchMessage instanceof HTMLElement) {
+                    matchMessage.textContent = confirmation.value === ''
+                        ? ''
+                        : (mismatch ? 'Passwords do not match.' : 'Passwords match.');
+                    matchMessage.classList.toggle('is-valid', confirmation.value !== '' && !mismatch);
+                }
+            }
+        };
+
+        password.addEventListener('input', updatePasswordValidation);
+        username?.addEventListener('input', updatePasswordValidation);
+        confirmation?.addEventListener('input', updatePasswordValidation);
+        updatePasswordValidation();
+    });
 
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {

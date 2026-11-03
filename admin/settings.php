@@ -44,8 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($currentPassword === '') {
         $errors[] = 'Enter your current password to save account changes.';
     }
-    if ($newPassword !== '' && (strlen($newPassword) < 12 || strlen($newPassword) > 72)) {
-        $errors[] = 'New password must be between 12 and 72 bytes.';
+    if ($newPassword !== '') {
+        array_push($errors, ...admin_password_errors($newPassword, $username));
     }
     if ($newPassword !== $passwordConfirmation) {
         $errors[] = 'The new password confirmation does not match.';
@@ -128,16 +128,25 @@ include __DIR__ . '/layout-header.php';
                         <div class="field">
                             <label for="settings-new-password">New password</label>
                             <div class="password-input">
-                                <input class="form-control" id="settings-new-password" name="new_password" type="password" placeholder="Enter a new password" minlength="12" maxlength="72" autocomplete="new-password">
+                                <input class="form-control" id="settings-new-password" name="new_password" type="password" placeholder="Enter a new password" minlength="6" maxlength="72" autocomplete="new-password" data-password-validation data-password-username="settings-username" data-password-confirmation="settings-password-confirmation" aria-describedby="settings-password-rules">
                                 <button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="settings-new-password"><i class="fa-solid fa-eye" aria-hidden="true"></i></button>
                             </div>
+                            <ul class="admin-password-rules" id="settings-password-rules" data-password-rules hidden>
+                                <li data-password-rule="length"><i class="fa-solid fa-circle" aria-hidden="true"></i>At least 6 characters</li>
+                                <li data-password-rule="uppercase"><i class="fa-solid fa-circle" aria-hidden="true"></i>One uppercase letter</li>
+                                <li data-password-rule="lowercase"><i class="fa-solid fa-circle" aria-hidden="true"></i>One lowercase letter</li>
+                                <li data-password-rule="number"><i class="fa-solid fa-circle" aria-hidden="true"></i>One number</li>
+                                <li data-password-rule="username"><i class="fa-solid fa-circle" aria-hidden="true"></i>Does not contain your username</li>
+                                <li data-password-rule="bytes"><i class="fa-solid fa-circle" aria-hidden="true"></i>No more than 72 bytes</li>
+                            </ul>
                         </div>
                         <div class="field">
                             <label for="settings-password-confirmation">Confirm new password</label>
                             <div class="password-input">
-                                <input class="form-control" id="settings-password-confirmation" name="password_confirmation" type="password" placeholder="Confirm your new password" minlength="12" maxlength="72" autocomplete="new-password">
+                                <input class="form-control" id="settings-password-confirmation" name="password_confirmation" type="password" placeholder="Confirm your new password" minlength="6" maxlength="72" autocomplete="new-password" data-password-confirm-for="settings-new-password" aria-describedby="settings-password-match">
                                 <button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="settings-password-confirmation"><i class="fa-solid fa-eye" aria-hidden="true"></i></button>
                             </div>
+                            <p class="admin-settings-help" id="settings-password-match" data-password-match-message aria-live="polite"></p>
                         </div>
                     </div>
                 </div>

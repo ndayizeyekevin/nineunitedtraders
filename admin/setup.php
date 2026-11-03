@@ -104,9 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (strlen($adminEmail) > 254 || !filter_var($adminEmail, FILTER_VALIDATE_EMAIL)) {
         $errors[] = 'Enter a valid admin email address for password recovery.';
     }
-    if (strlen($password) < 12 || strlen($password) > 72) {
-        $errors[] = 'Admin password must be between 12 and 72 bytes.';
-    }
+    array_push($errors, ...admin_password_errors($password, $username));
 
     if ($errors === []) {
         try {
@@ -194,7 +192,7 @@ include __DIR__ . '/auth-header.php';
                 <div class="form-grid">
                     <div class="field"><label for="admin-username">Admin username</label><input class="form-control" id="admin-username" name="admin_username" maxlength="80" autocomplete="username" required></div>
                     <div class="field"><label for="admin-email">Admin recovery email</label><input class="form-control" id="admin-email" name="admin_email" type="email" maxlength="254" autocomplete="email" required></div>
-                    <div class="field"><label for="admin-password">Admin password</label><div class="password-input"><input class="form-control" id="admin-password" name="admin_password" type="password" minlength="12" maxlength="72" autocomplete="new-password" required><button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="admin-password"><i class="fa-solid fa-eye" aria-hidden="true"></i></button></div></div>
+                    <div class="field"><label for="admin-password">Admin password</label><div class="password-input"><input class="form-control" id="admin-password" name="admin_password" type="password" minlength="6" maxlength="72" autocomplete="new-password" required><button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="admin-password"><i class="fa-solid fa-eye" aria-hidden="true"></i></button></div></div>
                 </div>
                 <button class="button form-submit" type="submit">Install database and admin</button>
             </form>

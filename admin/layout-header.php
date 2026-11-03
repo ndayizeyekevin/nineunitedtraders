@@ -13,7 +13,17 @@ $adminInitial = strtoupper(substr($adminUsername, 0, 1));
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#102b46">
+    <meta name="theme-color" content="#102b46" data-admin-theme-color>
+    <script>
+        try {
+            const theme = localStorage.getItem('nine-admin-theme');
+            document.documentElement.dataset.adminTheme = theme === 'dark' || theme === 'light'
+                ? theme
+                : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        } catch {
+            document.documentElement.dataset.adminTheme = 'light';
+        }
+    </script>
     <base href="<?= escape($documentBaseUrl) ?>">
     <title><?= escape($pageTitle) ?> | <?= escape(COMPANY_NAME) ?> Admin</title>
     <link rel="icon" type="image/png" href="assets/images/logo.png">
@@ -55,6 +65,10 @@ $adminInitial = strtoupper(substr($adminUsername, 0, 1));
             <span class="admin-topbar-title"><?= escape($pageTitle) ?></span>
             <div class="admin-topbar-actions">
                 <a class="admin-topbar-site" href="./" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i><span>Open website</span></a>
+                <button class="admin-topbar-theme-toggle" type="button" data-admin-theme-toggle aria-pressed="false">
+                    <i class="fa-solid fa-moon" aria-hidden="true" data-admin-theme-icon></i>
+                    <span data-admin-theme-label>Dark mode</span>
+                </button>
                 <details class="admin-account-menu" data-admin-account-menu>
                     <summary class="admin-account-trigger" aria-label="Open account menu for <?= escape($adminUsername) ?>">
                         <span class="admin-account-avatar" aria-hidden="true"><?= escape($adminInitial) ?></span>

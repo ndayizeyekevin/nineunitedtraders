@@ -29,6 +29,30 @@ function require_valid_admin_post(): void
     }
 }
 
+function admin_password_errors(string $password, string $username): array
+{
+    $characterCount = preg_match_all('/./us', $password);
+    $errors = [];
+
+    if ($characterCount === false || $characterCount < 6 || strlen($password) > 72) {
+        $errors[] = 'Password must be at least 6 characters and no more than 72 bytes.';
+    }
+    if (preg_match('/[A-Z]/', $password) !== 1) {
+        $errors[] = 'Password must include at least one uppercase letter.';
+    }
+    if (preg_match('/[a-z]/', $password) !== 1) {
+        $errors[] = 'Password must include at least one lowercase letter.';
+    }
+    if (preg_match('/[0-9]/', $password) !== 1) {
+        $errors[] = 'Password must include at least one number.';
+    }
+    if ($username !== '' && stripos($password, $username) !== false) {
+        $errors[] = 'Password must not contain your username.';
+    }
+
+    return $errors;
+}
+
 function store_team_image_upload(array $file): array
 {
     if (!isset($file['error']) || $file['error'] === UPLOAD_ERR_NO_FILE) {

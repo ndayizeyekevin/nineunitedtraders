@@ -25,8 +25,12 @@
     const data = JSON.parse(dataElement.textContent);
     const chartColors = ['#3d9b73', '#e3a34d', '#4c88c5', '#9ca7b3', '#c4ccd5'];
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isDarkTheme = () => document.documentElement.dataset.adminTheme === 'dark';
+    const chartTextColor = () => isDarkTheme() ? '#aab8c8' : '#8793a0';
+    const chartGridColor = () => isDarkTheme() ? '#35465a' : '#edf1f5';
+    const chartSurfaceColor = () => isDarkTheme() ? '#1b2939' : '#fff';
 
-    window.Chart.defaults.color = '#8793a0';
+    window.Chart.defaults.color = chartTextColor();
     window.Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
 
     const trendContext = trendCanvas.getContext('2d');
@@ -86,7 +90,7 @@
                 y: {
                     beginAtZero: true,
                     border: { display: false, dash: [3, 4] },
-                    grid: { color: '#edf1f5', drawTicks: false },
+                    grid: { color: chartGridColor(), drawTicks: false },
                     ticks: { precision: 0, maxTicksLimit: 5, padding: 10 },
                 },
             },
@@ -99,35 +103,55 @@
         if (emptyRing) {
             emptyRing.hidden = false;
         }
-        return;
-    }
-
-    new window.Chart(statusCanvas, {
-        type: 'doughnut',
-        data: {
-            labels: data.statusLabels,
-            datasets: [{
-                data: data.statusValues,
-                backgroundColor: chartColors,
-                borderColor: '#fff',
-                borderWidth: 3,
-                hoverOffset: 5,
-            }],
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: '76%',
-            animation: { duration: prefersReducedMotion ? 0 : 650 },
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    padding: 11,
-                    callbacks: {
-                        label: (context) => `${context.label}: ${context.parsed} request${context.parsed === 1 ? '' : 's'}`,
+    } else {
+        new window.Chart(statusCanvas, {
+            type: 'doughnut',
+            data: {
+                labels: data.statusLabels,
+                datasets: [{
+                    data: data.statusValues,
+                    backgroundColor: chartColors,
+                    borderColor: chartSurfaceColor(),
+                    borderWidth: 3,
+                    hoverOffset: 5,
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '76%',
+                animation: { duration: prefersReducedMotion ? 0 : 650 },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        padding: 11,
+                        callbacks: {
+                            label: (context) => `${context.label}: ${context.parsed} request${context.parsed === 1 ? '' : 's'}`,
+                        },
                     },
                 },
             },
-        },
+        });
+    }
+
+    document.addEventListener('admin-theme-change', () => {
+        window.Chart.defaults.color = chartTextColor();
+        [window.Chart.getChart(trendCanvas), window.Chart.getChart(statusCanvas)].forEach((chart) => {
+            if (!chart) {
+                return;
+            }
+            if (chart.options.scales?.x) {
+                chart.options.scales.x.ticks.color = chartTextColor();
+            }
+            if (chart.options.scales?.y) {
+                chart.options.scales.y.ticks.color = chartTextColor();
+                chart.options.scales.y.grid.color = chartGridColor();
+            }
+            const dataset = chart.data.datasets[0];
+            if (chart.config.type === 'doughnut') {
+                dataset.borderColor = chartSurfaceColor();
+            }
+            chart.update('none');
+        });
     });
 })();
